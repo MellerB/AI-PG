@@ -153,6 +153,11 @@ class NetworkModel
         }
     }
 
+    public List<double> Decide()
+    {
+
+    }
+
     public void Print()
     {
 
