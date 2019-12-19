@@ -64,9 +64,7 @@ class Neuron
         double treshold = 1.0f;
         return input >= treshold ? 0 : treshold;
     }
-}
-
-class NeuralLayer
+public class NeuralLayer
 {
     public List<Neuron> Neurons { get; set; }
 
@@ -111,7 +109,7 @@ class NeuralLayer
 
 }
 
-class NetworkModel
+public class NetworkModel
 {
     public List<NeuralLayer> Layers { get; set; }
 
@@ -153,9 +151,9 @@ class NetworkModel
         }
     }
 
-    public List<double> Decide()
+    public List<double> Decide(List<double> inputs)
     {
-
+        return null;
     }
 
     public void Print()
@@ -214,9 +212,11 @@ class NetworkModel
         }
     }
 
-
+}
 }
 
 
-}
+
+
+
 
