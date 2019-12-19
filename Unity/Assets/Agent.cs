@@ -14,10 +14,10 @@ public class Agent : MonoBehaviour
     void Awake()
     {
         network = new NetworkModel();
-        network.Layers.Add(new NeuralLayer(9, 0.1, "INPUT"));
-        network.Layers.Add(new NeuralLayer(15, 0.1, "HIDDEN"));
-        network.Layers.Add(new NeuralLayer(4, 0.1, "OUTPUT"));
-        network.Build();
+     //   network.Layers.Add(new NeuralLayer(9, 0.1, "INPUT"));
+       // network.Layers.Add(new NeuralLayer(15, 0.1, "HIDDEN"));
+      //  network.Layers.Add(new NeuralLayer(4, 0.1, "OUTPUT"));
+      //  network.Build();
     }
 
     void Start()

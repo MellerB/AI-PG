@@ -5,214 +5,233 @@ using System.Linq;
 using UnityEngine;
 namespace NeuralNetwork
 {
-class Pulse
-{
-    public double Value { get; set; }
-}
-
-class Dendrite
-{
-    public Pulse InputPulse { get; set; }
-
-    public double SynapticWeight { get; set; }
-
-    public bool Learnable { get; set; }
-}
-
-class Neuron
-{
-    public List<Dendrite> Dendrites { get;set; }
-
-    public Pulse OutputPulse { get; set; }
-
-    private double Weight;
-
-    public Neuron()
+    public class Pulse
     {
-        Dendrites = new List<Dendrite>();
-        OutputPulse = new Pulse();
+        public double Value { get; set; }
     }
 
-    public void Fire()
+    public class Dendrite
     {
-        OutputPulse.Value = Sum();
+        public Pulse InputPulse { get; set; }
 
-        OutputPulse.Value = Activation(OutputPulse.Value);
-    }
+        public double SynapticWeight { get; set; }
 
-    public void UpdateWeights(double new_weights)
-    {
-        foreach (var terminal in Dendrites)
+        public bool Learnable { get; set; }
+
+        public Dendrite()
         {
-            terminal.SynapticWeight = new_weights; //check it??
+            SynapticWeight = 0.5f;
         }
     }
 
-    private double Sum()
+    public class Neuron
     {
-        double computeValue = 0.0f;
-        foreach(var d in Dendrites)
+        public List<Dendrite> Dendrites { get; set; }
+
+        public Pulse OutputPulse { get; set; }
+
+        private double Weight;
+
+        public Neuron()
         {
-            computeValue += d.InputPulse.Value * d.SynapticWeight;
+            Dendrites = new List<Dendrite>();
+            OutputPulse = new Pulse();
         }
 
-        return computeValue;
-    }
-
-    private double Activation(double input) //change?
-    {
-        double treshold = 1.0f;
-        return input >= treshold ? 0 : treshold;
-    }
-public class NeuralLayer
-{
-    public List<Neuron> Neurons { get; set; }
-
-    public string Name { get; set; }
-
-    public double Weight { get; set; }
-
-    public NeuralLayer(int count, double initialWeight, string name = "")
-    {
-        Neurons = new List<Neuron>();
-        for(int i = 0; i< count; i++)
+        public void Fire()
         {
-            Neurons.Add(new Neuron());
+            OutputPulse.Value = Sum();
+
+            OutputPulse.Value = Activation(OutputPulse.Value);
         }
 
-        Weight = initialWeight;
-
-        Name = name;
-    }
-   
-    public void Optimize(double learningRate, double delta)
-    {
-        Weight += learningRate * delta;
-        foreach (var neuron in Neurons)
+        public void UpdateWeights(double new_weights)
         {
-            neuron.UpdateWeights(Weight);
-        }
-    }
-
-    public void Forward()
-    {
-        foreach(var neuron in Neurons)
-        {
-            neuron.Fire();
-        }
-    }
-
-    public void Log()
-    {
-        Debug.Log(Name+": "+Weight);
-    }
-
-}
-
-public class NetworkModel
-{
-    public List<NeuralLayer> Layers { get; set; }
-
-    public NetworkModel()
-    {
-        Layers = new List<NeuralLayer>();
-    }
-
-    public void AddLayer(NeuralLayer layer)
-    {
-        int dendriteCount = 1;
-
-        if (Layers.Count>0)
-        {
-            dendriteCount = Layers[Layers.Count - 1].Neurons.Count;
-        }
-
-        foreach (var element in layer.Neurons)
-        {
-            for (int i = 0; i < dendriteCount; i++)
+            foreach (var terminal in Dendrites)
             {
-                element.Dendrites.Add(new Dendrite());
+                terminal.SynapticWeight = new_weights; //check it??
             }
         }
-    }
 
-    public void Build()
-    {
-        int i = 0;
-        foreach (var layer in Layers)
+        private double Sum()
         {
-            if(i >= Layers.Count -1)
+            double computeValue = 0.0f;
+            foreach (var d in Dendrites)
             {
-                break;
+                computeValue += d.InputPulse.Value * d.SynapticWeight;
             }
-        var nextLayer = Layers[i+1];
-        CreateNetwork(layer, nextLayer);
-        i++;
+
+            return computeValue;
+        }
+
+        private double Activation(double input) //change?
+        {
+            double treshold = 1.0f;
+            return input >= treshold ? 0 : treshold;
         }
     }
-
-    public List<double> Decide(List<double> inputs)
+    public class NeuralLayer
     {
-        return null;
-    }
+        public List<Neuron> Neurons { get; set; }
 
-    public void Print()
-    {
+        public string Name { get; set; }
 
-        Debug.Log("Name | Neurons | Weight");
+        public double Weight { get; set; }
 
-	foreach (var layer in Layers)
+        public NeuralLayer(int count, double initialWeight, string name = "")
         {
-            Debug.Log(layer.Name+" | "+layer.Neurons.Count+" | "+layer.Weight);
-        }
-    }
-
-    private void CreateNetwork(NeuralLayer connectingFrom, NeuralLayer connectingTo)
-    {
-        foreach (var to in connectingTo.Neurons)
-        {
-            foreach (var from in connectingFrom.Neurons)
+            Neurons = new List<Neuron>();
+            for (int i = 0; i < count; i++)
             {
-                to.Dendrites.Add(new Dendrite() { InputPulse = from.OutputPulse, SynapticWeight = connectingTo.Weight });
+                Neurons.Add(new Neuron());
             }
-        }
-    }
 
-    private void ComputeOutput()
-    {
-        bool first = true;
-        foreach (var layer in Layers)
+            Weight = initialWeight;
+
+            Name = name;
+        }
+
+        public void Optimize(double learningRate, double delta)
         {
-            if (first)
+            Weight += learningRate * delta;
+            foreach (var neuron in Neurons)
             {
-                first=false;
-            }
-            else
-            {
-                layer.Forward();
+                neuron.UpdateWeights(Weight);
             }
         }
+
+        public void Forward()
+        {
+            foreach (var neuron in Neurons)
+            {
+                neuron.Fire();
+            }
+        }
+
+        public void Log()
+        {
+            Debug.Log(Name + ": " + Weight);
+        }
+
     }
 
-    private void OptimizeWeights(double accuracy)
+    public class NetworkModel
     {
-        double lr = 0.1f;
-        if (accuracy == 1)
+        public List<NeuralLayer> Layers { get; set; }
+
+        public NetworkModel()
         {
-            return;
-        }
-        if(accuracy > 1)
-        {
-            lr = -lr;
+            Layers = new List<NeuralLayer>();
         }
 
-        foreach (var layer in Layers)
+        public void AddLayer(NeuralLayer layer)
         {
-            layer.Optimize(lr, 1);
+            int dendriteCount = 1;
+
+            if (Layers.Count > 0)
+            {
+                dendriteCount = Layers[Layers.Count - 1].Neurons.Count;
+            }
+
+            foreach (var element in layer.Neurons)
+            {
+                for (int i = 0; i < dendriteCount; i++)
+                {
+                    element.Dendrites.Add(new Dendrite());
+                }
+            }
         }
+
+        public void Build()
+        {
+            int i = 0;
+            foreach (var layer in Layers)
+            {
+                if (i >= Layers.Count - 1)
+                {
+                    break;
+                }
+                var nextLayer = Layers[i + 1];
+                CreateNetwork(layer, nextLayer);
+                i++;
+            }
+        }
+
+
+        public List<double> Decide(List<double> X)
+        {
+            var inputLayer = Layers[0];
+            List<double> outputs = new List<double>();
+
+            for (int i = 0; i < X.Count; i++)
+            {
+                inputLayer.Neurons[i].OutputPulse.Value = X[i];
+            }
+            ComputeOutput();
+            foreach (var neuron in Layers.Last().Neurons)
+            {
+                outputs.Add(neuron.OutputPulse.Value);
+            }
+            return outputs;
+        }
+
+        public void Print()
+        {
+
+            Debug.Log("Name | Neurons | Weight");
+
+            foreach (var layer in Layers)
+            {
+                Debug.Log(layer.Name + " | " + layer.Neurons.Count + " | " + layer.Weight);
+            }
+        }
+
+        private void CreateNetwork(NeuralLayer connectingFrom, NeuralLayer connectingTo)
+        {
+            foreach (var to in connectingTo.Neurons)
+            {
+                foreach (var from in connectingFrom.Neurons)
+                {
+                    to.Dendrites.Add(new Dendrite() { InputPulse = from.OutputPulse, SynapticWeight = connectingTo.Weight });
+                }
+            }
+        }
+
+        private void ComputeOutput()
+        {
+            bool first = true;
+            foreach (var layer in Layers)
+            {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    layer.Forward();
+                }
+            }
+        }
+
+        private void OptimizeWeights(double accuracy)
+        {
+            double lr = 0.1f;
+            if (accuracy == 1)
+            {
+                return;
+            }
+            if (accuracy > 1)
+            {
+                lr = -lr;
+            }
+
+            foreach (var layer in Layers)
+            {
+                layer.Optimize(lr, 1);
+            }
+        }
+
     }
-
-}
 }
 
 
