@@ -17,6 +17,11 @@ class Dendrite
     public double SynapticWeight { get; set; }
 
     public bool Learnable { get; set; }
+
+    public Dendrite()
+    {
+        SynapticWeight = 0.5f;
+    }
 }
 
 class Neuron
@@ -153,9 +158,22 @@ class NetworkModel
         }
     }
 
-    public List<double> Decide()
-    {
 
+    public List<double> Decide(List<double> X)
+    {
+        var inputLayer = Layers[0];
+        List<double> outputs = new List<double>();
+
+        for (int i = 0; i < X.Count; i++)
+        {
+            inputLayer.Neurons[i].OutputPulse.Value = X[i];
+        }
+        ComputeOutput();
+        foreach(var neuron in Layers.Last().Neurons)
+        {
+            outputs.Add(neuron.OutputPulse.Value);
+        }
+        return outputs;
     }
 
     public void Print()

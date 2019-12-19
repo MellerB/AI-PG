@@ -16,6 +16,7 @@ public class test : MonoBehaviour
       
     model.Build();
     model.Print();
+    Debug.Log(model.Decide(new List<double>(){1.0f,1.0f})[0]);
     }
 
     // Update is called once per frame
