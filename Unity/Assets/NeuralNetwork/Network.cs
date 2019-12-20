@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 using UnityEngine;
 namespace NeuralNetwork
 {
-    public class Pulse
+    [Serializable] public class Pulse
     {
         public double Value { get; set; }
     }
 
-    public class Dendrite
+    [Serializable] public class Dendrite
     {
         public Pulse InputPulse { get; set; }
 
@@ -24,7 +26,7 @@ namespace NeuralNetwork
         }
     }
 
-    public class Neuron
+    [Serializable] public class Neuron
     {
         public List<Dendrite> Dendrites { get; set; }
 
@@ -70,7 +72,7 @@ namespace NeuralNetwork
             return input >= treshold ? 0 : treshold;
         }
     }
-    public class NeuralLayer
+    [Serializable] public class NeuralLayer
     {
         public List<Neuron> Neurons { get; set; }
 
@@ -115,7 +117,7 @@ namespace NeuralNetwork
 
     }
 
-    public class NetworkModel
+    [Serializable] public class NetworkModel
     {
         public List<NeuralLayer> Layers { get; set; }
 
@@ -123,6 +125,18 @@ namespace NeuralNetwork
         {
             Layers = new List<NeuralLayer>();
         }
+
+    public NetworkModel DeepCopy()
+    { 
+        using (MemoryStream ms = new MemoryStream())
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Context = new StreamingContext(StreamingContextStates.Clone);
+            formatter.Serialize(ms, this);
+            ms.Position = 0;
+            return (NetworkModel)formatter.Deserialize(ms);
+        } 
+    } 
 
         public void AddLayer(NeuralLayer layer)
         {
