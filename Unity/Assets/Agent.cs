@@ -3,21 +3,29 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-
 public class Agent : MonoBehaviour
 {
     NetworkModel network;
-
+    public NetworkModel Network
+    {
+        get {return network;}
+        private set {network = value;}
+    }
 
     //Target cookie jar for every agent that exists
     public static Transform cookieJar;
+
+
+
+    private float ForceMultiplier = 10f;
+
     void Awake()
     {
         cookieJar = GameObject.Find("cookieJar").transform;
         network = new NetworkModel();
-        network.Layers.Add(new NeuralLayer(9, 0.1, "INPUT"));
-        network.Layers.Add(new NeuralLayer(15, 0.1, "HIDDEN"));
-        network.Layers.Add(new NeuralLayer(4, 0.1, "OUTPUT"));
+        network.Layers.Add(new NeuralLayer(9, 0.5, "INPUT"));
+        network.Layers.Add(new NeuralLayer(15, 0.5, "HIDDEN"));
+        network.Layers.Add(new NeuralLayer(2, 0.5, "OUTPUT"));
         network.Build();
     }
 
@@ -30,9 +38,20 @@ public class Agent : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(GatherInputs()[0]);
+        ParseOutput(network.Decide(GatherInputs())); 
     }
 
+
+
+
+    ///<summary>Parses output of a neural network</summary>
+    ///Activations go as follows:
+    ///[0] - force on X axis
+    ///[1] - force on Z axis
+    private void ParseOutput(List<double> activations)
+    {   
+        this.GetComponent<Rigidbody>().AddForce(new Vector3((float)activations[0] * ForceMultiplier, 0.0f, (float)activations[1] * ForceMultiplier));
+    }
 
     //Gathers inputs from enviroment
     //WARNING: If something fucks up with normalization, this is the func you are looking for 
@@ -44,10 +63,14 @@ public class Agent : MonoBehaviour
         {
             for (int j = -1; j < 2; j++)
             {
-                Vector3 dir = new Vector3(i, j, 0);
+
+                if(i == 0 && j == 0)
+                    continue;
+
+
+                Vector3 dir = new Vector3(i, 0, j);
                 dir.Normalize();
                 RaycastHit hit;
-           
                 if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f))
                 {
                     results.Add((double)hit.distance/100.0f);
@@ -62,9 +85,11 @@ public class Agent : MonoBehaviour
 
         //2. get distance from the cookie jar
         results.Add(Vector3.Distance(this.transform.position, cookieJar.position));
-
         return results;
     }
+
+
+
 
 }
 
