@@ -15,6 +15,8 @@ public class Agent : MonoBehaviour
     //Target cookie jar for every agent that exists
     public static Transform cookieJar;
 
+    public List<double> lastInputs = new List<double>();
+    public List<double> lastOutputs = new List<double>();
 
 
     private float ForceMultiplier = 10f;
@@ -23,10 +25,12 @@ public class Agent : MonoBehaviour
     {
         cookieJar = GameObject.Find("cookieJar").transform;
         network = new NetworkModel();
-        network.Layers.Add(new NeuralLayer(9, 0.5, "INPUT"));
-        network.Layers.Add(new NeuralLayer(15, 0.5, "HIDDEN"));
-        network.Layers.Add(new NeuralLayer(2, 0.5, "OUTPUT"));
+        network.Layers.Add(new NeuralLayer(9, 0.0, "INPUT"));
+        network.Layers.Add(new NeuralLayer(15, 0.0, "HIDDEN"));
+        network.Layers.Add(new NeuralLayer(2, 0.0, "OUTPUT"));
         network.Build();
+
+        network.Randomize(1.0);
     }
 
     void Start()
@@ -38,7 +42,8 @@ public class Agent : MonoBehaviour
 
     void FixedUpdate()
     {
-        ParseOutput(network.Decide(GatherInputs())); 
+        lastOutputs = network.Decide(GatherInputs());
+        ParseOutput(lastOutputs); 
     }
 
 
@@ -71,10 +76,10 @@ public class Agent : MonoBehaviour
                 Vector3 dir = new Vector3(i, 0, j);
                 dir.Normalize();
                 RaycastHit hit;
-                if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f))
+                if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f, 1 << 10))
                 {
                     results.Add((double)hit.distance/100.0f);
-                    Debug.DrawRay(transform.position, hit.point, Color.green, 0.1f, false);
+                    Debug.DrawRay(transform.position, hit.point - transform.position, Color.black, 0.01f, true);
                 }
                 else 
                 {
@@ -84,7 +89,8 @@ public class Agent : MonoBehaviour
         }
 
         //2. get distance from the cookie jar
-        results.Add(Vector3.Distance(this.transform.position, cookieJar.position));
+        results.Add(Vector3.Distance(this.transform.position, cookieJar.position)/100.0f);
+        lastInputs = results;
         return results;
     }
 

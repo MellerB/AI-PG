@@ -84,8 +84,7 @@ namespace NeuralNetwork
 
         private double Activation(double input) //change?
         {
-            double treshold = 1.0f;
-            return input >= treshold ? 0 : treshold;
+            return 1.0/(1.0 + Math.Exp(-input));
         }
     }
     [Serializable] public class NeuralLayer
