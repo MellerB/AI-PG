@@ -29,7 +29,8 @@ namespace NeuralNetwork
 
         public void Randomize(double lr)
         {
-            synapticWeight+=UnityEngine.Random.Range(-lr,lr);
+            float t = (float)lr;
+            SynapticWeight+=(double)UnityEngine.Random.Range(-t,t);
         }
     }
 
