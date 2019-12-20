@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
+
 public class Agent : MonoBehaviour
 {
     NetworkModel network;
