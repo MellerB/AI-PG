@@ -2,10 +2,9 @@ using NeuralNetwork;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 
-[Serializable] public class Agent : MonoBehaviour
+
+public class Agent : MonoBehaviour
 {
     NetworkModel network;
 
