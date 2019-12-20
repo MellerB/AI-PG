@@ -26,6 +26,11 @@ namespace NeuralNetwork
         {
             SynapticWeight = 0.5f;
         }
+
+        public void Randomize(double lr)
+        {
+            synapticWeight+=UnityEngine.Random.Range(-lr,lr);
+        }
     }
 
     [Serializable] public class Neuron
@@ -40,6 +45,14 @@ namespace NeuralNetwork
         {
             Dendrites = new List<Dendrite>();
             OutputPulse = new Pulse();
+        }
+
+        public void Randomize(double lr)
+        {
+            foreach (var dendrite in Dendrites)
+            {
+                dendrite.Randomize(lr);
+            }
         }
 
         public void Fire()
@@ -95,6 +108,15 @@ namespace NeuralNetwork
             Name = name;
         }
 
+
+        public void Randomize(double lr)
+        {
+            foreach (var neuron in Neurons)
+            {
+                neuron.Randomize(lr);
+            }
+        }
+
         public void Optimize(double learningRate, double delta)
         {
             Weight += learningRate * delta;
@@ -138,7 +160,7 @@ namespace NeuralNetwork
             ms.Position = 0;
             return (NetworkModel)formatter.Deserialize(ms);
         } 
-    } 
+    }
 
         public void AddLayer(NeuralLayer layer)
         {
@@ -173,6 +195,14 @@ namespace NeuralNetwork
             }
         }
 
+
+        public void Randomize(double lr)
+        {
+            foreach (var layer in Layers)
+            {
+                layer.Randomize(lr);
+            }
+        }
 
         public List<double> Decide(List<double> X)
         {
