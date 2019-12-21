@@ -43,10 +43,13 @@ namespace NeuralNetwork
 
         private double Weight;
 
-        public Neuron()
+        public Func<double,double> Activation;
+
+        public Neuron(Func<double,double> activation)
         {
             Dendrites = new List<Dendrite>();
             OutputPulse = new Pulse();
+            Activation=activation;
         }
 
         public void Randomize(double lr)
@@ -83,10 +86,6 @@ namespace NeuralNetwork
             return computeValue;
         }
 
-        private double Activation(double input) //change?
-        {
-            return 2.0/(1.0 + Math.Exp(-input))-1;
-        }
     }
     [Serializable] public class NeuralLayer
     {
@@ -96,12 +95,15 @@ namespace NeuralNetwork
 
         public double Weight { get; set; }
 
-        public NeuralLayer(int count, double initialWeight, string name = "")
+        Func<double,double> Activation;
+
+        public NeuralLayer(int count, double initialWeight, Func<double,double> activation, string name = "")
         {
+            Activation=activation;
             Neurons = new List<Neuron>();
             for (int i = 0; i < count; i++)
             {
-                Neurons.Add(new Neuron());
+                Neurons.Add(new Neuron(Activation));
             }
 
             Weight = initialWeight;

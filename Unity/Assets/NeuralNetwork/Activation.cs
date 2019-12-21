@@ -3,14 +3,34 @@ using System;
 
 namespace NeuralNetwork
 {
-    public static class Activation
+    public static class ActivationFunc
     {
-        static double SigmoidMinus(double x)
+        public static double Tanh(double x)
         {
-            return 2.0/(1.0 + Math.Exp(-x))-1;
+            return 1-(2.0)/(Math.Exp(2*x)+1);
         }
 
+        public static double Linear(double x)
+        {
+            return x;
+        }
 
+        public static double BinaryStep(double x)
+        {
+            if(x > 0)
+            {
+                return 1;
+            }
+            if(x == 0)
+            {
+                return 0;
+            }
+            if(x < 0)
+            {
+                return -1;
+            }
+            return 0;
+        }
     }
 
 }
