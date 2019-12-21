@@ -31,7 +31,6 @@ namespace NeuralNetwork
         {
             float t = (float)lr;
             SynapticWeight+=(double)UnityEngine.Random.Range(-t,t);
-            Debug.Log(SynapticWeight);
         }
     }
 
