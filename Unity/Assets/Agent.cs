@@ -19,7 +19,7 @@ public class Agent : MonoBehaviour
     public List<double> lastOutputs = new List<double>();
 
 
-    private float ForceMultiplier = 10f;
+    private float ForceMultiplier = 10.0f;
 
     void Awake()
     {
@@ -30,7 +30,7 @@ public class Agent : MonoBehaviour
         network.Layers.Add(new NeuralLayer(2, 0.0, "OUTPUT"));
         network.Build();
 
-        network.Randomize(1.0);
+        network.Randomize(0.4);
     }
 
     void Start()

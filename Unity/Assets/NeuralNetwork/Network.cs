@@ -31,6 +31,7 @@ namespace NeuralNetwork
         {
             float t = (float)lr;
             SynapticWeight+=(double)UnityEngine.Random.Range(-t,t);
+            Debug.Log(SynapticWeight);
         }
     }
 
@@ -84,7 +85,7 @@ namespace NeuralNetwork
 
         private double Activation(double input) //change?
         {
-            return 1.0/(1.0 + Math.Exp(-input));
+            return 2.0/(1.0 + Math.Exp(-input))-1;
         }
     }
     [Serializable] public class NeuralLayer
