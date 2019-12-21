@@ -28,9 +28,9 @@ public class Agent : MonoBehaviour
     {
         cookieJar = GameObject.Find("cookieJar").transform;
         network = new NetworkModel();
-        network.Layers.Add(new NeuralLayer(9, 0.0, "INPUT"));
-        network.Layers.Add(new NeuralLayer(15, 0.0, "HIDDEN"));
-        network.Layers.Add(new NeuralLayer(2, 0.0, "OUTPUT"));
+        network.Layers.Add(new NeuralLayer(9, 0.0,ActivationFunc.BinaryStep, "INPUT"));
+        network.Layers.Add(new NeuralLayer(15, 0.0,ActivationFunc.Linear, "HIDDEN"));
+        network.Layers.Add(new NeuralLayer(2, 0.0,ActivationFunc.Tanh, "OUTPUT"));
         network.Build();
         network.Randomize(0.4);
     }
