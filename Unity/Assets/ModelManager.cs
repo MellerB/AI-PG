@@ -49,6 +49,7 @@ namespace ModelManager
                 for (int i = 0; i < clonesNeeded; i++)
                 {
                     clones.Add(Models[i%n].DeepCopy()); // add randomization 
+                    clones[clones.Count()-1].Randomize(LearningRate);
                 }
             }
 
