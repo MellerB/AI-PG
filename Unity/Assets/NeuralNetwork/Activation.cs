@@ -1,10 +1,13 @@
+using UnityEngine;
+using System;
+
 namespace NeuralNetwork
 {
     public static class Activation
     {
-        double Sigmoid(double x)
+        static double SigmoidMinus(double x)
         {
-            return 1.0/(1.0+Math.Exp(-x));
+            return 2.0/(1.0 + Math.Exp(-x))-1;
         }
 
 
