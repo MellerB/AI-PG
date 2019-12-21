@@ -1,3 +1,4 @@
+using System;
 using NeuralNetwork;
 using UnityEngine;
 using System.Collections.Generic;
@@ -5,21 +6,23 @@ using System.Collections;
 
 public class Agent : MonoBehaviour
 {
-    NetworkModel network;
-    public NetworkModel Network
-    {
-        get {return network;}
-        private set {network = value;}
-    }
+    public NetworkModel network;
 
     //Target cookie jar for every agent that exists
     public static Transform cookieJar;
 
+
+    //Score that this agent achieved during lifetime (Currently: Measures lifetime) TODO: Measure distance
+    public float Score = 0;
+    //function to call when this agent dies
+    public Action<Agent> deathCallback;
+
     public List<double> lastInputs = new List<double>();
     public List<double> lastOutputs = new List<double>();
-
-
     private float ForceMultiplier = 10.0f;
+    
+
+     
 
     void Awake()
     {
@@ -29,7 +32,6 @@ public class Agent : MonoBehaviour
         network.Layers.Add(new NeuralLayer(15, 0.0,ActivationFunc.Linear, "HIDDEN"));
         network.Layers.Add(new NeuralLayer(2, 0.0,ActivationFunc.Tanh, "OUTPUT"));
         network.Build();
-
         network.Randomize(0.4);
     }
 
@@ -44,10 +46,9 @@ public class Agent : MonoBehaviour
     {
         lastOutputs = network.Decide(GatherInputs());
         ParseOutput(lastOutputs); 
+        Score++;
     }
-
-
-
+   
 
     ///<summary>Parses output of a neural network</summary>
     ///Activations go as follows:
@@ -94,7 +95,16 @@ public class Agent : MonoBehaviour
         return results;
     }
 
-
+    public void OnCollisionEnter(Collision c)
+    {
+        //if layer is wall layer
+        if(c.collider.gameObject.layer == 10)
+        {
+            //die...
+            this?.deathCallback(this);
+            Destroy(this.gameObject);
+        }
+    }
 
 
 }

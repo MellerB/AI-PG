@@ -7,13 +7,13 @@ using NeuralNetwork;
 
 namespace ModelManager
 {
-    public class Manager
+    public class ModelManager
     {  
         List<NetworkModel> Models = new List<NetworkModel>();
         public int NumModels{ get; }
         public double LearningRate{ get; }
         
-        Manager(List<NetworkModel> models,double learningRate = 0.1f)
+        ModelManager(List<NetworkModel> models,double learningRate = 0.1f)
         {
             LearningRate = learningRate;
             Models = models;
