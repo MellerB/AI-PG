@@ -11,9 +11,9 @@ public class test : MonoBehaviour
     {
 
     NetworkModel model = new NetworkModel();
-    model.Layers.Add(new NeuralLayer(9, 0.1, "INPUT"));
-    model.Layers.Add(new NeuralLayer(11, 0.1, "HIDDEN"));
-    model.Layers.Add(new NeuralLayer(4, 0.1, "OUTPUT"));
+    model.Layers.Add(new NeuralLayer(9, 0.1,ActivationFunc.Tanh, "INPUT"));
+    model.Layers.Add(new NeuralLayer(11, 0.1,ActivationFunc.Tanh, "HIDDEN"));
+    model.Layers.Add(new NeuralLayer(4, 0.1,ActivationFunc.Tanh, "OUTPUT"));
       
     model.Build();
     model.Print();
