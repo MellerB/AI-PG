@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using NeuralNetwork;
 
 
 ///<summary>
@@ -16,6 +16,7 @@ public class RunManager : MonoBehaviour
     [SerializeField]
     GameObject agentPrefab;
 
+    ModelManager manager = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +33,18 @@ public class RunManager : MonoBehaviour
 
     void StartNewRun()
     {
-        Run r = new Run(10);
+        Run r = null;
+        if(manager == null)
+        {
+            r = new Run(10);
+            manager=new ModelManager(r.GetSortedModels());
+        }
+        else
+        {
+            manager.SaveTop(3);//kill all models and save top 3
+            manager.Expand(); //expand models list to original size
+            r = new Run(manager.Models);
+        }
         r.runName = "Run #" + run_num;
         r.RunComplete += OnRunEnded;
         r.BeginRun();
@@ -44,11 +56,13 @@ public class RunManager : MonoBehaviour
         if(!(sender is Run r))
             throw new ArgumentException("Sender is not of the type Run");
         
+        
         //Unsubscribe from sender to avoid memory leak
         r.RunComplete -= OnRunEnded;
         
         //store run
         runs.Add(r);
+        List<NetworkModel> models = r.GetSortedModels();
 
         StartNewRun();
     }

@@ -5,22 +5,21 @@ using System.Linq;
 using UnityEngine;
 using NeuralNetwork;
 
-namespace ModelManager
-{
     public class ModelManager
     {  
-        List<NetworkModel> Models = new List<NetworkModel>();
+        public List<NetworkModel> Models = new List<NetworkModel>();
         public int NumModels{ get; }
         public double LearningRate{ get; }
         
-        ModelManager(List<NetworkModel> models,double learningRate = 0.1f)
+        public ModelManager(List<NetworkModel> models,double learningRate = 0.1f)
         {
             LearningRate = learningRate;
             Models = models;
             NumModels = models.Count;
         }
 
-        void SaveTop(int n)
+
+        public void SaveTop(int n)
         {
             if(n>Models.Count)
             {
@@ -32,7 +31,7 @@ namespace ModelManager
             }
         }
 
-        void Expand()
+        public void Expand()
         {  
             int n = Models.Count;
 
@@ -60,4 +59,3 @@ namespace ModelManager
 
 
     }
-}

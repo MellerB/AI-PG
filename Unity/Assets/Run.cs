@@ -80,6 +80,15 @@ public class Run
         return agent;
     }
 
+    public List<NetworkModel> GetSortedModels() // needs to be sorted
+    {
+        List<NetworkModel> t = new List<NetworkModel>();
+        foreach (var result in results)
+        {
+            t.Add(result.model);
+        }
+        return t;
+    }
 
     public class AgentResult
     {
