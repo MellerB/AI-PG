@@ -11,7 +11,7 @@ public class Run
 {
     public string runName = "Run #N";
     public event EventHandler<List<AgentResult>> RunComplete;
-    List<GameObject> agents = new List<GameObject>();
+    public List<GameObject> agents = new List<GameObject>();
     public List<AgentResult> results = new List<AgentResult>();
  
     public static GameObject agentPrefab;
@@ -80,15 +80,6 @@ public class Run
         return agent;
     }
 
-    public List<NetworkModel> GetSortedModels() // needs to be sorted
-    {
-        List<NetworkModel> t = new List<NetworkModel>();
-        foreach (var result in results)
-        {
-            t.Add(result.model);
-        }
-        return t;
-    }
 
     public class AgentResult
     {

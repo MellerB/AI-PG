@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using NeuralNetwork;
 
@@ -16,7 +17,7 @@ public class RunManager : MonoBehaviour
     [SerializeField]
     GameObject agentPrefab;
 
-    ModelManager manager = null;
+    ModelManager modelManager = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,22 +29,22 @@ public class RunManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void StartNewRun()
     {
         Run r = null;
-        if(manager == null)
+        if (modelManager == null)
         {
             r = new Run(10);
-            manager=new ModelManager(r.GetSortedModels());
+            modelManager = new ModelManager(r.agents.Select(x=>x.GetComponent<Agent>().network).ToList());
         }
         else
         {
-            manager.SaveTop(3);//kill all models and save top 3
-            manager.Expand(); //expand models list to original size
-            r = new Run(manager.Models);
+            modelManager.SaveTop(3);//kill all models and save top 3
+            modelManager.Expand(); //expand models list to original size
+            r = new Run(modelManager.Models);
         }
         r.runName = "Run #" + run_num;
         r.RunComplete += OnRunEnded;
@@ -53,16 +54,16 @@ public class RunManager : MonoBehaviour
     void OnRunEnded(object sender, List<Run.AgentResult> results)
     {
         //Accept only Run senders 
-        if(!(sender is Run r))
+        if (!(sender is Run r))
             throw new ArgumentException("Sender is not of the type Run");
-        
-        
+
+
         //Unsubscribe from sender to avoid memory leak
         r.RunComplete -= OnRunEnded;
-        
+
         //store run
         runs.Add(r);
-        List<NetworkModel> models = r.GetSortedModels();
+        List<NetworkModel> models = r.results.OrderBy(x => x.score).Select(x => x.model).ToList();
 
         StartNewRun();
     }
