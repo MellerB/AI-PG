@@ -37,12 +37,12 @@ public class RunManager : MonoBehaviour
         Run r = null;
         if (modelManager == null)
         {
-            r = new Run(10);
-            modelManager = new ModelManager(r.agents.Select(x=>x.GetComponent<Agent>().network).ToList());
+            r = new Run(25);
+            modelManager = new ModelManager(r.agents.Select(x=>x.GetComponent<Agent>().network).ToList(),0.05f);
         }
         else
         {
-            modelManager.SaveTop(3);//kill all models and save top 3
+            modelManager.SaveTop(5);//kill all models and save top 5
             modelManager.Expand(); //expand models list to original size
             r = new Run(modelManager.Models);
         }

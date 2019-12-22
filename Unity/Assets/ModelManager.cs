@@ -27,7 +27,7 @@ public class ModelManager
         }
         else
         {
-            //sort Models and kill all that are not in top n
+            Models.RemoveRange(0,n);
         }
     }
 
