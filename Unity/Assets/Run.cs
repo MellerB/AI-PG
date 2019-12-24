@@ -13,7 +13,7 @@ public class Run
     public event EventHandler<List<AgentResult>> RunComplete;
     public List<GameObject> agents = new List<GameObject>();
     public List<AgentResult> results = new List<AgentResult>();
- 
+
     public static GameObject agentPrefab;
 
     //Creates a new run with num_agents number of randomly initialized agents
@@ -62,7 +62,7 @@ public class Run
     private void AgentDied(Agent a)
     {
         Debug.Log("Agent Died");
-        results.Insert(0,new AgentResult(a.Score, a.network));
+        results.Insert(0, new AgentResult(a.Score, a.network));
         agents.Remove(a.gameObject);
         if (agents.Count == 0)
         {

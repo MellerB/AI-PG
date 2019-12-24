@@ -38,7 +38,7 @@ public class RunManager : MonoBehaviour
         if (modelManager == null)
         {
             r = new Run(25);
-            modelManager = new ModelManager(r.agents.Select(x=>x.GetComponent<Agent>().network).ToList(),0.05f);
+            modelManager = new ModelManager(r.agents.Select(x => x.GetComponent<Agent>().network).ToList(), 0.05f);
         }
         else
         {

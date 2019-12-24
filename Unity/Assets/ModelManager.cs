@@ -10,7 +10,7 @@ public class ModelManager
     public List<NetworkModel> Models = new List<NetworkModel>();
     public int NumModels { get; }
     public double LearningRate { get; }
-    
+
 
     public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)
     {
@@ -28,7 +28,7 @@ public class ModelManager
         }
         else
         {
-            Models.RemoveRange(0,n);
+            Models.RemoveRange(0, n);
             JsonService.SaveModelsList(Models);
         }
     }
