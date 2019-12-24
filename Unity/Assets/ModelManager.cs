@@ -11,14 +11,12 @@ public class ModelManager
     public int NumModels { get; }
     public double LearningRate { get; }
     
-    public JsonManager jsonManager;
 
     public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)
     {
         LearningRate = learningRate;
         Models = models;
         NumModels = models.Count;
-        jsonManager = new JsonManager();
     }
 
 
@@ -31,7 +29,7 @@ public class ModelManager
         else
         {
             Models.RemoveRange(0,n);
-            jsonManager.saveModelsList(Models);
+            JsonService.SaveModelsList(Models);
         }
     }
 
@@ -55,7 +53,6 @@ public class ModelManager
                 clones[clones.Count() - 1].Randomize(LearningRate);
             }
         }
-
 
         Models = new List<NetworkModel>(Models.Concat(clones));
     }

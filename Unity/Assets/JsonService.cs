@@ -7,18 +7,13 @@ using System.Linq;
 using UnityEngine;
 using NeuralNetwork;
 using Newtonsoft.Json;
-public class JsonManager
+public static class JsonService
 {
-    protected string timeString;
-
-    public JsonManager()
+    public static void SaveModelsList(List<NetworkModel> models)
     {
-        timeString = DateTime.Now.ToString("yy-MM-dd_HH:mm:ss");
+        string timeString = DateTime.Now.ToString("yy-MM-dd_HH:mm:ss");
         timeString = timeString.Replace(' ','_');
-    }
 
-    public void saveModelsList(List<NetworkModel> models)
-    {
         string jsonString = JsonConvert.SerializeObject(models);
         string path = Application.dataPath+"/jsonModels/"+timeString+".json";
         File.WriteAllText(path,jsonString);

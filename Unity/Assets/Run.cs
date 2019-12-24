@@ -92,6 +92,5 @@ public class Run
             this.model = model.DeepCopy();
         }
     }
-
 }
 

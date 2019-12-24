@@ -167,7 +167,6 @@ namespace NeuralNetwork
         public void AddLayer(NeuralLayer layer)
         {
             int dendriteCount = 1;
-
             if (Layers.Count > 0)
             {
                 dendriteCount = Layers[Layers.Count - 1].Neurons.Count;
