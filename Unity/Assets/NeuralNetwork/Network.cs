@@ -9,12 +9,14 @@ using UnityEngine;
 
 namespace NeuralNetwork
 {
-    [Serializable] public class Pulse
+    [Serializable]
+    public class Pulse
     {
         public double Value { get; set; }
     }
 
-    [Serializable] public class Dendrite
+    [Serializable]
+    public class Dendrite
     {
         public Pulse InputPulse { get; set; }
 
@@ -30,11 +32,12 @@ namespace NeuralNetwork
         public void Randomize(double lr)
         {
             float t = (float)lr;
-            SynapticWeight+=(double)UnityEngine.Random.Range(-t,t);
+            SynapticWeight += (double)UnityEngine.Random.Range(-t, t);
         }
     }
 
-    [Serializable] public class Neuron
+    [Serializable]
+    public class Neuron
     {
         public List<Dendrite> Dendrites { get; set; }
 
@@ -42,13 +45,13 @@ namespace NeuralNetwork
 
         private double Weight;
 
-        public Func<double,double> Activation;
+        public Func<double, double> Activation;
 
-        public Neuron(Func<double,double> activation)
+        public Neuron(Func<double, double> activation)
         {
             Dendrites = new List<Dendrite>();
             OutputPulse = new Pulse();
-            Activation=activation;
+            Activation = activation;
         }
 
         public void Randomize(double lr)
@@ -86,7 +89,8 @@ namespace NeuralNetwork
         }
 
     }
-    [Serializable] public class NeuralLayer
+    [Serializable]
+    public class NeuralLayer
     {
         public List<Neuron> Neurons { get; set; }
 
@@ -94,11 +98,11 @@ namespace NeuralNetwork
 
         public double Weight { get; set; }
 
-        Func<double,double> Activation;
+        Func<double, double> Activation;
 
-        public NeuralLayer(int count, double initialWeight, Func<double,double> activation, string name = "")
+        public NeuralLayer(int count, double initialWeight, Func<double, double> activation, string name = "")
         {
-            Activation=activation;
+            Activation = activation;
             Neurons = new List<Neuron>();
             for (int i = 0; i < count; i++)
             {
@@ -143,7 +147,8 @@ namespace NeuralNetwork
 
     }
 
-    [Serializable] public class NetworkModel
+    [Serializable]
+    public class NetworkModel
     {
         public List<NeuralLayer> Layers { get; set; }
 
@@ -152,22 +157,21 @@ namespace NeuralNetwork
             Layers = new List<NeuralLayer>();
         }
 
-    public NetworkModel DeepCopy()
-    { 
-        using (MemoryStream ms = new MemoryStream())
+        public NetworkModel DeepCopy()
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Context = new StreamingContext(StreamingContextStates.Clone);
-            formatter.Serialize(ms, this);
-            ms.Position = 0;
-            return (NetworkModel)formatter.Deserialize(ms);
-        } 
-    }
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Context = new StreamingContext(StreamingContextStates.Clone);
+                formatter.Serialize(ms, this);
+                ms.Position = 0;
+                return (NetworkModel)formatter.Deserialize(ms);
+            }
+        }
 
         public void AddLayer(NeuralLayer layer)
         {
             int dendriteCount = 1;
-
             if (Layers.Count > 0)
             {
                 dendriteCount = Layers[Layers.Count - 1].Neurons.Count;
