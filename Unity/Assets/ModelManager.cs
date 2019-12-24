@@ -5,61 +5,59 @@ using System.Linq;
 using UnityEngine;
 using NeuralNetwork;
 
-public class ModelManager
+namespace ModelManager
 {
-    public List<NetworkModel> Models = new List<NetworkModel>();
-    public int NumModels { get; }
-    public double LearningRate { get; }
-    
-    public JsonManager jsonManager;
-
-    public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)
-    {
-        LearningRate = learningRate;
-        Models = models;
-        NumModels = models.Count;
-        jsonManager = new JsonManager();
-    }
-
-
-    public void SaveTop(int n)
-    {
-        if (n > Models.Count)
+    public class ModelManager
+    {  
+        List<NetworkModel> Models = new List<NetworkModel>();
+        public int NumModels{ get; }
+        public double LearningRate{ get; }
+        
+        ModelManager(List<NetworkModel> models,double learningRate = 0.1f)
         {
-            Debug.Log("Provided number is lower than count of models!");
+            LearningRate = learningRate;
+            Models = models;
+            NumModels = models.Count;
         }
-        else
+
+        void SaveTop(int n)
         {
-            Models.RemoveRange(0,n);
-            jsonManager.saveModelsList(Models);
-        }
-    }
-
-    public void Expand()
-    {
-        int n = Models.Count;
-
-        int clonesNeeded = NumModels - n;
-
-        List<NetworkModel> clones = new List<NetworkModel>();
-
-        if (n >= NumModels)
-        {
-            Debug.Log("Models collection is full!");
-        }
-        else
-        {
-            for (int i = 0; i < clonesNeeded; i++)
+            if(n>Models.Count)
             {
-                clones.Add(Models[i % n].DeepCopy()); // add randomization 
-                clones[clones.Count() - 1].Randomize(LearningRate);
+            Debug.Log("Provided number is lower than count of models!");
+            }
+            else
+            {
+                //sort Models and kill all that are not in top n
             }
         }
 
+        void Expand()
+        {  
+            int n = Models.Count;
 
-        Models = new List<NetworkModel>(Models.Concat(clones));
+            int clonesNeeded = NumModels-n;
+
+            List<NetworkModel> clones = new List<NetworkModel>();
+
+            if(n >= NumModels)
+            {
+                Debug.Log("Models collection is full!");
+            }
+            else
+            {
+                for (int i = 0; i < clonesNeeded; i++)
+                {
+                    clones.Add(Models[i%n].DeepCopy()); // add randomization 
+                    clones[clones.Count()-1].Randomize(LearningRate);
+                }
+            }
+
+
+            Models=new List<NetworkModel>(Models.Concat(clones));
+        }
+
+
+
     }
-
-
-
 }
