@@ -20,19 +20,19 @@ public class Agent : MonoBehaviour
     public List<double> lastInputs = new List<double>();
     public List<double> lastOutputs = new List<double>();
     private float ForceMultiplier = 10.0f;
+    
 
-
-
+     
 
     void Awake()
     {
         cookieJar = GameObject.Find("cookieJar").transform;
         network = new NetworkModel();
-        network.Layers.Add(new NeuralLayer(9, 0.0, ActivationFunc.Linear, "INPUT"));
-        network.Layers.Add(new NeuralLayer(11, 0.0, ActivationFunc.Linear, "HIDDEN"));
-        network.Layers.Add(new NeuralLayer(2, 0.0, ActivationFunc.Tanh, "OUTPUT"));
+        network.Layers.Add(new NeuralLayer(9, 0.0,ActivationFunc.BinaryStep, "INPUT"));
+        network.Layers.Add(new NeuralLayer(15, 0.0,ActivationFunc.Linear, "HIDDEN"));
+        network.Layers.Add(new NeuralLayer(2, 0.0,ActivationFunc.Tanh, "OUTPUT"));
         network.Build();
-        network.Randomize(0.5);
+        network.Randomize(0.4);
     }
 
     void Start()
@@ -45,17 +45,17 @@ public class Agent : MonoBehaviour
     void FixedUpdate()
     {
         lastOutputs = network.Decide(GatherInputs());
-        ParseOutput(lastOutputs);
+        ParseOutput(lastOutputs); 
         Score++;
     }
-
+   
 
     ///<summary>Parses output of a neural network</summary>
     ///Activations go as follows:
     ///[0] - force on X axis
     ///[1] - force on Z axis
     private void ParseOutput(List<double> activations)
-    {
+    {   
         this.GetComponent<Rigidbody>().AddForce(new Vector3((float)activations[0] * ForceMultiplier, 0.0f, (float)activations[1] * ForceMultiplier));
     }
 
@@ -70,7 +70,7 @@ public class Agent : MonoBehaviour
             for (int j = -1; j < 2; j++)
             {
 
-                if (i == 0 && j == 0)
+                if(i == 0 && j == 0)
                     continue;
 
 
@@ -79,10 +79,10 @@ public class Agent : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f, 1 << 10))
                 {
-                    results.Add((double)hit.distance / 100.0f);
+                    results.Add((double)hit.distance/100.0f);
                     Debug.DrawRay(transform.position, hit.point - transform.position, Color.black, 0.01f, true);
                 }
-                else
+                else 
                 {
                     results.Add(1.0f);
                 }
@@ -90,7 +90,7 @@ public class Agent : MonoBehaviour
         }
 
         //2. get distance from the cookie jar
-        results.Add(Vector3.Distance(this.transform.position, cookieJar.position) / 100.0f);
+        results.Add(Vector3.Distance(this.transform.position, cookieJar.position)/100.0f);
         lastInputs = results;
         return results;
     }
@@ -98,7 +98,7 @@ public class Agent : MonoBehaviour
     public void OnCollisionEnter(Collision c)
     {
         //if layer is wall layer
-        if (c.collider.gameObject.layer == 10)
+        if(c.collider.gameObject.layer == 10)
         {
             //die...
             this?.deathCallback(this);
