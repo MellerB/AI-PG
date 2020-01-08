@@ -34,6 +34,7 @@ public class RunManager : MonoBehaviour
 
     void StartNewRun()
     {
+	modelManager = new ModelManager(JsonService.LoadModelsList((TextAsset)Resources.Load("20-01-08_21_31_06")));
         Run r = null;
         if (modelManager == null)
         {
