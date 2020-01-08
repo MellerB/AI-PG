@@ -62,7 +62,7 @@ public class Run
     private void AgentDied(Agent a)
     {
         Debug.Log("Agent Died");
-        results.Insert(0, new AgentResult(a.Score, a.network));
+        results.Insert(0, new AgentResult(ScoreCalculator.CalculateScore(a.gameObject), a.network));
         agents.Remove(a.gameObject);
         if (agents.Count == 0)
         {

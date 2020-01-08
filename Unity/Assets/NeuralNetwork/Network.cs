@@ -146,7 +146,7 @@ namespace NeuralNetwork
         }
 
     }
-
+    
     [Serializable]
     public class NetworkModel
     {
