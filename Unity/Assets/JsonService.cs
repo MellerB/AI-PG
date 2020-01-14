@@ -11,12 +11,12 @@ public static class JsonService
 {
     public static void SaveModelsList(List<NetworkModel> models)
     {
-        string timeString = DateTime.Now.ToString("yy-MM-dd_HH:mm:ss");
+        string timeString = DateTime.Now.ToString("yy-MM-dd_HH-mm-ss");
         timeString = timeString.Replace(' ', '_');
 
-	JsonSerializerSettings settings = new JsonSerializerSettings();
-	settings.NullValueHandling = NullValueHandling.Include;
-	settings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+	    JsonSerializerSettings settings = new JsonSerializerSettings();
+	    settings.NullValueHandling = NullValueHandling.Include;
+	    settings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
 
         string jsonString = JsonConvert.SerializeObject(models);
         string path = Application.dataPath + "/jsonModels/" + timeString + ".json";
