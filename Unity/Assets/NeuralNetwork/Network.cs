@@ -28,7 +28,7 @@ namespace NeuralNetwork
 
         public Dendrite()
         {
-            SynapticWeight = 0.5f;
+            SynapticWeight = (double)UnityEngine.Random.Range(-1.0f, 1.0f);
         }
 
         public void Randomize(double lr)
@@ -87,8 +87,6 @@ namespace NeuralNetwork
         public List<Neuron> Neurons { get; set; }
 
         public string Name { get; set; }
-
-        public double Weight {get; set;}
 
         Func<double, double> Activation;
 
@@ -221,7 +219,7 @@ namespace NeuralNetwork
             {
                 foreach (var from in connectingFrom.Neurons)
                 {
-                    to.Dendrites.Add(new Dendrite() { InputPulse = from.OutputPulse, SynapticWeight = connectingTo.Weight });
+                    to.Dendrites.Add(new Dendrite() { InputPulse = from.OutputPulse });
                 }
             }
         }
