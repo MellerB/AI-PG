@@ -45,8 +45,6 @@ namespace NeuralNetwork
 
         public Pulse OutputPulse { get; set; }
 
-        private double Weight;
-
         public Func<double, double> Activation;
 
         public Neuron(Func<double, double> activation)
@@ -71,14 +69,6 @@ namespace NeuralNetwork
             OutputPulse.Value = Activation(OutputPulse.Value);
         }
 
-        public void UpdateWeights(double new_weights)
-        {
-            foreach (var terminal in Dendrites)
-            {
-                terminal.SynapticWeight = new_weights; //check it??
-            }
-        }
-
         private double Sum()
         {
             double computeValue = 0.0f;
@@ -98,7 +88,7 @@ namespace NeuralNetwork
 
         public string Name { get; set; }
 
-        public double Weight { get; set; }
+        public double Weight {get; set;}
 
         Func<double, double> Activation;
 
@@ -110,8 +100,6 @@ namespace NeuralNetwork
             {
                 Neurons.Add(new Neuron(Activation));
             }
-
-            Weight = initialWeight;
 
             Name = name;
         }
@@ -125,26 +113,13 @@ namespace NeuralNetwork
             }
         }
 
-        public void Optimize(double learningRate, double delta)
-        {
-            Weight += learningRate * delta;
-            foreach (var neuron in Neurons)
-            {
-                neuron.UpdateWeights(Weight);
-            }
-        }
-
         public void Forward()
         {
             foreach (var neuron in Neurons)
             {
                 neuron.Fire();
             }
-        }
-
-        public void Log()
-        {
-            Debug.Log(Name + ": " + Weight);
+            
         }
 
     }
@@ -232,11 +207,11 @@ namespace NeuralNetwork
         public void Print()
         {
 
-            Debug.Log("Name | Neurons | Weight");
+            Debug.Log("Name | Neurons");
 
             foreach (var layer in Layers)
             {
-                Debug.Log(layer.Name + " | " + layer.Neurons.Count + " | " + layer.Weight);
+                Debug.Log(layer.Name + " | " + layer.Neurons.Count);
             }
         }
 
@@ -267,23 +242,7 @@ namespace NeuralNetwork
             }
         }
 
-        private void OptimizeWeights(double accuracy)
-        {
-            double lr = 0.1f;
-            if (accuracy == 1)
-            {
-                return;
-            }
-            if (accuracy > 1)
-            {
-                lr = -lr;
-            }
-
-            foreach (var layer in Layers)
-            {
-                layer.Optimize(lr, 1);
-            }
-        }
+       
 
     }
 }
