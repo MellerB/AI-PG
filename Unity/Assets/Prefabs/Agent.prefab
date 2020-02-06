@@ -49,9 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d728db21b4df32fbb97c7d33240eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Score: 0
   lastInputs: []
   lastOutputs: []
+  viewArc: 2
+  rayCount: 50
 --- !u!33 &5176714002799249422
 MeshFilter:
   m_ObjectHideFlags: 0

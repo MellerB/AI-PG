@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
 
     public Transform target;
@@ -18,5 +18,19 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         transform.position = target.position - offset;
+
+        //Check for input
+                
+
+
+
+
+
     }
+
+
+    
+
+
+
 }
