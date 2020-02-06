@@ -202,6 +202,13 @@ namespace NeuralNetwork
         }
 
 
+        public void Rebuild()
+        {
+            Layers.Clear();
+            Build();
+        }
+
+
         public void Randomize(double lr)
         {
             foreach (var layer in Layers)
