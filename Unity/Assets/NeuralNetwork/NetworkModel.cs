@@ -10,117 +10,6 @@ using Newtonsoft.Json;
 
 namespace NeuralNetwork
 {
-    [Serializable]
-    public class Pulse
-    {	
-        [JsonProperty]
-        public double Value { get; set; }
-    }
-
-    [Serializable]
-    public class Dendrite
-    {
-        public Pulse InputPulse { get; set; }
-
-        public double SynapticWeight { get; set; }
-
-        public bool Learnable { get; set; }
-
-        public Dendrite()
-        {
-            SynapticWeight = (double)UnityEngine.Random.Range(-1.0f, 1.0f);
-        }
-
-        public void Randomize(double lr)
-        {
-            float t = (float)lr;
-            SynapticWeight += (double)UnityEngine.Random.Range(-t, t);
-        }
-    }
-
-    [Serializable]
-    public class Neuron
-    {
-        public List<Dendrite> Dendrites { get; set; }
-
-        public Pulse OutputPulse { get; set; }
-
-        public Func<double, double> Activation;
-
-        public Neuron(Func<double, double> activation)
-        {
-            Dendrites = new List<Dendrite>();
-            OutputPulse = new Pulse();
-            Activation = activation;
-        }
-
-        public void Randomize(double lr)
-        {
-            foreach (var dendrite in Dendrites)
-            {
-                dendrite.Randomize(lr);
-            }
-        }
-
-        public void Fire()
-        {
-            OutputPulse.Value = Sum();
-
-            OutputPulse.Value = Activation(OutputPulse.Value);
-        }
-
-        private double Sum()
-        {
-            double computeValue = 0.0f;
-            foreach (var d in Dendrites)
-            {
-                computeValue += d.InputPulse.Value * d.SynapticWeight;
-            }
-
-            return computeValue;
-        }
-
-    }
-    [Serializable]
-    public class NeuralLayer
-    {
-        public List<Neuron> Neurons { get; set; }
-
-        public string Name { get; set; }
-
-        Func<double, double> Activation;
-
-        public NeuralLayer(int count, double initialWeight, Func<double, double> activation, string name = "")
-        {
-            Activation = activation;
-            Neurons = new List<Neuron>();
-            for (int i = 0; i < count; i++)
-            {
-                Neurons.Add(new Neuron(Activation));
-            }
-
-            Name = name;
-        }
-
-
-        public void Randomize(double lr)
-        {
-            foreach (var neuron in Neurons)
-            {
-                neuron.Randomize(lr);
-            }
-        }
-
-        public void Forward()
-        {
-            foreach (var neuron in Neurons)
-            {
-                neuron.Fire();
-            }
-            
-        }
-
-    }
 
     [Serializable]
     public class NetworkModel
@@ -240,6 +129,16 @@ namespace NeuralNetwork
             }
         }
 
+        public override string ToString()
+        {
+            string tmp = "";
+            foreach (var layer in Layers)
+            {
+                tmp+=Layers.ToString()+"\n";
+            }
+            tmp+="\n";
+            return tmp;
+        }
        
 
     }
