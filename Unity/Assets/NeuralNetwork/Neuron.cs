@@ -54,15 +54,17 @@ namespace NeuralNetwork
 
         public override string ToString()
         {
-            string tmp = "[ ";
-            foreach (var dendrite in Dendrites)
+            string tmp = "[";
+            for (int i = 0; i < Dendrites.Count; i++)
             {
-                tmp+=dendrite.ToString()+", ";
+                tmp += Dendrites[i].ToString();
+                if (i != Dendrites.Count - 1)
+                    tmp += ", ";
             }
-            tmp+="]";
+            tmp += "]";
             return tmp;
         }
-       
+
 
     }
 }

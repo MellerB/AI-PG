@@ -67,7 +67,7 @@ public class RunManager : MonoBehaviour
         //store run
         runs.Add(r);
         List<NetworkModel> models = r.results.OrderBy(x => x.score).Select(x => x.model).ToList();
-        Debug.Log(models[0]);
+        Debug.Log(models[0].ToString());
         StartNewRun();
     }
 }

@@ -52,9 +52,11 @@ namespace NeuralNetwork
         public override string ToString()
         {
             string tmp = "{\n";
-            foreach (var neuron in Neurons)
+            for (int i = 0; i < Neurons.Count; i++)
             {
-                tmp+=neuron.ToString()+"\n";
+                tmp += Neurons[i].ToString();
+                if (i != Neurons.Count - 1)
+                    tmp += "\n";
             }
             tmp+="\n}";
             return tmp;

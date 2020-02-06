@@ -132,9 +132,11 @@ namespace NeuralNetwork
         public override string ToString()
         {
             string tmp = "";
-            foreach (var layer in Layers)
+            for (int i = 0; i < Layers.Count; i++)
             {
-                tmp+=Layers.ToString()+"\n";
+                tmp += Layers[i].ToString();
+                if (i != Layers.Count - 1)
+                    tmp += "\n";
             }
             tmp+="\n";
             return tmp;
