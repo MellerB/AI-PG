@@ -146,7 +146,7 @@ namespace NeuralNetwork
         }
 
     }
-
+    
     [Serializable]
     public class NetworkModel
     {
@@ -199,6 +199,13 @@ namespace NeuralNetwork
                 CreateNetwork(layer, nextLayer);
                 i++;
             }
+        }
+
+
+        public void Rebuild()
+        {
+            Layers.Clear();
+            Build();
         }
 
 

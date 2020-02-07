@@ -8,27 +8,45 @@ public class Agent : MonoBehaviour
 {
     public NetworkModel network;
 
-    //Target cookie jar for every agent that exists
+    //Target cookie jar for every agent that exists (?TODO?: handle null case?)
     public static Transform cookieJar;
 
 
-    //Score that this agent achieved during lifetime (Currently: Measures lifetime) TODO: Measure distance
-    public float Score = 0;
     //function to call when this agent dies
     public Action<Agent> deathCallback;
-
-    public List<double> lastInputs = new List<double>();
-    public List<double> lastOutputs = new List<double>();
+    public List<double> lastInputs = new List<double>(); //inputs that were fed in previous frame (for UI and debugging)
+    public List<double> lastOutputs = new List<double>(); //outputs that were outputted in previous frame (for UI and debugging)
     private float ForceMultiplier = 10.0f;
 
+    //View arc in radians
+    [SerializeField]
+    private float viewArc = 2.0f;
 
+    public float ViewArc
+    {
+        get { return viewArc; }
+        set
+        {
+            viewArc = value;
+            arcStep = viewArc / (float)rayCount; // recalculate arcStep
+        }
+    }
+
+    [SerializeField]
+    //Number of rays that will be cast
+    private int rayCount = 8;
+
+
+    private float arcStep = 0f;
 
 
     void Awake()
     {
+        arcStep = viewArc / (float)rayCount;
+
         cookieJar = GameObject.Find("cookieJar").transform;
         network = new NetworkModel();
-        network.Layers.Add(new NeuralLayer(9, 0.0, ActivationFunc.Linear, "INPUT"));
+        network.Layers.Add(new NeuralLayer(1 + rayCount, 0.0, ActivationFunc.Linear, "INPUT")); //rayCount + one for CookieJar position 
         network.Layers.Add(new NeuralLayer(11, 0.0, ActivationFunc.Linear, "HIDDEN"));
         network.Layers.Add(new NeuralLayer(2, 0.0, ActivationFunc.Tanh, "OUTPUT"));
         network.Build();
@@ -46,7 +64,6 @@ public class Agent : MonoBehaviour
     {
         lastOutputs = network.Decide(GatherInputs());
         ParseOutput(lastOutputs);
-        Score++;
     }
 
 
@@ -60,32 +77,24 @@ public class Agent : MonoBehaviour
     }
 
     //Gathers inputs from enviroment
-    //WARNING: If something fucks up with normalization, this is the func you are looking for 
     private List<double> GatherInputs()
     {
         List<double> results = new List<double>();
-        //1. raycast 8 diffrent rays in 8 diffrent directions and get distance from the walls
-        for (int i = -1; i < 2; i++)
+        //1. raycast 
+        for (int i = 0; i < rayCount; i++)
         {
-            for (int j = -1; j < 2; j++)
+            float curr_arc = i * arcStep * Mathf.PI;
+            Vector3 dir = new Vector3(Mathf.Cos(curr_arc), 0, Mathf.Sin(curr_arc));
+            dir.Normalize(); //OPTM: Not needed as Cos and Sin are in [-1,1]?
+            RaycastHit hit;
+            if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f, 1 << 10))
             {
-
-                if (i == 0 && j == 0)
-                    continue;
-
-
-                Vector3 dir = new Vector3(i, 0, j);
-                dir.Normalize();
-                RaycastHit hit;
-                if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f, 1 << 10))
-                {
-                    results.Add((double)hit.distance / 100.0f);
-                    Debug.DrawRay(transform.position, hit.point - transform.position, Color.black, 0.01f, true);
-                }
-                else
-                {
-                    results.Add(1.0f);
-                }
+                results.Add((double)hit.distance / 100.0f);
+                Debug.DrawRay(transform.position, hit.point - transform.position, Color.black, 0.01f, true);
+            }
+            else
+            {
+                results.Add(1.0f); // if nothing was hit, add max
             }
         }
 
@@ -104,6 +113,14 @@ public class Agent : MonoBehaviour
             this?.deathCallback(this);
             Destroy(this.gameObject);
         }
+    }
+
+    //EDITOR
+    void OnValidate()
+    {
+        //Because Unity does not support property exposing to the Inspector, we use OnValidate (called whenever, whatever changed by the Inspecotr)
+        //And force property to fire.
+        ViewArc = viewArc;
     }
 
 
