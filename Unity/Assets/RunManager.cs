@@ -34,7 +34,10 @@ public class RunManager : MonoBehaviour
 
     void StartNewRun()
     {
+	   // modelManager = new ModelManager(JsonService.LoadModelsList((TextAsset)Resources.Load("20-01-14_20-23-44")));
+
         Run r = null;
+
         if (modelManager == null)
         {
             r = new Run(25);
@@ -64,7 +67,7 @@ public class RunManager : MonoBehaviour
         //store run
         runs.Add(r);
         List<NetworkModel> models = r.results.OrderBy(x => x.score).Select(x => x.model).ToList();
-
+        Debug.Log(models[0].ToString());
         StartNewRun();
     }
 }
