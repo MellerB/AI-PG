@@ -9,23 +9,38 @@ public class CameraController : MonoBehaviour
     public Transform target;
     public Vector3 offset;
 
-    private Vector3 mouseDelta = new Vector2(0f, 0f);
     private Vector3 previousMousePos;
+    private Vector3 currRot = new Vector3(0, 0, 0);
+    private float rotSpeed = 100f;
 
     // Start is called before the first frame update
     void Start()
     {
         previousMousePos = Input.mousePosition;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetButton("BreakTarget"))
+        if (Input.GetButtonDown("ToggleCursor"))
+        {
+            if (Cursor.lockState != CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
+
+
+        if (Input.GetButtonDown("BreakTarget"))
             target = null;
 
-        if (Input.GetButton("BestTarget"))
+        if (Input.GetButtonDown("BestTarget"))
             target = ChooseBestTarget();
 
 
@@ -34,11 +49,11 @@ public class CameraController : MonoBehaviour
             transform.Translate(Vector3.forward * Input.GetAxis("Forward"));
             transform.Translate(Vector3.up * Input.GetAxis("Up"));
             transform.Translate(Vector3.right * Input.GetAxis("Right"));
-            mouseDelta = Input.mousePosition - previousMousePos;
 
-            transform.rotation *= Quaternion.AngleAxis(mouseDelta.x, Vector3.up);
-            transform.rotation *= Quaternion.AngleAxis(mouseDelta.y, Vector3.forward);            
-            
+            Quaternion rot = Quaternion.identity;
+            currRot += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f) * Time.deltaTime * rotSpeed;
+            rot.eulerAngles = currRot;
+            transform.rotation = rot;
         }
 
         previousMousePos = Input.mousePosition;

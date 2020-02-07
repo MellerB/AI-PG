@@ -18,7 +18,6 @@ public class Agent : MonoBehaviour
     public List<double> lastOutputs = new List<double>(); //outputs that were outputted in previous frame (for UI and debugging)
     private float ForceMultiplier = 10.0f;
 
-
     //View arc in radians
     [SerializeField]
     private float viewArc = 2.0f;
