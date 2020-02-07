@@ -143,6 +143,23 @@ namespace NeuralNetwork
         }
        
 
+        public void LoadFromString(string input)
+        {
+            List<string> layersText = input.Split(new string[] { "{","}" },StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            layersText  = layersText.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+
+            if(layersText.Count!=Layers.Count-1)
+            {
+                throw new System.FormatException("inconsistent layers and readen layers number"+layersText.Count+" vs "+Layers.Count);
+            }
+
+            for (int i = 1; i < Layers.Count; i++)
+            {
+                Layers[i].LoadFromString(layersText[i-1]);
+            }
+        }
+
     }
 }
 
