@@ -41,7 +41,7 @@ public class RunManager : MonoBehaviour
         if (modelManager == null)
         {
             r = new Run(25);
-            modelManager = new ModelManager(r.agents.Select(x => x.GetComponent<Agent>().network).ToList(), 0.05f);
+            modelManager = new ModelManager(r.agents.Select(x => x.GetComponent<Agent>().network).ToList(), 0.2f);
         }
         else
         {
@@ -67,7 +67,6 @@ public class RunManager : MonoBehaviour
         //store run
         runs.Add(r);
         List<NetworkModel> models = r.results.OrderBy(x => x.score).Select(x => x.model).ToList();
-        Debug.Log(models[0].ToString());
         models[0].LoadFromString(models[0].ToString());
         StartNewRun();
     }

@@ -12,7 +12,7 @@ public class ModelManager
     public double LearningRate { get; }
 
 
-    public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)
+    public ModelManager(List<NetworkModel> models, double learningRate = 0.2f)
     {
         LearningRate = learningRate;
         Models = models;

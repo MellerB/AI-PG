@@ -52,7 +52,7 @@ public class Run
         string resultString = "";
         for (int i = 0; i < results.Count; i++)
         {
-            resultString += "Agent #" + i + " | Score: " + results[i].score;
+            resultString += "| Agent #" + i + " ; Score: " + results[i].score+" |";
         }
         Debug.Log(resultString);
         agents.Clear();
@@ -61,7 +61,6 @@ public class Run
 
     private void AgentDied(Agent a)
     {
-        Debug.Log("Agent Died");
         results.Insert(0, new AgentResult(a.Score, a.network));
         agents.Remove(a.gameObject);
         if (agents.Count == 0)
