@@ -18,9 +18,6 @@ public class Agent : MonoBehaviour
     public List<double> lastOutputs = new List<double>(); //outputs that were outputted in previous frame (for UI and debugging)
     private float ForceMultiplier = 10.0f;
 
-<<<<<<< HEAD
-
-=======
     //View arc in radians
     [SerializeField]
     private float viewArc = 2.0f;
@@ -41,7 +38,6 @@ public class Agent : MonoBehaviour
 
 
     private float arcStep = 0f;
->>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
 
 
     void Awake()
@@ -50,11 +46,7 @@ public class Agent : MonoBehaviour
 
         cookieJar = GameObject.Find("cookieJar").transform;
         network = new NetworkModel();
-<<<<<<< HEAD
-        network.Layers.Add(new NeuralLayer(9, 0.0, ActivationFunc.Linear, "INPUT"));
-=======
         network.Layers.Add(new NeuralLayer(1 + rayCount, 0.0, ActivationFunc.Linear, "INPUT")); //rayCount + one for CookieJar position 
->>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
         network.Layers.Add(new NeuralLayer(11, 0.0, ActivationFunc.Linear, "HIDDEN"));
         network.Layers.Add(new NeuralLayer(2, 0.0, ActivationFunc.Tanh, "OUTPUT"));
         network.Build();
@@ -72,10 +64,6 @@ public class Agent : MonoBehaviour
     {
         lastOutputs = network.Decide(GatherInputs());
         ParseOutput(lastOutputs);
-<<<<<<< HEAD
-        Score++;
-=======
->>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
     }
 
 
@@ -101,32 +89,12 @@ public class Agent : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f, 1 << 10))
             {
-<<<<<<< HEAD
-
-                if (i == 0 && j == 0)
-                    continue;
-
-
-                Vector3 dir = new Vector3(i, 0, j);
-                dir.Normalize();
-                RaycastHit hit;
-                if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f, 1 << 10))
-                {
-                    results.Add((double)hit.distance / 100.0f);
-                    Debug.DrawRay(transform.position, hit.point - transform.position, Color.black, 0.01f, true);
-                }
-                else
-                {
-                    results.Add(1.0f);
-                }
-=======
                 results.Add((double)hit.distance / 100.0f);
                 Debug.DrawRay(transform.position, hit.point - transform.position, Color.black, 0.01f, true);
             }
             else
             {
                 results.Add(1.0f); // if nothing was hit, add max
->>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
             }
         }
 

@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using UnityEngine;
 using NeuralNetwork;
+using System.IO;
 
 public class ModelManager
 {
@@ -12,24 +13,48 @@ public class ModelManager
     public double LearningRate { get; }
 
 
-<<<<<<< HEAD
     public ModelManager(List<NetworkModel> models, double learningRate = 0.2f)
-=======
-    public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)
->>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
     {
         LearningRate = learningRate;
         Models = models;
         NumModels = models.Count;
     }
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
-
-    public void SaveTop(int n)
+    public ModelManager(String pathToWeights, int modelsToBe, double learningRate = 0.2f)
     {
+        LearningRate = learningRate;
+        NumModels = modelsToBe;
+        Models = new List<NetworkModel>();
+        var files = Directory.EnumerateFiles(pathToWeights)
+                     .OrderByDescending(filename => filename);
+    
+        foreach (var filename in files)
+        {
+            Models.Add(new NetworkModel(File.ReadAllText(filenamed)));
+        }
+
+    }
+
+    public void SaveToFiles(int n)
+    {
+        string timeString = DateTime.Now.ToString("yy-MM-dd_HH-mm-ss");
+        timeString = timeString.Replace(' ', '_');
+
+        
+        string dirPath = Application.dataPath + "/Weights/" + timeString+ "/";
+        Directory.CreateDirectory(dirPath);
+        string filePath;
+        for (int i = 0; i < n; i++)
+        {
+            filePath = "No"+i.ToString()+".w";
+            File.WriteAllText(dirPath + filePath, Models[i].ToString());
+        }
+    }
+    
+
+    public void SaveTop(int n, Run r)
+    {
+        Models = r.results.OrderBy(x => x.score).Select(x => x.model).ToList();
         if (n > Models.Count)
         {
             Debug.Log("Provided number is lower than count of models!");
@@ -37,7 +62,7 @@ public class ModelManager
         else
         {
             Models.RemoveRange(0, n);
-            JsonService.SaveModelsList(Models);
+            SaveToFiles(n);
         }
     }
 

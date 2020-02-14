@@ -6,8 +6,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
-
 namespace NeuralNetwork
 {
     [Serializable]
@@ -62,7 +60,6 @@ namespace NeuralNetwork
             return tmp;
         }
 
-<<<<<<< HEAD
     public void LoadFromString(string input){
         List<string> neuronsText = input.Split(new string[] { "[","]" },StringSplitOptions.RemoveEmptyEntries).ToList();
 
@@ -79,8 +76,6 @@ namespace NeuralNetwork
             }
 
         }
-=======
->>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
     }
 }
 
