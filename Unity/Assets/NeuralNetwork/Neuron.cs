@@ -65,6 +65,7 @@ namespace NeuralNetwork
             return tmp;
         }
 
+<<<<<<< HEAD
         public void LoadFromString(string input){
         List<string> dendritesText = input.Split(new string[] { ", ","," }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
@@ -82,6 +83,8 @@ namespace NeuralNetwork
 
         }
 
+=======
+>>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
 
     }
 }

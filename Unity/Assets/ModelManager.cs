@@ -12,14 +12,21 @@ public class ModelManager
     public double LearningRate { get; }
 
 
+<<<<<<< HEAD
     public ModelManager(List<NetworkModel> models, double learningRate = 0.2f)
+=======
+    public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)
+>>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
     {
         LearningRate = learningRate;
         Models = models;
         NumModels = models.Count;
     }
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> b38aa2f88f6dcf7e31c7af9d59350c6ab508aa23
 
     public void SaveTop(int n)
     {
