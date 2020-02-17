@@ -40,8 +40,15 @@ public class Agent : MonoBehaviour
     private float arcStep = 0f;
 
 
+
+    private Rigidbody _rigidbody;
+
+
     void Awake()
     {
+        _rigidbody = GetComponent<Rigidbody>();
+
+
         arcStep = viewArc / (float)rayCount;
 
         cookieJar = GameObject.Find("cookieJar").transform;
@@ -73,7 +80,7 @@ public class Agent : MonoBehaviour
     ///[1] - force on Z axis
     private void ParseOutput(List<double> activations)
     {
-        this.GetComponent<Rigidbody>().AddForce(new Vector3((float)activations[0] * ForceMultiplier, 0.0f, (float)activations[1] * ForceMultiplier));
+        _rigidbody.AddForce(new Vector3((float)activations[0] * ForceMultiplier, 0.0f, (float)activations[1] * ForceMultiplier));
     }
 
     //Gathers inputs from enviroment
