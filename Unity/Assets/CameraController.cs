@@ -6,23 +6,38 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    public Transform target;
+    private Transform _target;
+    public Transform target
+    {
+        get { return _target; }
+        set
+        {
+            _target = value;
+
+            if (_target == null) //if nothing was selected use manual controls
+            {
+                _currentControlScheme = new CameraFreeControlScheme(transform);
+                Debug.Log("Free Control Scheme");
+            }
+            else // if something was selected use targeting control schemes
+            {
+                _currentControlScheme = new CameraOrbitControlScheme(transform, _target, HandleTargetNull);
+                Debug.Log("Orbital control scheme");
+            }
+
+        }
+    }
     public Vector3 offset;
 
-    private Vector3 previousMousePos;
-    private Vector3 currRot = new Vector3(0, 0, 0);
-    private float _rotSpeed = 100f;
-    private ICameraControlScheme[] _controlSchemes;
+    private Vector3 _previousMousePos;
     private ICameraControlScheme _currentControlScheme;
 
     // Start is called before the first frame update
     void Start()
     {
-        previousMousePos = Input.mousePosition;
+        _previousMousePos = Input.mousePosition;
         Cursor.lockState = CursorLockMode.Locked;
-        _controlSchemes[0] = new CameraFreeControlScheme(gameObject);
-        _controlSchemes[1] = new CameraOrbitControlScheme(gameObject);
-        _currentControlScheme = _controlSchemes[0];
+        _currentControlScheme = new CameraFreeControlScheme(transform);
     }
 
     // Update is called once per frame
@@ -41,36 +56,7 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if (target == null) //if nothing was selected use manual controls
-        {
-            //FREE CAMERA
-            transform.Translate(Vector3.forward * Input.GetAxis("Forward"));
-            transform.Translate(Vector3.up * Input.GetAxis("Up"));
-            transform.Translate(Vector3.right * Input.GetAxis("Right"));
-
-            Quaternion rot = Quaternion.identity;
-            currRot += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f) * Time.deltaTime * _rotSpeed;
-            rot.eulerAngles = currRot;
-            transform.rotation = rot;
-        }
-        else // if something was selected use targeting control schemes
-        {
-            transform.position = target.position - offset;
-            //ORBIT CAMERA
-            Vector3 pivot = target.position;
-
-            //AD -> go around the orbit
-            //WS -> Change orbit radius
-            //RF -> Change orbit inclination
-
-
-
-
-
-        }
-
-
-
+        _currentControlScheme.UpdateControl();
 
 
         if (Input.GetButtonDown("BreakTarget"))
@@ -93,15 +79,18 @@ public class CameraController : MonoBehaviour
         }
 
 
-        previousMousePos = Input.mousePosition;
+        _previousMousePos = Input.mousePosition;
     }
 
 
+    private void HandleTargetNull()
+    {
+        //Trigger property change
+        target = null;
+    }
 
 
-
-
-    Transform ChooseBestTarget()
+    private Transform ChooseBestTarget()
     {
         throw new NotImplementedException();
     }
