@@ -77,14 +77,14 @@ public class CameraController : MonoBehaviour
                 }
             }
         }
-
-
+        
         _previousMousePos = Input.mousePosition;
     }
 
 
     private void HandleTargetNull()
     {
+        //When target is being destroyed _target is being set to null (not the property!) so we need to
         //Trigger property change
         target = null;
     }

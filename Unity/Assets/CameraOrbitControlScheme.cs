@@ -37,15 +37,17 @@ public class CameraOrbitControlScheme : ICameraControlScheme
         //WS -> Changes orbit radius
         //RF -> Changes camera height
         _orbitSize += Input.GetAxis("Forward");
-        _orbitPosition += Input.GetAxis("Right");
-        _pivotOffset.z += Input.GetAxis("Up");
+        _orbitPosition += Input.GetAxis("Right") * _cameraSpeed;
+        _pivotOffset.y += Input.GetAxis("Up") * _cameraSpeed;
 
         //Calculate new position
-        Vector3 pos = new Vector3(Mathf.Cos(_orbitPosition) * _orbitSize, Mathf.Sin(_orbitPosition) * _orbitSize, 0)
+        Vector3 pos = new Vector3(Mathf.Cos(_orbitPosition) * _orbitSize, 0 , Mathf.Sin(_orbitPosition) * _orbitSize)
          + _pivotOffset + _pivotObject.position;
 
         //Make camera look at pivot object
         _targetCamera.LookAt(_pivotObject);
+        _targetCamera.position = pos;
         
     }
+
 }
