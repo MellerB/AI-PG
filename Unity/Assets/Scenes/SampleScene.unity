@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd11d0542401c11c8dc25fd265530c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentPrefab: {fileID: 5176714002799249418, guid: 9cf8f0e40388b654793a749749d9febc,
+  _agentPrefab: {fileID: 5176714002799249418, guid: 9cf8f0e40388b654793a749749d9febc,
     type: 3}
 --- !u!4 &452185859
 Transform:
@@ -1786,8 +1786,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef1323547bc1e04d871ba3759fa868a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
+  _runManager: {fileID: 452185858}
 --- !u!1 &1808044932
 GameObject:
   m_ObjectHideFlags: 0

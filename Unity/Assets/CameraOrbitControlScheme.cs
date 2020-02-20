@@ -10,7 +10,7 @@ public class CameraOrbitControlScheme : ICameraControlScheme
     private Transform _targetCamera;
     private Transform _pivotObject;
     //Orbit size = orbit radius
-    private float _orbitSize = 1f;
+    private float _orbitSize = 3f;
     //Orbit position, in radians
     private float _orbitPosition = 0f;
     private Vector3 _pivotOffset = Vector3.zero;

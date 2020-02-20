@@ -11,7 +11,7 @@ public class Run
 {
     public string runName = "Run #N";
     public event EventHandler<List<AgentResult>> RunComplete;
-    public List<GameObject> agents = new List<GameObject>();
+    public List<GameObject> agents = new List<GameObject>(); // list of currently alive agents
     public List<AgentResult> results = new List<AgentResult>();
 
     public static GameObject agentPrefab;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -31,6 +32,10 @@ public class CameraController : MonoBehaviour
 
     private Vector3 _previousMousePos;
     private ICameraControlScheme _currentControlScheme;
+
+
+    [SerializeField]
+    private RunManager _runManager;
 
     // Start is called before the first frame update
     void Start()
@@ -92,7 +97,9 @@ public class CameraController : MonoBehaviour
 
     private Transform ChooseBestTarget()
     {
-        throw new NotImplementedException();
+        Run currentRun = _runManager.currentRun;
+        GameObject bestAgent = currentRun.agents.Aggregate((x,y) => ScoreCalculator.CalculateScore(x) > ScoreCalculator.CalculateScore(y) ? x : y); //Find the biggest one
+        return bestAgent.transform;
     }
 
 }
