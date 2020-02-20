@@ -11,13 +11,18 @@ public class CameraController : MonoBehaviour
 
     private Vector3 previousMousePos;
     private Vector3 currRot = new Vector3(0, 0, 0);
-    private float rotSpeed = 100f;
+    private float _rotSpeed = 100f;
+    private ICameraControlScheme[] _controlSchemes;
+    private ICameraControlScheme _currentControlScheme;
 
     // Start is called before the first frame update
     void Start()
     {
         previousMousePos = Input.mousePosition;
         Cursor.lockState = CursorLockMode.Locked;
+        _controlSchemes[0] = new CameraFreeControlScheme(gameObject);
+        _controlSchemes[1] = new CameraOrbitControlScheme(gameObject);
+        _currentControlScheme = _controlSchemes[0];
     }
 
     // Update is called once per frame
@@ -36,6 +41,37 @@ public class CameraController : MonoBehaviour
             }
         }
 
+        if (target == null) //if nothing was selected use manual controls
+        {
+            //FREE CAMERA
+            transform.Translate(Vector3.forward * Input.GetAxis("Forward"));
+            transform.Translate(Vector3.up * Input.GetAxis("Up"));
+            transform.Translate(Vector3.right * Input.GetAxis("Right"));
+
+            Quaternion rot = Quaternion.identity;
+            currRot += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f) * Time.deltaTime * _rotSpeed;
+            rot.eulerAngles = currRot;
+            transform.rotation = rot;
+        }
+        else // if something was selected use targeting control schemes
+        {
+            transform.position = target.position - offset;
+            //ORBIT CAMERA
+            Vector3 pivot = target.position;
+
+            //AD -> go around the orbit
+            //WS -> Change orbit radius
+            //RF -> Change orbit inclination
+
+
+
+
+
+        }
+
+
+
+
 
         if (Input.GetButtonDown("BreakTarget"))
             target = null;
@@ -43,26 +79,24 @@ public class CameraController : MonoBehaviour
         if (Input.GetButtonDown("BestTarget"))
             target = ChooseBestTarget();
 
-
-        if (target == null)
+        //Check for selection
+        if (Input.GetMouseButtonDown(0))
         {
-            transform.Translate(Vector3.forward * Input.GetAxis("Forward"));
-            transform.Translate(Vector3.up * Input.GetAxis("Up"));
-            transform.Translate(Vector3.right * Input.GetAxis("Right"));
-
-            Quaternion rot = Quaternion.identity;
-            currRot += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f) * Time.deltaTime * rotSpeed;
-            rot.eulerAngles = currRot;
-            transform.rotation = rot;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 100.0f, 1 << Agent.LayerOrder))
+            {
+                if (hit.collider.gameObject.layer == Agent.LayerOrder)
+                {
+                    target = hit.collider.transform;
+                }
+            }
         }
 
+
         previousMousePos = Input.mousePosition;
-
-        if (target != null)
-            transform.position = target.position - offset;
-        //Check for input
-
     }
+
+
 
 
 

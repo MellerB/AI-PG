@@ -6,6 +6,8 @@ using System.Collections;
 
 public class Agent : MonoBehaviour
 {
+    public const int LayerOrder = 9; //Agent layer
+
     public NetworkModel network;
 
     //Target cookie jar for every agent that exists (?TODO?: handle null case?)
@@ -46,8 +48,9 @@ public class Agent : MonoBehaviour
 
     void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
 
+        _rigidbody = GetComponent<Rigidbody>();
+        gameObject.layer = LayerOrder;
 
         arcStep = viewArc / (float)rayCount;
 
@@ -125,7 +128,7 @@ public class Agent : MonoBehaviour
     //EDITOR
     void OnValidate()
     {
-        //Because Unity does not support property exposing to the Inspector, we use OnValidate (called whenever, whatever changed by the Inspecotr)
+        //Because Unity does not support property exposing to the Inspector, we use OnValidate (called whenever, whatever changed by the Inspector)
         //And force property to fire.
         ViewArc = viewArc;
     }
