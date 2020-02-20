@@ -14,7 +14,7 @@ public class CameraOrbitControlScheme : ICameraControlScheme
     //Orbit position, in radians
     private float _orbitPosition = 0f;
     private Vector3 _pivotOffset = Vector3.zero;
-    private float _cameraSpeed = 0.1f;
+    private float _cameraSpeed = 0.07f;
     private Action _invalidStateAction; 
 
     public CameraOrbitControlScheme(Transform target, Transform pivotObject, Action invalidStateAction)
@@ -37,6 +37,10 @@ public class CameraOrbitControlScheme : ICameraControlScheme
         //WS -> Changes orbit radius
         //RF -> Changes camera height
         _orbitSize += Input.GetAxis("Forward");
+
+        if(_orbitSize < 1f)
+            _orbitSize = 1f;
+
         _orbitPosition += Input.GetAxis("Right") * _cameraSpeed;
         _pivotOffset.y += Input.GetAxis("Up") * _cameraSpeed;
 
