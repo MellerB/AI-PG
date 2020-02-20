@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using NeuralNetwork;
+using System.IO;
 
 
 ///<summary>
@@ -34,14 +35,26 @@ public class RunManager : MonoBehaviour
 
     void StartNewRun()
     {
-	   // modelManager = new ModelManager(JsonService.LoadModelsList((TextAsset)Resources.Load("20-01-14_20-23-44")));
+	    //modelManager = new ModelManager("/home/bartek/Documents/AI-PG/Unity/Assets/Weights/20-02-17_19-21-34",20,0.2f);
 
         Run r = null;
 
+
+        r = new Run(20);
+        modelManager = new ModelManager(r.agents.Select(x => x.GetComponent<Agent>().network).ToList(), 0.2f);
+        string dateTime = "20-02-19_15-31-25";
+        modelManager.Models[0].LoadFromString(File.ReadAllText("/home/bartek/Documents/AI-PG/Unity/Assets/Weights/"+dateTime+"/No0.w"));
+        modelManager.Models[1].LoadFromString(File.ReadAllText("/home/bartek/Documents/AI-PG/Unity/Assets/Weights/"+dateTime+"/No1.w"));
+        modelManager.Models[2].LoadFromString(File.ReadAllText("/home/bartek/Documents/AI-PG/Unity/Assets/Weights/"+dateTime+"/No2.w"));
+        modelManager.Models[3].LoadFromString(File.ReadAllText("/home/bartek/Documents/AI-PG/Unity/Assets/Weights/"+dateTime+"/No3.w"));
+        modelManager.Models[4].LoadFromString(File.ReadAllText("/home/bartek/Documents/AI-PG/Unity/Assets/Weights/"+dateTime+"/No4.w"));
+
+
         if (modelManager == null)
         {
-            r = new Run(25);
+            r = new Run(20);
             modelManager = new ModelManager(r.agents.Select(x => x.GetComponent<Agent>().network).ToList(), 0.2f);
+            
         }
         else
         {

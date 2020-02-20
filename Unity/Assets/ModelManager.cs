@@ -20,7 +20,7 @@ public class ModelManager
         NumModels = models.Count;
     }
 
-    public ModelManager(String pathToWeights, int modelsToBe, double learningRate = 0.2f)
+    public ModelManager(List<NetworkModel> models,String pathToWeights, int modelsToBe, double learningRate = 0.2f)
     {
         LearningRate = learningRate;
         NumModels = modelsToBe;
@@ -30,7 +30,7 @@ public class ModelManager
     
         foreach (var filename in files)
         {
-            Models.Add(new NetworkModel(File.ReadAllText(filenamed)));
+            Models.Add(new NetworkModel(File.ReadAllText(filename)));
         }
 
     }

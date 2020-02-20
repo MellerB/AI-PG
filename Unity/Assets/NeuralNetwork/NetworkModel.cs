@@ -84,7 +84,6 @@ namespace NeuralNetwork
         {
             var inputLayer = Layers[0];
             List<double> outputs = new List<double>();
-
             for (int i = 0; i < X.Count; i++)
             {
                 inputLayer.Neurons[i].OutputPulse.Value = X[i];
@@ -154,16 +153,14 @@ namespace NeuralNetwork
             List<string> layersText = input.Split(new string[] { "{","}" },StringSplitOptions.RemoveEmptyEntries).ToList();
 
             layersText  = layersText.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
-
-            if(layersText.Count!=Layers.Count-1)
-            {
-                throw new System.FormatException("inconsistent layers and readen layers number"+layersText.Count+" vs "+Layers.Count);
-            }
-
             for (int i = 1; i < Layers.Count; i++)
             {
                 Layers[i].LoadFromString(layersText[i-1]);
+                if(i==0)
+                {Debug.Log(Layers[i].ToString());
+                }
             }
+            //Debug.Log(Layers[0].ToString());
         }
 
     }
