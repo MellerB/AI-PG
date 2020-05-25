@@ -87,214 +87,318 @@
 \setlength{\headheight}{0cm}
 
 \begin{document}
-	
-	\title{Systemy Sztucznej Inteligencji\\\small{dokumentacja projektu Kulki XDXDXD}}
-	\author{
-	Chłąd Paweł\\
-	Grupa 2D
-	\and
-	Meller Bartłomiej\\
-	Grupa 2D}
-	\date{\today}
 
-	\maketitle
-	\newpage
-	\section*{Część I}
-	\subsection*{Opis programu}
-	
-	\subsection*{Instrukcja obsługi}
-	%Jak uruchomić program, jak wyglądają dane. Mile widziana wizualizacja gry, wyników z punku widzenia aplikacji itd.
+\title{Systemy Sztucznej Inteligencji\\\small{dokumentacja projektu Kulki XDXDXD}}
+\author{
+    Chłąd Paweł\\
+    Grupa 2D
+    \and
+    Meller Bartłomiej\\
+    Grupa 2D}
+\date{\today}
 
-	\subsubsection**{Argumenty wejściowe}
+\maketitle
+\newpage
+\section*{Część I}
+\subsection*{Opis programu}
 
-	
-	
-	
-	\subsection*{Dodatkowe informacje}
-    Projekt został skompilowany za pomocą .NET Core 3.1 
-	\newpage
-	\section*{Część II}
-    \subsection*{Opis działania sieci neuronowej} 
-    %Tutaj uwzględniamy część matematyczną. Opisujemy całą teorię np.: dla zadania związanego z sieciami neuronowymi - opisujemy całą budowę, algorytm uczenia i wszystkie wzory. Dla zadania związanego z kombinatoryką opisujemy całą teorię kombinatoryczną potrzebną do zrozumienia zadania (mile widziany przykład obliczeniowy).
+\subsection*{Instrukcja obsługi}
+%Jak uruchomić program, jak wyglądają dane. Mile widziana wizualizacja gry, wyników z punku widzenia aplikacji itd.
+
+\subsubsection**{Argumenty wejściowe}
 
 
-	\subsection*{Zbiór danych}
-	%Należy pokazać przykładowe dane, które były wykorzystywane podczas uczenia klasyfikatorów.
-	
 
 
-	
-	\subsection*{Implementacja}
-	%Opis, zasada i działanie programu ze względu na podział na pliki, nastepnie	funkcje programu wraz ze szczegółowym opisem działania (np.: formie pseudokodu, czy odniesienia do równania)
-	\subsubsection*{Ogólna struktura}
-    \subsubsection*{Spis metod}
-    \lstinline{public class MovementScoreRule : MonoBehaviour, IScoringRule}
+\subsection*{Dodatkowe informacje}
+Projekt został skompilowany za pomocą .NET Core 3.1
+\newpage
+\section*{Część II}
+
+
+\subsection*{Opis działania sieci neuronowej}
+%Tutaj uwzględniamy część matematyczną. Opisujemy całą teorię np.: dla zadania związanego z sieciami neuronowymi - opisujemy całą budowę, algorytm uczenia i wszystkie wzory. Dla zadania związanego z kombinatoryką opisujemy całą teorię kombinatoryczną potrzebną do zrozumienia zadania (mile widziany przykład obliczeniowy).
+
+\hspace{20pt} Jak zostało wcześniej wspomniane program opiera się na sztucznej sieci neuronowej (SSN), czyli matematycznym modelu sieci nerwowej działającej w mózgu. Podobnie jak ludzka sieć neuronowa, SSN zbudowana jest z neuronów ułożonych w warstwy. Każda komórka nerwowa danej warstwy połączona jest ze wszystkimi komórkami warstwy poprzedniej i warstwy następnej za pomocą synaps posiadających pewne losowo zainicjowane wagi w postaci liczb. Są one modyfikowane w procesie uczenia sieci neuronowej.
+
+\vspace{5pt}
+Pierwszą warstwę sieci, odpowiedzialną za przyjmowanie danych wejściowych, nazywamy warstwą wejściową. Analogicznie ostatnia warstwa sieci to warstwa wyjściowa, odpowiadająca za zwracanie wyniku. Pomiędzy nimi mogą (lecz nie muszą) znajdować się tzw. warstwy ukryte. Zadaniem projektanta sieci neuronowej jest znalezienie optymalnej ilości i wielkości tych warstw, dzięki czemu nauczanie będzie przebiegało efektywnie. Z kolei ilość neuronów na warstwach skrajnych zależy od tego, ile cech posiada obiekt wejściowy oraz do ilu klas można go zaklasyfikować na wyjściu - w przypadku tego projektu jest to XXXXX neuronów wejściowych oraz XXXXX neuronów wyjściowych ().
+
+\vspace{5pt}
+Każdy z neuronów przyjmuje pewną wartość na wejściu, a następnie przetwarza ją dzięki funkcji aktywacji. Sygnał wejściowy i-tego neuronu k-tej warstwy można opisać równaniem:
+
+\begin{equation*}
+    s^k_i = \sum_{j=1}^{n}w^k_{ij} y^{k-1}_{j} + b,
+\end{equation*}
+
+\noindent gdzie $w^k_{ij}$ - waga synapsy pomiędzy i-tym neuronem k-tej warstwy a j-tym neuronem warstwy poprzedniej, $y^{k-1}_{j}$ - wartość sygnału wyjściowego j-tego neuronu warstwy poprzedniej, $b$ - zakłócenia sieci (tzw. bias). Najczęściej we wzorze tym nie uwzględnia się ostatniego czynnika (zakłada się, że sieć nie posiada zakłóceń tj. b = 0). Z kolei sygnał wyjściowy i-tego neuronu to:
+
+\begin{equation*}
+    y^k_i = f(s^k_i) = f(\sum_{j=1}^{n}w^k_{ij} y^{k-1}_{j} + b).
+\end{equation*}
+
+Wyróżniamy wiele funkcji aktywacji, jednak najczęściej wykorzystywaną (i wykorzystaną również w tym projekcie) jest funkcja bipolarna liniowa, której wzór wygląda następująco:
+
+\begin{equation*}
+    f(s^k_i) = \frac{2}{1 + e^{-\alpha s^k_i}} - 1 = \frac{1 - e^{-\alpha s^k_i}}{1 + e^{-\alpha s^k_i}}
+\end{equation*}
+
+\noindent gdzie $\alpha$ jest współczynnikiem korygującym rozpiętość funkcji aktywacji w przestrzeni decyzyjnej. Jej wykres zamieszczono na następnej stronie.
+
+\begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+                axis lines = middle,
+                xmin = -10, xmax = 10,
+                ymin = -1, ymax = 1,
+                legend pos=south east
+            ]
+
+            \addplot [
+                domain=-10:10,
+                samples=100,
+                color=red,
+            ]
+            {(1 - exp(-0.25 * x))/(1 + exp(-0.25 * x))};
+            \addlegendentry{$\alpha = 0.25$}
+
+            \addplot [
+                domain=-10:10,
+                samples=100,
+                color=blue,
+            ]
+            {(1 - exp(-0.5 * x))/(1 + exp(-0.5 * x))};
+            \addlegendentry{$\alpha = 0.50$}
+
+            \addplot [
+                domain=-10:10,
+                samples=100,
+                color=green,
+            ]
+            {(1 - exp(-0.75 * x))/(1 + exp(-0.75 * x))};
+            \addlegendentry{$\alpha = 0.75$}
+
+            \addplot [
+                domain=-10:10,
+                samples=100,
+                color=yellow,
+            ]
+            {(1 - exp(-x))/(1 + exp(- x))};
+            \addlegendentry{$\alpha = 1.00$}
+
+        \end{axis}
+    \end{tikzpicture}
+    \newline Bipolarna liniowa funkcja aktywacji
+\end{center}
+
+
+Kiedy sztuczna sieć neuronowa jest już odpowiednio zbudowana, należy ją
+nauczyć tego, czego od niej oczekujemy.
+Polega to na modyfikowaniu wag synaps w ściśle określony sposób.
+Istnieje wiele metod nauczania sieci. W naszym przypadku używamy metody heurystycznej: Algorytmu Genetycznego.
+
+
+
+
+\subsection*{Zbiór danych}
+%Należy pokazać przykładowe dane, które były wykorzystywane podczas uczenia klasyfikatorów.
+
+
+
+
+\subsection*{Implementacja}
+%Opis, zasada i działanie programu ze względu na podział na pliki, nastepnie	funkcje programu wraz ze szczegółowym opisem działania (np.: formie pseudokodu, czy odniesienia do równania)
+\subsubsection*{Ogólna struktura}
+\subsubsection*{Spis metod}
+\lstinline{public class MovementScoreRule : MonoBehaviour, IScoringRule}
 \begin{itemize}
-\item \lstinline|public float GetScore()|
+    \item \lstinline|public float GetScore()|
 \end{itemize}
 
 
-\lstinline{public class Run public class AgentResult}
+\lstinline{public class Run}
 \begin{itemize}
-\item \lstinline|public string runName = "Run #N";|
-\item \lstinline|public event EventHandler<List<AgentResult>> RunComplete;|
-\item \lstinline|public List<GameObject> agents = new List<GameObject>();|
-\item \lstinline|public List<AgentResult> results = new List<AgentResult>();|
-\item \lstinline|public static GameObject agentPrefab;|
-\item \lstinline|public Run(int num_agents)|
-\item \lstinline|public Run(List<NetworkModel> models)|
-\item \lstinline|public void BeginRun()|
-\item \lstinline|public double score;|
-\item \lstinline|public NetworkModel model;|
-\item \lstinline|public AgentResult(double score, NetworkModel model)|
+    \item \lstinline|public string runName = "Run #N"| - Nazwa przebiegu symulacji
+    \item \lstinline|public event EventHandler<List<AgentResult>> RunComplete| - zdarzenie informujące o zakończeniu przebiegu symulacji
+    \item \lstinline|public List<GameObject> agents = new List<GameObject>()| - Lista agentów biorąca udział w tym przebiegu
+    \item \lstinline|public List<AgentResult> results = new List<AgentResult>()| - Lista rezultatów, aktualizowana po zakończeniu przebiegu
+    \item \lstinline|public static GameObject agentPrefab| - Prefab agenta, który będzie instancjonowany w czasie rozpoczęcia przebiegu
+    \item \lstinline|public Run(int num_agents)| - Konstruktor przebiegu
+          \begin{itemize}
+              \item \lstinline{int num_agents} - Ilość losowo zainicjalizowanych agentów, która zostanie zainstancjonowana.
+          \end{itemize}
+    \item \lstinline|public Run(List<NetworkModel> models)| -  Konstruktor przebiegu
+          \begin{itemize}
+              \item \lstinline{List<NetworkModel> models} - Lista modeli, z której będą inicjalizowani agenci.
+          \end{itemize}
+    \item \lstinline|public void BeginRun()| - Rozpoczyna przebieg symulacji
+\end{itemize}
+
+\lstinline{public class AgentResult}
+\begin{itemize}
+    \item \lstinline|public double score| - wynik agenta
+    \item \lstinline|public NetworkModel model| - model agenta
+    \item \lstinline|public AgentResult(double score, NetworkModel model)| - konstruktor rezultatu agenta
 \end{itemize}
 
 
 \lstinline{public interface IScoringRule}
 \begin{itemize}
-\item \lstinline||
+    \item \lstinline||
 \end{itemize}
 
 
 \lstinline{public class RunManager : MonoBehaviour}
 \begin{itemize}
-\item \lstinline||
+    \item \lstinline||
 \end{itemize}
 
 
 \lstinline{public class CameraController : MonoBehaviour}
 \begin{itemize}
-\item \lstinline|public Transform target;|
-\item \lstinline|public Vector3 offset;|
+    \item \lstinline|public Transform target| -
+    \item \lstinline|public Vector3 offset|
 \end{itemize}
 
 
 \lstinline{public class ModelManager}
 \begin{itemize}
-\item \lstinline|public List<NetworkModel> Models = new List<NetworkModel>();|
-\item \lstinline|public int NumModels { get; }|
-\item \lstinline|public double LearningRate { get; }|
-\item \lstinline|public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)|
-\item \lstinline|public void SaveTop(int n)|
-\item \lstinline|public void Expand()|
+    \item \lstinline|public List<NetworkModel> Models = new List<NetworkModel>()| - Kolekcja aktualnych modeli
+    \item \lstinline|public int NumModels { get; }| - Docelowa liczba modeli
+    \item \lstinline|public double LearningRate { get; }| - Szybkość uczenia
+    \item \lstinline|public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)| - Konstruktor
+          \begin{itemize}
+              \item \lstinline{List<NetworkModel> models} - ustawia Models
+              \item \lstinline{double learningRate} - ustawia LearningRate
+          \end{itemize}
+    \item \lstinline|public void SaveTop(int n)| - Zapisuje pierwsze $n$ modeli (sortowane po score)
+    \item \lstinline|public void Expand()| - Tworzy nowych agentów, tak długo aż Models.Count osiągnie NumModels
 \end{itemize}
 
 
 \lstinline{public class Agent : MonoBehaviour}
 \begin{itemize}
-\item \lstinline|public NetworkModel network;|
-\item \lstinline|public static Transform cookieJar;|
-\item \lstinline|public Action<Agent> deathCallback;|
-\item \lstinline|public List<double> lastInputs = new List<double>();|
-\item \lstinline|public List<double> lastOutputs = new List<double>();|
-\item \lstinline|public float ViewArc|
-\item \lstinline|public void OnCollisionEnter(Collision c)|
+    \item \lstinline|public NetworkModel network| - sieć neuronowa agenta
+    \item \lstinline|public static Transform cookieJar| - \lstinline{Transform} zachęty
+    \item \lstinline|public Action<Agent> deathCallback| - Metoda, która zostanie wywołana w czasie śmierci agenta
+    \item \lstinline|public List<double> lastInputs = new List<double>()| - Lista ostatnio zarejstrowanych wartości wejściowych
+    \item \lstinline|public List<double> lastOutputs = new List<double>()| - Lista ostatnio zarejestrowanych wartości wyjściowych
+    \item \lstinline|public float ViewArc| - Kąt widzenia w radianach
 \end{itemize}
 
 
 \lstinline{public class InputMonitor : MonoBehaviour}
 \begin{itemize}
-\item \lstinline|public Agent Target;|
-\item \lstinline|public Text text;|
+    \item \lstinline|public Agent Target| - Referencja do agenta, który ma być obserwowany
+    \item \lstinline|public Text text| - Referencja do tekstu UI na którym mają zostać wypisane informacje o \lstinline{Target} agencie
 \end{itemize}
 
 
 \lstinline{public static class ScoreCalculator}
 \begin{itemize}
-\item \lstinline|public static float CalculateScore(GameObject obj)|
+    \item \lstinline|public static float CalculateScore(GameObject obj)| - Oblicza wynik dla danego agenta
 \end{itemize}
 
 
 \lstinline{public class LifetimeScoreRule : MonoBehaviour, IScoringRule}
 \begin{itemize}
-\item \lstinline|public float GetScore()|
+    \item \lstinline|public float GetScore()| - Zwraca wynik czasu życia agenta
 \end{itemize}
 
 
 \lstinline{public class Pulse}
 \begin{itemize}
-\item \lstinline|public double Value { get; set; }|
+    \item \lstinline|public double Value { get; set; }|
 \end{itemize}
 
 
-\lstinline{public class NeuralLayer}
+\lstinline{public class NeuralLayer} - Klasa reprezentująca warstwę neuronów
 \begin{itemize}
-\item \lstinline|public List<Neuron> Neurons { get; set; }|
-\item \lstinline|public string Name { get; set; }|
-\item \lstinline|public double Weight { get; set; }|
-\item \lstinline|public NeuralLayer(int count, double initialWeight, Func<double, double> activation, string name = "")|
-\item \lstinline|public void Randomize(double lr)|
-\item \lstinline|public void Forward()|
-\item \lstinline|public override string ToString()|
+    \item \lstinline|public List<Neuron> Neurons { get; set; }| - Lista neuronów w warstwie
+    \item \lstinline|public string Name { get; set; }| - Nazwa warstwy
+    \item \lstinline|public double Weight { get; set; }| - ???
+    \item \lstinline|public NeuralLayer(int count, double initialWeight, Func<double, double> activation, string name = "")| - Konstruktor warstwy
+          \begin{itemize}
+              \item \lstinline{int count} - Liczba neuronów, która będzie wygenerowana w tej warstwie
+              \item \lstinline{double initialWeight} - Początkowa waga połączeń
+              \item \lstinline{Func<double, double> activation} - Funkcja aktywacji, która zostanie nadana wszystkim neuronom w tej warstwie
+              \item \lstinline{name} - Nazwa warstwy
+          \end{itemize}
+    \item \lstinline|public void Randomize(double lr)| - Wywołuje \lstinline{Neuron.Randomize(lr)} na każdym neuronie w warstwie
+    \item \lstinline|public void Forward()| - Wywołuje \lstinline{Neuron.Fire()} na każdym neuronie w warstwie
+    \item \lstinline|public override string ToString()| - Konwertuje wszystkie neurony na typ \lstinline{string} i zwraca \lstinline{string} zawierający wszystkie neurony
 \end{itemize}
 
 
 \lstinline{public class Dendrite}
 \begin{itemize}
-\item \lstinline|public Pulse InputPulse { get; set; }|
-\item \lstinline|public double SynapticWeight { get; set; }|
-\item \lstinline|public bool Learnable { get; set; }|
-\item \lstinline|public Dendrite()|
-\item \lstinline|public void Randomize(double lr)|
-\item \lstinline|public override string ToString()|
+    \item \lstinline|public Pulse InputPulse { get; set; }|
+    \item \lstinline|public double SynapticWeight { get; set; }|
+    \item \lstinline|public bool Learnable { get; set; }|
+    \item \lstinline|public Dendrite()|
+    \item \lstinline|public void Randomize(double lr)|
+    \item \lstinline|public override string ToString()|
 \end{itemize}
 
 
 \lstinline{public class Neuron}
 \begin{itemize}
-\item \lstinline|public List<Dendrite> Dendrites { get; set; }|
-\item \lstinline|public Pulse OutputPulse { get; set; }|
-\item \lstinline|public Func<double, double> Activation;|
-\item \lstinline|public Neuron(Func<double, double> activation)|
-\item \lstinline|public void Randomize(double lr)|
-\item \lstinline|public void Fire()|
-\item \lstinline|public override string ToString()|
+    \item \lstinline|public List<Dendrite> Dendrites { get; set; }| - Kolekcja połączeń przychodzących
+    \item \lstinline|public Pulse OutputPulse { get; set; }| - Ostatnio zarejestrowana wartość wychodząca
+    \item \lstinline|public Func<double, double> Activation| - Fukncja aktywacji
+    \item \lstinline|public Neuron(Func<double, double> activation)| - Konstruktor
+          \begin{itemize}
+              \item \lstinline{Func<double, double> activation} - Ustawia \lstinline{Activation}
+          \end{itemize}
+    \item \lstinline|public void Randomize(double lr)| - Wywołuje \lstinline{Dendrite.Randomize(lr)} na każdym z \lstinline{Dendrite} w \lstinline{Dendrites}
+    \item \lstinline|public void Fire()| - Ustawia \lstinline{OutputPulse} na wynik funkcji aktywacji
+    \item \lstinline|public override string ToString()| - Konvertuje wszystkie \lstinline{Dendrite} w \lstinline{Dendrites} na typ \lstinline{string}
 \end{itemize}
 
 
 \lstinline{public static class ActivationFunc}
 \begin{itemize}
-\item \lstinline|public static double Tanh(double x)|
-\item \lstinline|public static double Linear(double x)|
-\item \lstinline|public static double BinaryStep(double x)|
+    \item \lstinline|public static double Tanh(double x)| - Funkcja tangensa hiperbolicznego
+    \item \lstinline|public static double Linear(double x)|
+    \item \lstinline|public static double BinaryStep(double x)|
 \end{itemize}
 
 
 \lstinline{public class NetworkModel}
 \begin{itemize}
-\item \lstinline|public List<NeuralLayer> Layers { get; set; }|
-\item \lstinline|public NetworkModel()|
-\item \lstinline|public NetworkModel DeepCopy()|
-\item \lstinline|public void AddLayer(NeuralLayer layer)|
-\item \lstinline|public void Build()|
-\item \lstinline|public void Randomize(double lr)|
-\item \lstinline|public List<double> Decide(List<double> X)|
-\item \lstinline|public void Print()|
-\item \lstinline|public override string ToString()|
+    \item \lstinline|public List<NeuralLayer> Layers { get; set; }|
+    \item \lstinline|public NetworkModel()|
+    \item \lstinline|public NetworkModel DeepCopy()|
+    \item \lstinline|public void AddLayer(NeuralLayer layer)|
+    \item \lstinline|public void Build()|
+    \item \lstinline|public void Randomize(double lr)|
+    \item \lstinline|public List<double> Decide(List<double> X)|
+    \item \lstinline|public void Print()|
+    \item \lstinline|public override string ToString()|
 \end{itemize}
 
 
 \lstinline{public static class JsonService}
 \begin{itemize}
-\item \lstinline|public static void SaveModelsList(List<NetworkModel> models)|
-\item \lstinline|public static List<NetworkModel> LoadModelsList(TextAsset jsonFile)|
+    \item \lstinline|public static void SaveModelsList(List<NetworkModel> models)|
+    \item \lstinline|public static List<NetworkModel> LoadModelsList(TextAsset jsonFile)|
 \end{itemize}
-        
-	\subsection*{Testy}
-	%Tutaj powinna pojawić się analiza uzyskanych wyników oraz wykresy/pomiary.
-	
-	\subsection*{Eksperymenty}
-    %	Sekcję używamy gdy porównywaliśmy dwa lub więcej algorytmów, albo wykonywaliśmy jakies pomiery.
-	
+
+\subsection*{Testy}
+%Tutaj powinna pojawić się analiza uzyskanych wyników oraz wykresy/pomiary.
+
+\subsection*{Eksperymenty}
+%	Sekcję używamy gdy porównywaliśmy dwa lub więcej algorytmów, albo wykonywaliśmy jakies pomiery.
+
 %	Warto dodać jakies wykresy jako obraz, albo tabele z wynikami. 
-	
-	%Wszyskie wyniki powinny być opisane/poddane komentarzowi i poddane analizie statystycznej.
-	\newpage
-	\section*{Pełen kod aplikacji}
-    Kod znajduje się w repozytorium pod adresem: reee
-    jak i również pod spodem.
-    
-    
+
+%Wszyskie wyniki powinny być opisane/poddane komentarzowi i poddane analizie statystycznej.
+\newpage
+\section*{Pełen kod aplikacji}
+Kod znajduje się w repozytorium pod adresem: reee
+jak i również pod spodem.
+
+
 
 \subsubsection*{MovementScoreRule.cs}
 \begin{lstlisting}
@@ -1392,5 +1496,5 @@ public static class JsonService
 \end{lstlisting}
 \pagebreak
 
-    
+
 \end{document}

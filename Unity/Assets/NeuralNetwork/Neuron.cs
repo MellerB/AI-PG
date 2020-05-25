@@ -37,7 +37,6 @@ namespace NeuralNetwork
         public void Fire()
         {
             OutputPulse.Value = Sum();
-
             OutputPulse.Value = Activation(OutputPulse.Value);
         }
 
