@@ -1,0 +1,154 @@
+./Assets/MovementScoreRule.cs ./Assets/Run.cs ./Assets/IScoringRule.cs ./Assets/RunManager.cs ./Assets/CameraController.cs ./Assets/ModelManager.cs ./Assets/Agent.cs ./Assets/InputMonitor.cs ./Assets/ScoreCalculator.cs ./Assets/LifetimeScoreRule.cs ./Assets/NeuralNetwork/Pulse.cs ./Assets/NeuralNetwork/NeuralLayer.cs ./Assets/NeuralNetwork/Dendrite.cs ./Assets/NeuralNetwork/Neuron.cs ./Assets/NeuralNetwork/Activation.cs ./Assets/NeuralNetwork/NetworkModel.cs ./Assets/JsonService.cs
+
+
+\lstinline{public class MovementScoreRule : MonoBehaviour, IScoringRule}
+\begin{itemize}
+\item \lstinline|public float GetScore()|
+\end{itemize}
+
+
+\lstinline{public class Run public class AgentResult}
+\begin{itemize}
+\item \lstinline|public string runName = "Run #N";|
+\item \lstinline|public event EventHandler<List<AgentResult>> RunComplete;|
+\item \lstinline|public List<GameObject> agents = new List<GameObject>();|
+\item \lstinline|public List<AgentResult> results = new List<AgentResult>();|
+\item \lstinline|public static GameObject agentPrefab;|
+\item \lstinline|public Run(int num_agents)|
+\item \lstinline|public Run(List<NetworkModel> models)|
+\item \lstinline|public void BeginRun()|
+\item \lstinline|public double score;|
+\item \lstinline|public NetworkModel model;|
+\item \lstinline|public AgentResult(double score, NetworkModel model)|
+\end{itemize}
+
+
+\lstinline{public interface IScoringRule}
+\begin{itemize}
+\item \lstinline||
+\end{itemize}
+
+
+\lstinline{public class RunManager : MonoBehaviour}
+\begin{itemize}
+\item \lstinline||
+\end{itemize}
+
+
+\lstinline{public class CameraController : MonoBehaviour}
+\begin{itemize}
+\item \lstinline|public Transform target;|
+\item \lstinline|public Vector3 offset;|
+\end{itemize}
+
+
+\lstinline{public class ModelManager}
+\begin{itemize}
+\item \lstinline|public List<NetworkModel> Models = new List<NetworkModel>();|
+\item \lstinline|public int NumModels { get; }|
+\item \lstinline|public double LearningRate { get; }|
+\item \lstinline|public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)|
+\item \lstinline|public void SaveTop(int n)|
+\item \lstinline|public void Expand()|
+\end{itemize}
+
+
+\lstinline{public class Agent : MonoBehaviour}
+\begin{itemize}
+\item \lstinline|public NetworkModel network;|
+\item \lstinline|public static Transform cookieJar;|
+\item \lstinline|public Action<Agent> deathCallback;|
+\item \lstinline|public List<double> lastInputs = new List<double>(); //inputs that were fed in previous frame (for UI and debugging)|
+\item \lstinline|public List<double> lastOutputs = new List<double>(); //outputs that were outputted in previous frame (for UI and debugging)|
+\item \lstinline|public float ViewArc|
+\item \lstinline|public void OnCollisionEnter(Collision c)|
+\end{itemize}
+
+
+\lstinline{public class InputMonitor : MonoBehaviour}
+\begin{itemize}
+\item \lstinline|public Agent Target;|
+\item \lstinline|public Text text;|
+\end{itemize}
+
+
+\lstinline{public static class ScoreCalculator //Get all components with given interfaces and map them to theirs type names}
+\begin{itemize}
+\item \lstinline|public static float CalculateScore(GameObject obj)|
+\end{itemize}
+
+
+\lstinline{public class LifetimeScoreRule : MonoBehaviour, IScoringRule}
+\begin{itemize}
+\item \lstinline|public float GetScore()|
+\end{itemize}
+
+
+\lstinline{public class Pulse}
+\begin{itemize}
+\item \lstinline|public double Value { get; set; }|
+\end{itemize}
+
+
+\lstinline{public class NeuralLayer{}
+\begin{itemize}
+\item \lstinline|public List<Neuron> Neurons { get; set; }|
+\item \lstinline|public string Name { get; set; }|
+\item \lstinline|public double Weight { get; set; }|
+\item \lstinline|public NeuralLayer(int count, double initialWeight, Func<double, double> activation, string name = "")|
+\item \lstinline|public void Randomize(double lr)|
+\item \lstinline|public void Forward()|
+\item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public class Dendrite}
+\begin{itemize}
+\item \lstinline|public Pulse InputPulse { get; set; }|
+\item \lstinline|public double SynapticWeight { get; set; }|
+\item \lstinline|public bool Learnable { get; set; }|
+\item \lstinline|public Dendrite()|
+\item \lstinline|public void Randomize(double lr)|
+\item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public class Neuron}
+\begin{itemize}
+\item \lstinline|public List<Dendrite> Dendrites { get; set; }|
+\item \lstinline|public Pulse OutputPulse { get; set; }|
+\item \lstinline|public Func<double, double> Activation;|
+\item \lstinline|public Neuron(Func<double, double> activation)|
+\item \lstinline|public void Randomize(double lr)|
+\item \lstinline|public void Fire()|
+\item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public static class ActivationFunc}
+\begin{itemize}
+\item \lstinline|public static double Tanh(double x)|
+\item \lstinline|public static double Linear(double x)|
+\item \lstinline|public static double BinaryStep(double x)|
+\end{itemize}
+
+
+\lstinline{public class NetworkModel}
+\begin{itemize}
+\item \lstinline|public List<NeuralLayer> Layers { get; set; }|
+\item \lstinline|public NetworkModel()|
+\item \lstinline|public NetworkModel DeepCopy()|
+\item \lstinline|public void AddLayer(NeuralLayer layer)|
+\item \lstinline|public void Build()|
+\item \lstinline|public void Randomize(double lr)|
+\item \lstinline|public List<double> Decide(List<double> X)|
+\item \lstinline|public void Print()|
+\item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public static class JsonService}
+\begin{itemize}
+\item \lstinline|public static void SaveModelsList(List<NetworkModel> models)|
+\item \lstinline|public static List<NetworkModel> LoadModelsList(TextAsset jsonFile)|
+\end{itemize}

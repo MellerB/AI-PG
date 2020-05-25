@@ -1,0 +1,1396 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage[]{algorithm2e}
+\SetKw{KwBy}{by}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{mathtools}
+
+
+\usepackage{pgfplots}
+\pgfplotsset{width=13cm,compat=1.9}
+\usepgfplotslibrary{external}
+
+\lstloadlanguages{% Check docs for further languages ...
+	C,
+	C++,
+	csh,
+	Java
+}
+
+\definecolor{red}{rgb}{0.6,0,0} % for strings
+\definecolor{blue}{rgb}{0,0,0.6}
+\definecolor{green}{rgb}{0,0.8,0}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+	language=csh,
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	tabsize=2,
+	extendedchars=true,
+	breaklines=true,
+	frame=b,
+	stringstyle=\color{blue}\ttfamily,
+	showspaces=false,
+	showtabs=false,
+	xleftmargin=17pt,
+	framexleftmargin=17pt,
+	framexrightmargin=5pt,
+	framexbottommargin=4pt,
+	commentstyle=\color{green},
+	morecomment=[l]{//}, %use comment-line-style!
+	morecomment=[s]{/*}{*/}, %for multiline comments
+	showstringspaces=false,
+	morekeywords={ abstract, event, new, struct,
+		as, explicit, null, switch,
+		base, extern, object, this,
+		bool, false, operator, throw,
+		break, finally, out, true,
+		byte, fixed, override, try,
+		case, float, params, typeof,
+		catch, for, private, uint,
+		char, foreach, protected, ulong,
+		checked, goto, public, unchecked,
+		class, if, readonly, unsafe,
+		const, implicit, ref, ushort,
+		continue, in, return, using,
+		decimal, int, sbyte, virtual,
+		default, interface, sealed, volatile,
+		delegate, internal, short, void,
+		do, is, sizeof, while,
+		double, lock, stackalloc,
+		else, long, static,
+		enum, namespace, string},
+	keywordstyle=\color{cyan},
+	identifierstyle=\color{red},
+}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{blue}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+
+\addtolength{\hoffset}{-1.5cm}
+\addtolength{\marginparwidth}{-1.5cm}
+\addtolength{\textwidth}{3cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2.5cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headheight}{0cm}
+
+\begin{document}
+	
+	\title{Systemy Sztucznej Inteligencji\\\small{dokumentacja projektu Kulki XDXDXD}}
+	\author{
+	Chłąd Paweł\\
+	Grupa 2D
+	\and
+	Meller Bartłomiej\\
+	Grupa 2D}
+	\date{\today}
+
+	\maketitle
+	\newpage
+	\section*{Część I}
+	\subsection*{Opis programu}
+	
+	\subsection*{Instrukcja obsługi}
+	%Jak uruchomić program, jak wyglądają dane. Mile widziana wizualizacja gry, wyników z punku widzenia aplikacji itd.
+
+	\subsubsection**{Argumenty wejściowe}
+
+	
+	
+	
+	\subsection*{Dodatkowe informacje}
+    Projekt został skompilowany za pomocą .NET Core 3.1 
+	\newpage
+	\section*{Część II}
+    \subsection*{Opis działania sieci neuronowej} 
+    %Tutaj uwzględniamy część matematyczną. Opisujemy całą teorię np.: dla zadania związanego z sieciami neuronowymi - opisujemy całą budowę, algorytm uczenia i wszystkie wzory. Dla zadania związanego z kombinatoryką opisujemy całą teorię kombinatoryczną potrzebną do zrozumienia zadania (mile widziany przykład obliczeniowy).
+
+
+	\subsection*{Zbiór danych}
+	%Należy pokazać przykładowe dane, które były wykorzystywane podczas uczenia klasyfikatorów.
+	
+
+
+	
+	\subsection*{Implementacja}
+	%Opis, zasada i działanie programu ze względu na podział na pliki, nastepnie	funkcje programu wraz ze szczegółowym opisem działania (np.: formie pseudokodu, czy odniesienia do równania)
+	\subsubsection*{Ogólna struktura}
+    \subsubsection*{Spis metod}
+    \lstinline{public class MovementScoreRule : MonoBehaviour, IScoringRule}
+\begin{itemize}
+\item \lstinline|public float GetScore()|
+\end{itemize}
+
+
+\lstinline{public class Run public class AgentResult}
+\begin{itemize}
+\item \lstinline|public string runName = "Run #N";|
+\item \lstinline|public event EventHandler<List<AgentResult>> RunComplete;|
+\item \lstinline|public List<GameObject> agents = new List<GameObject>();|
+\item \lstinline|public List<AgentResult> results = new List<AgentResult>();|
+\item \lstinline|public static GameObject agentPrefab;|
+\item \lstinline|public Run(int num_agents)|
+\item \lstinline|public Run(List<NetworkModel> models)|
+\item \lstinline|public void BeginRun()|
+\item \lstinline|public double score;|
+\item \lstinline|public NetworkModel model;|
+\item \lstinline|public AgentResult(double score, NetworkModel model)|
+\end{itemize}
+
+
+\lstinline{public interface IScoringRule}
+\begin{itemize}
+\item \lstinline||
+\end{itemize}
+
+
+\lstinline{public class RunManager : MonoBehaviour}
+\begin{itemize}
+\item \lstinline||
+\end{itemize}
+
+
+\lstinline{public class CameraController : MonoBehaviour}
+\begin{itemize}
+\item \lstinline|public Transform target;|
+\item \lstinline|public Vector3 offset;|
+\end{itemize}
+
+
+\lstinline{public class ModelManager}
+\begin{itemize}
+\item \lstinline|public List<NetworkModel> Models = new List<NetworkModel>();|
+\item \lstinline|public int NumModels { get; }|
+\item \lstinline|public double LearningRate { get; }|
+\item \lstinline|public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)|
+\item \lstinline|public void SaveTop(int n)|
+\item \lstinline|public void Expand()|
+\end{itemize}
+
+
+\lstinline{public class Agent : MonoBehaviour}
+\begin{itemize}
+\item \lstinline|public NetworkModel network;|
+\item \lstinline|public static Transform cookieJar;|
+\item \lstinline|public Action<Agent> deathCallback;|
+\item \lstinline|public List<double> lastInputs = new List<double>();|
+\item \lstinline|public List<double> lastOutputs = new List<double>();|
+\item \lstinline|public float ViewArc|
+\item \lstinline|public void OnCollisionEnter(Collision c)|
+\end{itemize}
+
+
+\lstinline{public class InputMonitor : MonoBehaviour}
+\begin{itemize}
+\item \lstinline|public Agent Target;|
+\item \lstinline|public Text text;|
+\end{itemize}
+
+
+\lstinline{public static class ScoreCalculator}
+\begin{itemize}
+\item \lstinline|public static float CalculateScore(GameObject obj)|
+\end{itemize}
+
+
+\lstinline{public class LifetimeScoreRule : MonoBehaviour, IScoringRule}
+\begin{itemize}
+\item \lstinline|public float GetScore()|
+\end{itemize}
+
+
+\lstinline{public class Pulse}
+\begin{itemize}
+\item \lstinline|public double Value { get; set; }|
+\end{itemize}
+
+
+\lstinline{public class NeuralLayer}
+\begin{itemize}
+\item \lstinline|public List<Neuron> Neurons { get; set; }|
+\item \lstinline|public string Name { get; set; }|
+\item \lstinline|public double Weight { get; set; }|
+\item \lstinline|public NeuralLayer(int count, double initialWeight, Func<double, double> activation, string name = "")|
+\item \lstinline|public void Randomize(double lr)|
+\item \lstinline|public void Forward()|
+\item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public class Dendrite}
+\begin{itemize}
+\item \lstinline|public Pulse InputPulse { get; set; }|
+\item \lstinline|public double SynapticWeight { get; set; }|
+\item \lstinline|public bool Learnable { get; set; }|
+\item \lstinline|public Dendrite()|
+\item \lstinline|public void Randomize(double lr)|
+\item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public class Neuron}
+\begin{itemize}
+\item \lstinline|public List<Dendrite> Dendrites { get; set; }|
+\item \lstinline|public Pulse OutputPulse { get; set; }|
+\item \lstinline|public Func<double, double> Activation;|
+\item \lstinline|public Neuron(Func<double, double> activation)|
+\item \lstinline|public void Randomize(double lr)|
+\item \lstinline|public void Fire()|
+\item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public static class ActivationFunc}
+\begin{itemize}
+\item \lstinline|public static double Tanh(double x)|
+\item \lstinline|public static double Linear(double x)|
+\item \lstinline|public static double BinaryStep(double x)|
+\end{itemize}
+
+
+\lstinline{public class NetworkModel}
+\begin{itemize}
+\item \lstinline|public List<NeuralLayer> Layers { get; set; }|
+\item \lstinline|public NetworkModel()|
+\item \lstinline|public NetworkModel DeepCopy()|
+\item \lstinline|public void AddLayer(NeuralLayer layer)|
+\item \lstinline|public void Build()|
+\item \lstinline|public void Randomize(double lr)|
+\item \lstinline|public List<double> Decide(List<double> X)|
+\item \lstinline|public void Print()|
+\item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public static class JsonService}
+\begin{itemize}
+\item \lstinline|public static void SaveModelsList(List<NetworkModel> models)|
+\item \lstinline|public static List<NetworkModel> LoadModelsList(TextAsset jsonFile)|
+\end{itemize}
+        
+	\subsection*{Testy}
+	%Tutaj powinna pojawić się analiza uzyskanych wyników oraz wykresy/pomiary.
+	
+	\subsection*{Eksperymenty}
+    %	Sekcję używamy gdy porównywaliśmy dwa lub więcej algorytmów, albo wykonywaliśmy jakies pomiery.
+	
+%	Warto dodać jakies wykresy jako obraz, albo tabele z wynikami. 
+	
+	%Wszyskie wyniki powinny być opisane/poddane komentarzowi i poddane analizie statystycznej.
+	\newpage
+	\section*{Pełen kod aplikacji}
+    Kod znajduje się w repozytorium pod adresem: reee
+    jak i również pod spodem.
+    
+    
+
+\subsubsection*{MovementScoreRule.cs}
+\begin{lstlisting}
+using UnityEngine;
+
+
+//Calculates score based on total moved distance
+public class MovementScoreRule : MonoBehaviour, IScoringRule
+{
+
+    float score = 0;
+    Vector3 lastPos;
+
+    void Start()
+    {
+        lastPos = this.transform.position;
+    }
+
+
+    void FixedUpdate()
+    {
+        score += Vector3.Distance(this.transform.position, lastPos);
+    }
+
+
+
+    public float GetScore()
+    {
+        return score;
+    }
+}\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Run.cs}
+\begin{lstlisting}
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using NeuralNetwork;
+using UnityEngine;
+using System.Linq;
+
+
+//Class that represents data gathered from one simulation run
+public class Run
+{
+    public string runName = "Run #N";
+    public event EventHandler<List<AgentResult>> RunComplete;
+    public List<GameObject> agents = new List<GameObject>();
+    public List<AgentResult> results = new List<AgentResult>();
+
+    public static GameObject agentPrefab;
+
+    //Creates a new run with num_agents number of randomly initialized agents
+    public Run(int num_agents)
+    {
+        for (int i = 0; i < num_agents; i++)
+        {
+            agents.Add(CreateNewAgent());
+        }
+    }
+
+    //Creates a new run with agents initialized with given models
+    public Run(List<NetworkModel> models)
+    {
+        foreach (NetworkModel m in models)
+        {
+            GameObject a = CreateNewAgent();
+            a.GetComponent<Agent>().network = m;
+            agents.Add(a);
+        }
+    }
+
+    //Begins run by activating all agents
+    public void BeginRun()
+    {
+        foreach (GameObject a in agents)
+        {
+            a.gameObject.SetActive(true);
+        }
+    }
+
+    //Called when all agents died
+    private void EndRun()
+    {
+        Debug.Log(runName + " ended");
+        string resultString = "";
+        for (int i = 0; i < results.Count; i++)
+        {
+            resultString += "Agent #" + i + " | Score: " + results[i].score;
+        }
+        Debug.Log(resultString);
+        agents.Clear();
+        RunComplete(this, results);
+    }
+
+    private void AgentDied(Agent a)
+    {
+        Debug.Log("Agent Died");
+        results.Insert(0, new AgentResult(ScoreCalculator.CalculateScore(a.gameObject), a.network));
+        agents.Remove(a.gameObject);
+        if (agents.Count == 0)
+        {
+            EndRun();
+        }
+    }
+
+
+    //Creates new empty agent, that is inactive
+    private GameObject CreateNewAgent()
+    {
+        GameObject agent = GameObject.Instantiate(agentPrefab);
+        agent.SetActive(false);
+        agent.GetComponent<Agent>().deathCallback = AgentDied;
+        return agent;
+    }
+
+
+    public class AgentResult
+    {
+        public double score;
+        public NetworkModel model;
+
+        public AgentResult(double score, NetworkModel model)
+        {
+            this.score = score;
+            this.model = model.DeepCopy();
+        }
+    }
+}
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{IScoringRule.cs}
+\begin{lstlisting}
+public interface IScoringRule
+{
+
+    //get current score from component
+    float GetScore();
+
+}\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{RunManager.cs}
+\begin{lstlisting}
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using NeuralNetwork;
+
+
+///<summary>
+/// Class that is responsible for run managment
+///</summary>
+public class RunManager : MonoBehaviour
+{
+    //List of all results generated by any agent manager
+    List<Run> runs = new List<Run>();
+    int run_num = 0;
+    [SerializeField]
+    GameObject agentPrefab;
+
+    ModelManager modelManager = null;
+    // Start is called before the first frame update
+    void Start()
+    {
+        Run.agentPrefab = agentPrefab;
+        //For now the behaviour is to indefinetely repeat randomized runs;
+        StartNewRun();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    void StartNewRun()
+    {
+	   // modelManager = new ModelManager(JsonService.LoadModelsList((TextAsset)Resources.Load("20-01-14_20-23-44")));
+
+        Run r = null;
+
+        if (modelManager == null)
+        {
+            r = new Run(25);
+            modelManager = new ModelManager(r.agents.Select(x => x.GetComponent<Agent>().network).ToList(), 0.05f);
+        }
+        else
+        {
+            modelManager.SaveTop(5);//kill all models and save top 5
+            modelManager.Expand(); //expand models list to original size
+            r = new Run(modelManager.Models);
+        }
+        r.runName = "Run #" + run_num;
+        r.RunComplete += OnRunEnded;
+        r.BeginRun();
+    }
+
+    void OnRunEnded(object sender, List<Run.AgentResult> results)
+    {
+        //Accept only Run senders 
+        if (!(sender is Run r))
+            throw new ArgumentException("Sender is not of the type Run");
+
+
+        //Unsubscribe from sender to avoid memory leak
+        r.RunComplete -= OnRunEnded;
+
+        //store run
+        runs.Add(r);
+        List<NetworkModel> models = r.results.OrderBy(x => x.score).Select(x => x.model).ToList();
+        Debug.Log(models[0].ToString());
+        StartNewRun();
+    }
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{CameraController.cs}
+\begin{lstlisting}
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+    public Transform target;
+    public Vector3 offset;
+
+    private Vector3 previousMousePos;
+    private Vector3 currRot = new Vector3(0, 0, 0);
+    private float rotSpeed = 100f;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        previousMousePos = Input.mousePosition;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (Input.GetButtonDown("ToggleCursor"))
+        {
+            if (Cursor.lockState != CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
+
+
+        if (Input.GetButtonDown("BreakTarget"))
+            target = null;
+
+        if (Input.GetButtonDown("BestTarget"))
+            target = ChooseBestTarget();
+
+
+        if (target == null)
+        {
+            transform.Translate(Vector3.forward * Input.GetAxis("Forward"));
+            transform.Translate(Vector3.up * Input.GetAxis("Up"));
+            transform.Translate(Vector3.right * Input.GetAxis("Right"));
+
+            Quaternion rot = Quaternion.identity;
+            currRot += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f) * Time.deltaTime * rotSpeed;
+            rot.eulerAngles = currRot;
+            transform.rotation = rot;
+        }
+
+        previousMousePos = Input.mousePosition;
+
+        if (target != null)
+            transform.position = target.position - offset;
+        //Check for input
+
+    }
+
+
+
+
+    Transform ChooseBestTarget()
+    {
+        throw new NotImplementedException();
+    }
+
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{ModelManager.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using UnityEngine;
+using NeuralNetwork;
+
+public class ModelManager
+{
+    public List<NetworkModel> Models = new List<NetworkModel>();
+    public int NumModels { get; }
+    public double LearningRate { get; }
+
+
+    public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)
+    {
+        LearningRate = learningRate;
+        Models = models;
+        NumModels = models.Count;
+    }
+
+
+    public void SaveTop(int n)
+    {
+        if (n > Models.Count)
+        {
+            Debug.Log("Provided number is lower than count of models!");
+        }
+        else
+        {
+            Models.RemoveRange(0, n);
+            JsonService.SaveModelsList(Models);
+        }
+    }
+
+    public void Expand()
+    {
+        int n = Models.Count;
+
+        int clonesNeeded = NumModels - n;
+
+        List<NetworkModel> clones = new List<NetworkModel>();
+
+        if (n >= NumModels)
+        {
+            Debug.Log("Models collection is full!");
+        }
+        else
+        {
+            for (int i = 0; i < clonesNeeded; i++)
+            {
+                clones.Add(Models[i % n].DeepCopy()); // add randomization 
+                clones[clones.Count() - 1].Randomize(LearningRate);
+            }
+        }
+
+        Models = new List<NetworkModel>(Models.Concat(clones));
+    }
+
+
+
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Agent.cs}
+\begin{lstlisting}
+using System;
+using NeuralNetwork;
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+
+public class Agent : MonoBehaviour
+{
+    public NetworkModel network;
+
+    //Target cookie jar for every agent that exists (?TODO?: handle null case?)
+    public static Transform cookieJar;
+
+
+    //function to call when this agent dies
+    public Action<Agent> deathCallback;
+    public List<double> lastInputs = new List<double>(); //inputs that were fed in previous frame (for UI and debugging)
+    public List<double> lastOutputs = new List<double>(); //outputs that were outputted in previous frame (for UI and debugging)
+    private float ForceMultiplier = 10.0f;
+
+    //View arc in radians
+    [SerializeField]
+    private float viewArc = 2.0f;
+
+    public float ViewArc
+    {
+        get { return viewArc; }
+        set
+        {
+            viewArc = value;
+            arcStep = viewArc / (float)rayCount; // recalculate arcStep
+        }
+    }
+
+    [SerializeField]
+    //Number of rays that will be cast
+    private int rayCount = 8;
+
+
+    private float arcStep = 0f;
+
+
+    void Awake()
+    {
+        arcStep = viewArc / (float)rayCount;
+
+        cookieJar = GameObject.Find("cookieJar").transform;
+        network = new NetworkModel();
+        network.Layers.Add(new NeuralLayer(1 + rayCount, 0.0, ActivationFunc.Linear, "INPUT")); //rayCount + one for CookieJar position 
+        network.Layers.Add(new NeuralLayer(11, 0.0, ActivationFunc.Linear, "HIDDEN"));
+        network.Layers.Add(new NeuralLayer(2, 0.0, ActivationFunc.Tanh, "OUTPUT"));
+        network.Build();
+        network.Randomize(0.5);
+    }
+
+    void Start()
+    {
+
+
+    }
+
+
+    void FixedUpdate()
+    {
+        lastOutputs = network.Decide(GatherInputs());
+        ParseOutput(lastOutputs);
+    }
+
+
+    ///<summary>Parses output of a neural network</summary>
+    ///Activations go as follows:
+    ///[0] - force on X axis
+    ///[1] - force on Z axis
+    private void ParseOutput(List<double> activations)
+    {
+        this.GetComponent<Rigidbody>().AddForce(new Vector3((float)activations[0] * ForceMultiplier, 0.0f, (float)activations[1] * ForceMultiplier));
+    }
+
+    //Gathers inputs from enviroment
+    private List<double> GatherInputs()
+    {
+        List<double> results = new List<double>();
+        //1. raycast 
+        for (int i = 0; i < rayCount; i++)
+        {
+            float curr_arc = i * arcStep * Mathf.PI;
+            Vector3 dir = new Vector3(Mathf.Cos(curr_arc), 0, Mathf.Sin(curr_arc));
+            dir.Normalize(); //OPTM: Not needed as Cos and Sin are in [-1,1]?
+            RaycastHit hit;
+            if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f, 1 << 10))
+            {
+                results.Add((double)hit.distance / 100.0f);
+                Debug.DrawRay(transform.position, hit.point - transform.position, Color.black, 0.01f, true);
+            }
+            else
+            {
+                results.Add(1.0f); // if nothing was hit, add max
+            }
+        }
+
+        //2. get distance from the cookie jar
+        results.Add(Vector3.Distance(this.transform.position, cookieJar.position) / 100.0f);
+        lastInputs = results;
+        return results;
+    }
+
+    public void OnCollisionEnter(Collision c)
+    {
+        //if layer is wall layer
+        if (c.collider.gameObject.layer == 10)
+        {
+            //die...
+            this?.deathCallback(this);
+            Destroy(this.gameObject);
+        }
+    }
+
+    //EDITOR
+    void OnValidate()
+    {
+        //Because Unity does not support property exposing to the Inspector, we use OnValidate (called whenever, whatever changed by the Inspecotr)
+        //And force property to fire.
+        ViewArc = viewArc;
+    }
+
+
+}
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{InputMonitor.cs}
+\begin{lstlisting}
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class InputMonitor : MonoBehaviour
+{
+
+
+    public Agent Target;
+    public Text text;
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (Target == null)
+            Debug.LogWarning("Target is null, no data will be shown.");
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (Target != null)
+        {
+            string input_data = "";
+            string output_data = "";
+            for (int i = 0; i < Target.lastInputs.Count; i++)
+            {
+                input_data += "Input " + i + " --- " + Target.lastInputs[i] + "\n";
+            }
+
+            for (int i = 0; i < Target.lastOutputs.Count; i++)
+            {
+                output_data += "Output " + i + " --- " + Target.lastOutputs[i] + "\n";
+            }
+
+            text.text = input_data + output_data;
+        }
+
+    }
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{ScoreCalculator.cs}
+\begin{lstlisting}
+using UnityEngine;
+using System.Collections.Generic;
+
+public static class ScoreCalculator
+{
+
+    
+    public static float CalculateScore(GameObject obj)
+    {
+        //Get all components with given interfaces and map them to theirs type names
+        IScoringRule[] rules = obj.GetComponents<IScoringRule>();
+        Dictionary<string, IScoringRule> ruleDictionary = new Dictionary<string, IScoringRule>();
+        
+        foreach(IScoringRule r in rules)
+        {
+            ruleDictionary.Add(r.GetType().ToString(), r);
+        }
+
+        
+        return ruleDictionary["MovementScoreRule"].GetScore() + 0.1f*ruleDictionary["LifetimeScoreRule"].GetScore();
+    }
+
+
+     
+
+}\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{LifetimeScoreRule.cs}
+\begin{lstlisting}
+using UnityEngine;
+
+//Scoring rule: Add point depending on lifetime
+public class LifetimeScoreRule : MonoBehaviour, IScoringRule
+{
+    float score = 0;
+
+    void FixedUpdate()
+    {
+        score++;
+    }
+
+    public float GetScore()
+    {
+        return score;
+    }
+}\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Pulse.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+    [Serializable]
+    public class Pulse
+    {	
+        [JsonProperty]
+        public double Value { get; set; }
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{NeuralLayer.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+    [Serializable]
+    public class NeuralLayer{
+        public List<Neuron> Neurons { get; set; }
+
+        public string Name { get; set; }
+
+        public double Weight { get; set; }
+
+        Func<double, double> Activation;
+        public NeuralLayer(int count, double initialWeight, Func<double, double> activation, string name = "")
+        {
+            Activation = activation;
+            Neurons = new List<Neuron>();
+            for (int i = 0; i < count; i++)
+            {
+                Neurons.Add(new Neuron(Activation));
+            }
+
+            Name = name;
+        }
+
+
+        public void Randomize(double lr)
+        {
+            foreach (var neuron in Neurons)
+            {
+                neuron.Randomize(lr);
+            }
+        }
+
+        public void Forward()
+        {
+            foreach (var neuron in Neurons)
+            {
+                neuron.Fire();
+            }
+            
+        }
+
+        public override string ToString()
+        {
+            string tmp = "{\n";
+            for (int i = 0; i < Neurons.Count; i++)
+            {
+                tmp += Neurons[i].ToString();
+                if (i != Neurons.Count - 1)
+                    tmp += "\n";
+            }
+            tmp+="\n}";
+            return tmp;
+        }
+
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Dendrite.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+
+    [Serializable]
+    public class Dendrite
+    {
+        public Pulse InputPulse { get; set; }
+
+        public double SynapticWeight { get; set; }
+
+        public bool Learnable { get; set; }
+
+        public Dendrite()
+        {
+            SynapticWeight = 0;
+        }
+
+        public void Randomize(double lr)
+        {
+            float t = (float)lr;
+            SynapticWeight += (double)UnityEngine.Random.Range(-t, t);
+        }
+    
+
+        public override string ToString()
+        {
+            return SynapticWeight.ToString();
+        }
+       
+
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Neuron.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+    [Serializable]
+    public class Neuron
+    {
+        public List<Dendrite> Dendrites { get; set; }
+
+        public Pulse OutputPulse { get; set; }
+
+        public Func<double, double> Activation;
+
+        public Neuron(Func<double, double> activation)
+        {
+            Dendrites = new List<Dendrite>();
+            OutputPulse = new Pulse();
+            Activation = activation;
+        }
+
+        public void Randomize(double lr)
+        {
+            foreach (var dendrite in Dendrites)
+            {
+                dendrite.Randomize(lr);
+            }
+        }
+
+        public void Fire()
+        {
+            OutputPulse.Value = Sum();
+
+            OutputPulse.Value = Activation(OutputPulse.Value);
+        }
+
+        private double Sum()
+        {
+            double computeValue = 0.0f;
+            foreach (var d in Dendrites)
+            {
+                computeValue += d.InputPulse.Value * d.SynapticWeight;
+            }
+
+            return computeValue;
+        }
+
+        public override string ToString()
+        {
+            string tmp = "[";
+            for (int i = 0; i < Dendrites.Count; i++)
+            {
+                tmp += Dendrites[i].ToString();
+                if (i != Dendrites.Count - 1)
+                    tmp += ", ";
+            }
+            tmp += "]";
+            return tmp;
+        }
+
+
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Activation.cs}
+\begin{lstlisting}
+using UnityEngine;
+using System;
+
+namespace NeuralNetwork
+{
+    public static class ActivationFunc
+    {
+        public static double Tanh(double x)
+        {
+            return 1 - (2.0) / (Math.Exp(2 * x) + 1);
+        }
+
+        public static double Linear(double x)
+        {
+            return x;
+        }
+
+        public static double BinaryStep(double x)
+        {
+            if (x > 0)
+            {
+                return 1;
+            }
+            if (x == 0)
+            {
+                return 0;
+            }
+            if (x < 0)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+    }
+
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{NetworkModel.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+
+    [Serializable]
+    public class NetworkModel
+    {
+        public List<NeuralLayer> Layers { get; set; }
+
+        public NetworkModel()
+        {
+            Layers = new List<NeuralLayer>();
+        }
+
+        public NetworkModel DeepCopy()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Context = new StreamingContext(StreamingContextStates.Clone);
+                formatter.Serialize(ms, this);
+                ms.Position = 0;
+                return (NetworkModel)formatter.Deserialize(ms);
+            }
+        }
+
+        public void AddLayer(NeuralLayer layer)
+        {
+            int dendriteCount = 1;
+            if (Layers.Count > 0)
+            {
+                dendriteCount = Layers[Layers.Count - 1].Neurons.Count;
+            }
+
+            foreach (var element in layer.Neurons)
+            {
+                for (int i = 0; i < dendriteCount; i++)
+                {
+                    element.Dendrites.Add(new Dendrite());
+                }
+            }
+        }
+
+        public void Build()
+        {
+            int i = 0;
+            foreach (var layer in Layers)
+            {
+                if (i >= Layers.Count - 1)
+                {
+                    break;
+                }
+                var nextLayer = Layers[i + 1];
+                CreateNetwork(layer, nextLayer);
+                i++;
+            }
+        }
+
+
+        public void Randomize(double lr)
+        {
+            foreach (var layer in Layers)
+            {
+                layer.Randomize(lr);
+            }
+        }
+
+        public List<double> Decide(List<double> X)
+        {
+            var inputLayer = Layers[0];
+            List<double> outputs = new List<double>();
+
+            for (int i = 0; i < X.Count; i++)
+            {
+                inputLayer.Neurons[i].OutputPulse.Value = X[i];
+            }
+            ComputeOutput();
+            foreach (var neuron in Layers.Last().Neurons)
+            {
+                outputs.Add(neuron.OutputPulse.Value);
+            }
+            return outputs;
+        }
+
+        public void Print()
+        {
+
+            Debug.Log("Name | Neurons");
+
+            foreach (var layer in Layers)
+            {
+                Debug.Log(layer.Name + " | " + layer.Neurons.Count);
+            }
+        }
+
+        private void CreateNetwork(NeuralLayer connectingFrom, NeuralLayer connectingTo)
+        {
+            foreach (var to in connectingTo.Neurons)
+            {
+                foreach (var from in connectingFrom.Neurons)
+                {
+                    to.Dendrites.Add(new Dendrite() { InputPulse = from.OutputPulse });
+                }
+            }
+        }
+
+        private void ComputeOutput()
+        {
+            bool first = true;
+            foreach (var layer in Layers)
+            {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    layer.Forward();
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            string tmp = "";
+            for (int i = 1; i < Layers.Count; i++)
+            {
+                tmp += Layers[i].ToString();
+                if (i != Layers.Count - 1)
+                    tmp += "\n";
+            }
+            tmp+="\n";
+            return tmp;
+        }
+       
+
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{JsonService.cs}
+\begin{lstlisting}
+using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using UnityEngine;
+using NeuralNetwork;
+using Newtonsoft.Json;
+public static class JsonService
+{
+    public static void SaveModelsList(List<NetworkModel> models)
+    {
+        string timeString = DateTime.Now.ToString("yy-MM-dd_HH-mm-ss");
+        timeString = timeString.Replace(' ', '_');
+
+	    JsonSerializerSettings settings = new JsonSerializerSettings();
+	    settings.NullValueHandling = NullValueHandling.Include;
+	    settings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+
+        string jsonString = JsonConvert.SerializeObject(models);
+        string path = Application.dataPath + "/jsonModels/" + timeString + ".json";
+        File.WriteAllText(path, jsonString);
+    }
+
+    public static List<NetworkModel> LoadModelsList(TextAsset jsonFile)
+    {
+        List<NetworkModel> models = JsonConvert.DeserializeObject<List<NetworkModel>>(jsonFile.ToString());
+    	return models;
+    }
+
+}
+\end{lstlisting}
+\pagebreak
+
+    
+\end{document}
