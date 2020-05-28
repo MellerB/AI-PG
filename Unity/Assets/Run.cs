@@ -11,7 +11,7 @@ public class Run
 {
     public string runName = "Run #N";
     public event EventHandler<List<AgentResult>> RunComplete;
-    public List<GameObject> agents = new List<GameObject>();
+    public List<GameObject> agents = new List<GameObject>(); // list of currently alive agents
     public List<AgentResult> results = new List<AgentResult>();
 
     public static GameObject agentPrefab;
@@ -52,7 +52,7 @@ public class Run
         string resultString = "";
         for (int i = 0; i < results.Count; i++)
         {
-            resultString += "Agent #" + i + " | Score: " + results[i].score;
+            resultString += "| Agent #" + i + " ; Score: " + results[i].score+" |";
         }
         Debug.Log(resultString);
         agents.Clear();
@@ -61,7 +61,6 @@ public class Run
 
     private void AgentDied(Agent a)
     {
-        Debug.Log("Agent Died");
         results.Insert(0, new AgentResult(ScoreCalculator.CalculateScore(a.gameObject), a.network));
         agents.Remove(a.gameObject);
         if (agents.Count == 0)

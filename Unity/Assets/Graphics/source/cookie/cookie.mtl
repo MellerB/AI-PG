@@ -1,0 +1,4 @@
+# Made in Blockbench 3.0.5
+newmtl texture
+map_Kd cookie.png 
+newmtl none

@@ -1,23 +1,48 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
 
-    public Transform target;
+    private Transform _target;
+    public Transform target
+    {
+        get { return _target; }
+        set
+        {
+            _target = value;
+
+            if (_target == null) //if nothing was selected use manual controls
+            {
+                _currentControlScheme = new CameraFreeControlScheme(transform);
+                Debug.Log("Free Control Scheme");
+            }
+            else // if something was selected use targeting control schemes
+            {
+                _currentControlScheme = new CameraOrbitControlScheme(transform, _target, HandleTargetNull);
+                Debug.Log("Orbital control scheme");
+            }
+
+        }
+    }
     public Vector3 offset;
 
-    private Vector3 previousMousePos;
-    private Vector3 currRot = new Vector3(0, 0, 0);
-    private float rotSpeed = 100f;
+    private Vector3 _previousMousePos;
+    private ICameraControlScheme _currentControlScheme;
+
+
+    [SerializeField]
+    private RunManager _runManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        previousMousePos = Input.mousePosition;
+        _previousMousePos = Input.mousePosition;
         Cursor.lockState = CursorLockMode.Locked;
+        _currentControlScheme = new CameraFreeControlScheme(transform);
     }
 
     // Update is called once per frame
@@ -36,6 +61,8 @@ public class CameraController : MonoBehaviour
             }
         }
 
+        _currentControlScheme.UpdateControl();
+
 
         if (Input.GetButtonDown("BreakTarget"))
             target = null;
@@ -43,33 +70,36 @@ public class CameraController : MonoBehaviour
         if (Input.GetButtonDown("BestTarget"))
             target = ChooseBestTarget();
 
-
-        if (target == null)
+        //Check for selection
+        if (Input.GetMouseButtonDown(0))
         {
-            transform.Translate(Vector3.forward * Input.GetAxis("Forward"));
-            transform.Translate(Vector3.up * Input.GetAxis("Up"));
-            transform.Translate(Vector3.right * Input.GetAxis("Right"));
-
-            Quaternion rot = Quaternion.identity;
-            currRot += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f) * Time.deltaTime * rotSpeed;
-            rot.eulerAngles = currRot;
-            transform.rotation = rot;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 100.0f, 1 << Agent.LayerOrder))
+            {
+                if (hit.collider.gameObject.layer == Agent.LayerOrder)
+                {
+                    target = hit.collider.transform;
+                }
+            }
         }
-
-        previousMousePos = Input.mousePosition;
-
-        if (target != null)
-            transform.position = target.position - offset;
-        //Check for input
-
+        
+        _previousMousePos = Input.mousePosition;
     }
 
 
-
-
-    Transform ChooseBestTarget()
+    private void HandleTargetNull()
     {
-        throw new NotImplementedException();
+        //When target is being destroyed _target is being set to null (not the property!) so we need to
+        //Trigger property change
+        target = null;
+    }
+
+
+    private Transform ChooseBestTarget()
+    {
+        Run currentRun = _runManager.currentRun;
+        GameObject bestAgent = currentRun.agents.Aggregate((x,y) => ScoreCalculator.CalculateScore(x) > ScoreCalculator.CalculateScore(y) ? x : y); //Find the biggest one
+        return bestAgent.transform;
     }
 
 }

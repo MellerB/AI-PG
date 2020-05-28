@@ -6,7 +6,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
 
 namespace NeuralNetwork
 {
@@ -62,6 +61,23 @@ namespace NeuralNetwork
             }
             tmp += "]";
             return tmp;
+        }
+
+        public void LoadFromString(string input){
+        List<string> dendritesText = input.Split(new string[] { ", ","," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+        dendritesText  = dendritesText.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+
+            if(dendritesText.Count!=Dendrites.Count)
+            {
+                throw new System.FormatException("inconsistent layers and readen dendrites number");
+            }
+
+            for (int i = 0; i < Dendrites.Count; i++)
+            {
+                Dendrites[i].SynapticWeight = Convert.ToDouble(dendritesText[i]);
+            }
+
         }
 
 

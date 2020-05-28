@@ -6,6 +6,8 @@ using System.Collections;
 
 public class Agent : MonoBehaviour
 {
+    public const int LayerOrder = 9; //Agent layer
+
     public NetworkModel network;
 
     //Target cookie jar for every agent that exists (?TODO?: handle null case?)
@@ -40,8 +42,16 @@ public class Agent : MonoBehaviour
     private float arcStep = 0f;
 
 
+
+    private Rigidbody _rigidbody;
+
+
     void Awake()
     {
+
+        _rigidbody = GetComponent<Rigidbody>();
+        gameObject.layer = LayerOrder;
+
         arcStep = viewArc / (float)rayCount;
 
         cookieJar = GameObject.Find("cookieJar").transform;
@@ -73,7 +83,7 @@ public class Agent : MonoBehaviour
     ///[1] - force on Z axis
     private void ParseOutput(List<double> activations)
     {
-        this.GetComponent<Rigidbody>().AddForce(new Vector3((float)activations[0] * ForceMultiplier, 0.0f, (float)activations[1] * ForceMultiplier));
+        _rigidbody.AddForce(new Vector3((float)activations[0] * ForceMultiplier, 0.0f, (float)activations[1] * ForceMultiplier));
     }
 
     //Gathers inputs from enviroment
@@ -118,7 +128,7 @@ public class Agent : MonoBehaviour
     //EDITOR
     void OnValidate()
     {
-        //Because Unity does not support property exposing to the Inspector, we use OnValidate (called whenever, whatever changed by the Inspecotr)
+        //Because Unity does not support property exposing to the Inspector, we use OnValidate (called whenever, whatever changed by the Inspector)
         //And force property to fire.
         ViewArc = viewArc;
     }

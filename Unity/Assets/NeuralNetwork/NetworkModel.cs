@@ -6,7 +6,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
 
 namespace NeuralNetwork
 {
@@ -20,6 +19,13 @@ namespace NeuralNetwork
         {
             Layers = new List<NeuralLayer>();
         }
+
+        public NetworkModel(string weights)
+        {
+            Layers = new List<NeuralLayer>();
+            LoadFromString(weights);
+        }
+
 
         public NetworkModel DeepCopy()
         {
@@ -78,7 +84,6 @@ namespace NeuralNetwork
         {
             var inputLayer = Layers[0];
             List<double> outputs = new List<double>();
-
             for (int i = 0; i < X.Count; i++)
             {
                 inputLayer.Neurons[i].OutputPulse.Value = X[i];
@@ -142,6 +147,21 @@ namespace NeuralNetwork
             return tmp;
         }
        
+
+        public void LoadFromString(string input)
+        {
+            List<string> layersText = input.Split(new string[] { "{","}" },StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            layersText  = layersText.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+            for (int i = 1; i < Layers.Count; i++)
+            {
+                Layers[i].LoadFromString(layersText[i-1]);
+                if(i==0)
+                {Debug.Log(Layers[i].ToString());
+                }
+            }
+            //Debug.Log(Layers[0].ToString());
+        }
 
     }
 }

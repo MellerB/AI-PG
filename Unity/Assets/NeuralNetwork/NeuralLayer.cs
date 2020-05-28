@@ -6,8 +6,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
-
 namespace NeuralNetwork
 {
     [Serializable]
@@ -62,6 +60,22 @@ namespace NeuralNetwork
             return tmp;
         }
 
+    public void LoadFromString(string input){
+        List<string> neuronsText = input.Split(new string[] { "[","]" },StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            neuronsText  = neuronsText.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+
+            if(neuronsText.Count!=Neurons.Count)
+            {
+                throw new System.FormatException("inconsistent neurons and readen neurons number"+neuronsText.Count+" vs "+Neurons.Count);
+            }
+
+            for (int i = 0; i < Neurons.Count; i++)
+            {
+                Neurons[i].LoadFromString(neuronsText[i]);
+            }
+
+        }
     }
 }
 
