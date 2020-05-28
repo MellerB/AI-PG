@@ -88,7 +88,7 @@
 
 \begin{document}
 
-\title{Systemy Sztucznej Inteligencji\\\small{dokumentacja projektu Kulki XDXDXD}}
+\title{Systemy Sztucznej Inteligencji\\\small{dokumentacja projektu Kulki}}
 \author{
     Chłąd Paweł\\
     Grupa 2D
@@ -109,16 +109,10 @@ Aby uruchomić projekt, należy:
     \item Uruchomić Unity
     \item Wybrać projekt z listy projektów
     \item Wybrać scenę główną z listy scenę
-    \item Uruchomić projekt, klikająć przycisk \textit{''Play''}
+    \item Uruchomić projekt, klikając przycisk \textit{''Play''}
 \end{enumerate}
 
 Gdy projekt został uruchomiony, zacznie się proces uczenia. Uczenie może zająć długi okres czasu.
-
-
-
-
-
-
 
 \subsection*{Dodatkowe informacje}
 Projekt działa na silniku Unity (ver. 2018 LTS )
@@ -208,7 +202,7 @@ Polega to na modyfikowaniu wag synaps w ściśle określony sposób.
 Istnieje wiele metod nauczania sieci. W naszym przypadku używamy metody heurystycznej: Algorytmu genetycznego (AG).
 
 
-\subsubsection{Algorytm genetyczny}
+\subsubsection*{Algorytm genetyczny}
 Algorytm genetyczny to heurystyczny algorytm optymalizacji. Działa on na zasadzie symulacji ewolucji darwinowskiej, gdzie
 słabe jednostki umierają, a silne mnożą się i przekazują swoje geny następnym pokoleniom. W naszym przypadku zwierzętami
 są sieci neuronowe, które będziemy chcieli zoptymalizować. Na początku działania algorytmu, inicjalizujemy 
@@ -251,9 +245,9 @@ Następnie jednostki, które przetrwały, mnożą się przekazując swoje geny n
 
 \lstinline{public class AgentResult}
 \begin{itemize}
-    \item \lstinline|public double score| - wynik agenta
-    \item \lstinline|public NetworkModel model| - model agenta
-    \item \lstinline|public AgentResult(double score, NetworkModel model)| - konstruktor rezultatu agenta
+    \item \lstinline|public double score| - Wynik agenta
+    \item \lstinline|public NetworkModel model| - Model agenta
+    \item \lstinline|public AgentResult(double score, NetworkModel model)| - Konstruktor rezultatu agenta
 \end{itemize}
 
 
@@ -263,7 +257,7 @@ Następnie jednostki, które przetrwały, mnożą się przekazując swoje geny n
 \end{itemize}
 
 
-\lstinline{public class RunManager : MonoBehaviour} - klasa zarządzająca przebiegami symulacji
+\lstinline{public class RunManager : MonoBehaviour} - Klasa zarządzająca przebiegami symulacji
 
 
 \lstinline{public class CameraController : MonoBehaviour}
@@ -290,7 +284,7 @@ Następnie jednostki, które przetrwały, mnożą się przekazując swoje geny n
 
 \lstinline{public class Agent : MonoBehaviour}
 \begin{itemize}
-    \item \lstinline|public NetworkModel network| - sieć neuronowa agenta
+    \item \lstinline|public NetworkModel network| - Sieć neuronowa agenta
     \item \lstinline|public static Transform cookieJar| - \lstinline{Transform} zachęty
     \item \lstinline|public Action<Agent> deathCallback| - Metoda, która zostanie wywołana w czasie śmierci agenta
     \item \lstinline|public List<double> lastInputs = new List<double>()| - Lista ostatnio zarejstrowanych wartości wejściowych
