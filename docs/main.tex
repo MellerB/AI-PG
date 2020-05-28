@@ -119,10 +119,10 @@ Projekt działa na silniku Unity (ver. 2018 LTS )
 \subsection*{Opis działania sieci neuronowej}
 %Tutaj uwzględniamy część matematyczną. Opisujemy całą teorię np.: dla zadania związanego z sieciami neuronowymi - opisujemy całą budowę, algorytm uczenia i wszystkie wzory. Dla zadania związanego z kombinatoryką opisujemy całą teorię kombinatoryczną potrzebną do zrozumienia zadania (mile widziany przykład obliczeniowy).
 
-\hspace{20pt} Jak zostało wcześniej wspomniane program opiera się na sztucznej sieci neuronowej (SSN), czyli matematycznym modelu sieci nerwowej działającej w mózgu. Podobnie jak ludzka sieć neuronowa, SSN zbudowana jest z neuronów ułożonych w warstwy. Każda komórka nerwowa danej warstwy połączona jest ze wszystkimi komórkami warstwy poprzedniej i warstwy następnej za pomocą synaps posiadających pewne losowo zainicjowane wagi w postaci liczb. Są one modyfikowane w procesie uczenia sieci neuronowej.
+\hspace{20pt} Jak zostało wcześniej wspomniane program opiera się na sztucznej sieci neuronowej (SSN), czyli matematycznym modelu sieci neuronów działającej układach nerwowyc istot żywych. Podobnie jak ludzka sieć neuronowa, SSN zbudowana jest z neuronów ułożonych w warstwy. Każda komórka nerwowa danej warstwy połączona jest ze wszystkimi komórkami warstwy poprzedniej i warstwy następnej za pomocą synaps posiadających pewne losowo zainicjowane wagi w postaci liczb. Są one modyfikowane w procesie uczenia sieci neuronowej.
 
 \vspace{5pt}
-Pierwszą warstwę sieci, odpowiedzialną za przyjmowanie danych wejściowych, nazywamy warstwą wejściową. Analogicznie ostatnia warstwa sieci to warstwa wyjściowa, odpowiadająca za zwracanie wyniku. Pomiędzy nimi mogą (lecz nie muszą) znajdować się tzw. warstwy ukryte. Zadaniem projektanta sieci neuronowej jest znalezienie optymalnej ilości i wielkości tych warstw, dzięki czemu nauczanie będzie przebiegało efektywnie. Z kolei ilość neuronów na warstwach skrajnych zależy od tego, ile cech posiada obiekt wejściowy oraz do ilu klas można go zaklasyfikować na wyjściu - w przypadku tego projektu jest to XXXXX neuronów wejściowych oraz XXXXX neuronów wyjściowych ().
+Pierwszą warstwę sieci, odpowiedzialną za przyjmowanie danych wejściowych, nazywamy warstwą wejściową. Analogicznie ostatnia warstwa sieci to warstwa wyjściowa, odpowiadająca za zwracanie wyniku. Pomiędzy nimi mogą (lecz nie muszą) znajdować się warstwy ukryte. Zadaniem projektanta sieci neuronowej jest znalezienie optymalnej ilości i wielkości tych warstw, dzięki czemu nauczanie będzie przebiegało efektywnie. Z kolei ilość neuronów na warstwach skrajnych zależy od tego, ile cech obiektu lub sygnału wejściowego jest badane oraz rodzaju i ilości klas do których można przypisać wyjście - w przypadku tego projektu jest to $n+1$ neuronów wejściowych (gdzie n jest liczbą promieni będących symulacją lasterowych czujników odległości) oraz dwa neurony wyjściowe decydujące o kierunku poruszania się agenta w dwóch wymiarach.
 
 \vspace{5pt}
 Każdy z neuronów przyjmuje pewną wartość na wejściu, a następnie przetwarza ją dzięki funkcji aktywacji. Sygnał wejściowy i-tego neuronu k-tej warstwy można opisać równaniem:
@@ -204,11 +204,8 @@ słabe jednostki umierają, a silne mnożą się i przekazują swoje geny nast�
 są sieci neuronowe, które będziemy chcieli zoptymalizować. Na początku działania algorytmu, inicjalizujemy 
 populację, złożoną z losowo wygenerowanych sieci. Takie sieci będą podejmowały losowe decyzje. Następnie sieci te 
 przechodzą przez test, który ocenia ich sprawność. Każde ze zwierząt otrzymuje ocenę, która oznacza jak dobrze sobie poradziło.
-Po symulacji pokolenia, przychodzi czas na proces selekcji; Sortujemy sieci względem ich wyników malejąco i zabijamy XXXXXX\% najgorszych jednostek.
-Następnie jednostki, które przetrwały, mnożą się przekazując swoje geny, w naszym przypadku genomem jest lista wag, a więc sieci wymieniają pomiędzy sobą losowe wagi.
-Aby agenci nie utkneli w miejscu, wprowadziliśmy także element mutacji, który dodaje od -XXXXX\% do XXXXXX\% wartości aktualnej wagi.
-Proces mutacji sprawia iż sieci nie będą się tak łatwo zatrzymywały w lokalnych minimach, co zwiększa szansę na znalezienie lepszych minimów.
-Na końcu dzieci dodawane są do globalnej kolekcji i algorytm się powtarza.
+Po symulacji pokolenia, przychodzi czas na proces selekcji; Sortujemy sieci względem ich wyników malejąco i usuwamy stałą część najgorszych jednostek.
+Następnie jednostki, które przetrwały, mnożą się przekazując swoje geny następnej generacji, w naszym przypadku genotypem są wagi połączeń. Schemat tworzenia kolejnej generacji wygląda następująco. Po usunięciu najgorszych jednostek, pozostałe kopiowane są do momentu uzysknia wyjściowej ilośći, a nastepnie wagi utworzonych w ten sposób klonów, mutowane są o losową wartość z przedziału $[-0.2;0.2]$, przy jednoczesnym zachowaniu wag oryginałów.
 
 
 
@@ -400,6 +397,15 @@ Na końcu dzieci dodawane są do globalnej kolekcji i algorytm się powtarza.
 \end{itemize}
 
 \subsection*{Testy}
+Podczas uczenia sieci ukrytych w agentach, w większośći symulacji można było zaobserwować scenariusz opisywalny w czterech punktach.
+\begin{enumerate}
+\item Agenci pierwszej generacji zachowywali się zupełnie chaotycznie, kilku z nich uciekało z daleka od punktu startowego.
+\item Jako że funkcja nagrody optymalizowała jak największy czas życia oraz przebytą odległość, wspomniani wcześniej "uciekinierzy", przekazywali swoje geny następnemu pokoleniu.
+\item Przez kilka kolejnych generacji, agenci przebywali coraz większe odległości, by rozbić się o coraz dalszą scianę, przebywając po drodze coraz bardziej krętą trasę.
+\item Po kilku lub kilkunastu epokach, można było wyróżnić dwa typy agentów, "aktywni", którzy objęli strategię polegającą na "orbitowaniu" pomiędzy przeszkodami. Drugi typ to agenci "leniwi", ich strategia była znacznie bardziej defensywna. Polegała bowiem na staniu w miejsu, lub bardzo wolnemu poruszaniu się w kółko, w celu zminimalizowania ryzyka kolizji ze ścianą.
+
+\end{enumerate}
+
 %Tutaj powinna pojawić się analiza uzyskanych wyników oraz wykresy/pomiary.
 
 \subsection*{Eksperymenty}
