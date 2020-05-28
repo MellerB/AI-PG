@@ -1,0 +1,1515 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage[]{algorithm2e}
+\SetKw{KwBy}{by}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{mathtools}
+
+
+\usepackage{pgfplots}
+\pgfplotsset{width=13cm,compat=1.9}
+\usepgfplotslibrary{external}
+
+\lstloadlanguages{% Check docs for further languages ...
+	C,
+	C++,
+	csh,
+	Java
+}
+
+\definecolor{red}{rgb}{0.6,0,0} % for strings
+\definecolor{blue}{rgb}{0,0,0.6}
+\definecolor{green}{rgb}{0,0.8,0}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+	language=csh,
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	tabsize=2,
+	extendedchars=true,
+	breaklines=true,
+	frame=b,
+	stringstyle=\color{blue}\ttfamily,
+	showspaces=false,
+	showtabs=false,
+	xleftmargin=17pt,
+	framexleftmargin=17pt,
+	framexrightmargin=5pt,
+	framexbottommargin=4pt,
+	commentstyle=\color{green},
+	morecomment=[l]{//}, %use comment-line-style!
+	morecomment=[s]{/*}{*/}, %for multiline comments
+	showstringspaces=false,
+	morekeywords={ abstract, event, new, struct,
+		as, explicit, null, switch,
+		base, extern, object, this,
+		bool, false, operator, throw,
+		break, finally, out, true,
+		byte, fixed, override, try,
+		case, float, params, typeof,
+		catch, for, private, uint,
+		char, foreach, protected, ulong,
+		checked, goto, public, unchecked,
+		class, if, readonly, unsafe,
+		const, implicit, ref, ushort,
+		continue, in, return, using,
+		decimal, int, sbyte, virtual,
+		default, interface, sealed, volatile,
+		delegate, internal, short, void,
+		do, is, sizeof, while,
+		double, lock, stackalloc,
+		else, long, static,
+		enum, namespace, string},
+	keywordstyle=\color{cyan},
+	identifierstyle=\color{red},
+}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{blue}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+
+\addtolength{\hoffset}{-1.5cm}
+\addtolength{\marginparwidth}{-1.5cm}
+\addtolength{\textwidth}{3cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2.5cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headheight}{0cm}
+
+\begin{document}
+
+\title{Systemy Sztucznej Inteligencji\\\small{dokumentacja projektu Kulki XDXDXD}}
+\author{
+    Chłąd Paweł\\
+    Grupa 2D
+    \and
+    Meller Bartłomiej\\
+    Grupa 2D}
+\date{\today}
+
+\maketitle
+\newpage
+\section*{Część I}
+\subsection*{Opis programu}
+
+\subsection*{Instrukcja obsługi}
+%Jak uruchomić program, jak wyglądają dane. Mile widziana wizualizacja gry, wyników z punku widzenia aplikacji itd.
+Kliknąć exe xddddd
+
+
+
+
+
+\subsection*{Dodatkowe informacje}
+Projekt działa na silniku Unity (ver. 2018 LTS )
+\newpage
+\section*{Część II}
+
+
+\subsection*{Opis działania sieci neuronowej}
+%Tutaj uwzględniamy część matematyczną. Opisujemy całą teorię np.: dla zadania związanego z sieciami neuronowymi - opisujemy całą budowę, algorytm uczenia i wszystkie wzory. Dla zadania związanego z kombinatoryką opisujemy całą teorię kombinatoryczną potrzebną do zrozumienia zadania (mile widziany przykład obliczeniowy).
+
+\hspace{20pt} Jak zostało wcześniej wspomniane program opiera się na sztucznej sieci neuronowej (SSN), czyli matematycznym modelu sieci nerwowej działającej w mózgu. Podobnie jak ludzka sieć neuronowa, SSN zbudowana jest z neuronów ułożonych w warstwy. Każda komórka nerwowa danej warstwy połączona jest ze wszystkimi komórkami warstwy poprzedniej i warstwy następnej za pomocą synaps posiadających pewne losowo zainicjowane wagi w postaci liczb. Są one modyfikowane w procesie uczenia sieci neuronowej.
+
+\vspace{5pt}
+Pierwszą warstwę sieci, odpowiedzialną za przyjmowanie danych wejściowych, nazywamy warstwą wejściową. Analogicznie ostatnia warstwa sieci to warstwa wyjściowa, odpowiadająca za zwracanie wyniku. Pomiędzy nimi mogą (lecz nie muszą) znajdować się tzw. warstwy ukryte. Zadaniem projektanta sieci neuronowej jest znalezienie optymalnej ilości i wielkości tych warstw, dzięki czemu nauczanie będzie przebiegało efektywnie. Z kolei ilość neuronów na warstwach skrajnych zależy od tego, ile cech posiada obiekt wejściowy oraz do ilu klas można go zaklasyfikować na wyjściu - w przypadku tego projektu jest to XXXXX neuronów wejściowych oraz XXXXX neuronów wyjściowych ().
+
+\vspace{5pt}
+Każdy z neuronów przyjmuje pewną wartość na wejściu, a następnie przetwarza ją dzięki funkcji aktywacji. Sygnał wejściowy i-tego neuronu k-tej warstwy można opisać równaniem:
+
+\begin{equation*}
+    s^k_i = \sum_{j=1}^{n}w^k_{ij} y^{k-1}_{j} + b,
+\end{equation*}
+
+\noindent gdzie $w^k_{ij}$ - waga synapsy pomiędzy i-tym neuronem k-tej warstwy a j-tym neuronem warstwy poprzedniej, $y^{k-1}_{j}$ - wartość sygnału wyjściowego j-tego neuronu warstwy poprzedniej, $b$ - zakłócenia sieci (tzw. bias). Najczęściej we wzorze tym nie uwzględnia się ostatniego czynnika (zakłada się, że sieć nie posiada zakłóceń tj. b = 0). Z kolei sygnał wyjściowy i-tego neuronu to:
+
+\begin{equation*}
+    y^k_i = f(s^k_i) = f(\sum_{j=1}^{n}w^k_{ij} y^{k-1}_{j} + b).
+\end{equation*}
+
+Wyróżniamy wiele funkcji aktywacji, jednak najczęściej wykorzystywaną (i wykorzystaną również w tym projekcie) jest funkcja bipolarna liniowa, której wzór wygląda następująco:
+
+\begin{equation*}
+    f(s^k_i) = \frac{2}{1 + e^{-\alpha s^k_i}} - 1 = \frac{1 - e^{-\alpha s^k_i}}{1 + e^{-\alpha s^k_i}}
+\end{equation*}
+
+\noindent gdzie $\alpha$ jest współczynnikiem korygującym rozpiętość funkcji aktywacji w przestrzeni decyzyjnej. Jej wykres zamieszczono na następnej stronie.
+
+\begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+                axis lines = middle,
+                xmin = -10, xmax = 10,
+                ymin = -1, ymax = 1,
+                legend pos=south east
+            ]
+
+            \addplot [
+                domain=-10:10,
+                samples=100,
+                color=red,
+            ]
+            {(1 - exp(-0.25 * x))/(1 + exp(-0.25 * x))};
+            \addlegendentry{$\alpha = 0.25$}
+
+            \addplot [
+                domain=-10:10,
+                samples=100,
+                color=blue,
+            ]
+            {(1 - exp(-0.5 * x))/(1 + exp(-0.5 * x))};
+            \addlegendentry{$\alpha = 0.50$}
+
+            \addplot [
+                domain=-10:10,
+                samples=100,
+                color=green,
+            ]
+            {(1 - exp(-0.75 * x))/(1 + exp(-0.75 * x))};
+            \addlegendentry{$\alpha = 0.75$}
+
+            \addplot [
+                domain=-10:10,
+                samples=100,
+                color=yellow,
+            ]
+            {(1 - exp(-x))/(1 + exp(- x))};
+            \addlegendentry{$\alpha = 1.00$}
+
+        \end{axis}
+    \end{tikzpicture}
+    \newline Bipolarna liniowa funkcja aktywacji
+\end{center}
+
+
+Kiedy sztuczna sieć neuronowa jest już odpowiednio zbudowana, należy ją
+nauczyć tego, czego od niej oczekujemy.
+Polega to na modyfikowaniu wag synaps w ściśle określony sposób.
+Istnieje wiele metod nauczania sieci. W naszym przypadku używamy metody heurystycznej: Algorytmu genetycznego (AG).
+
+
+\subsubsection{Algorytm genetyczny}
+Algorytm genetyczny to heurystyczny algorytm optymalizacji. Działa on na zasadzie symulacji ewolucji darwinowskiej, gdzie
+słabe jednostki umierają, a silne mnożą się i przekazują swoje geny następnym pokoleniom. W naszym przypadku zwierzętami
+są sieci neuronowe, które będziemy chcieli zoptymalizować. Na początku działania algorytmu, inicjalizujemy 
+populację, złożoną z losowo wygenerowanych sieci. Takie sieci będą podejmowały losowe decyzje. Następnie sieci te 
+przechodzą przez test, który ocenia ich sprawność. Każde ze zwierząt otrzymuje ocenę, która oznacza jak dobrze sobie poradziło.
+Po symulacji pokolenia, przychodzi czas na proces selekcji; Sortujemy sieci względem ich wyników malejąco i zabijamy XXXXXX\% najgorszych jednostek.
+Następnie jednostki, które przetrwały, mnożą się przekazując swoje geny, w naszym przypadku genomem jest lista wag, a więc sieci wymieniają pomiędzy sobą losowe wagi.
+Aby agenci nie utkneli w miejscu, wprowadziliśmy także element mutacji, który dodaje od -XXXXX\% do XXXXXX\% wartości aktualnej wagi.
+Proces mutacji sprawia iż sieci nie będą się tak łatwo zatrzymywały w lokalnych minimach, co zwiększa szansę na znalezienie lepszych minimów.
+Na końcu dzieci dodawane są do globalnej kolekcji i algorytm się powtarza.
+
+
+
+
+
+
+\subsection*{Zbiór danych}
+%Należy pokazać przykładowe dane, które były wykorzystywane podczas uczenia klasyfikatorów.
+
+
+
+
+\subsection*{Implementacja}
+%Opis, zasada i działanie programu ze względu na podział na pliki, nastepnie	funkcje programu wraz ze szczegółowym opisem działania (np.: formie pseudokodu, czy odniesienia do równania)
+\subsubsection*{Ogólna struktura}
+\subsubsection*{Spis metod}
+\lstinline{public class MovementScoreRule : MonoBehaviour, IScoringRule}
+\begin{itemize}
+    \item \lstinline|public float GetScore()|
+\end{itemize}
+
+
+\lstinline{public class Run}
+\begin{itemize}
+    \item \lstinline|public string runName = "Run #N"| - Nazwa przebiegu symulacji
+    \item \lstinline|public event EventHandler<List<AgentResult>> RunComplete| - zdarzenie informujące o zakończeniu przebiegu symulacji
+    \item \lstinline|public List<GameObject> agents = new List<GameObject>()| - Lista agentów biorąca udział w tym przebiegu
+    \item \lstinline|public List<AgentResult> results = new List<AgentResult>()| - Lista rezultatów, aktualizowana po zakończeniu przebiegu
+    \item \lstinline|public static GameObject agentPrefab| - Prefab agenta, który będzie instancjonowany w czasie rozpoczęcia przebiegu
+    \item \lstinline|public Run(int num_agents)| - Konstruktor przebiegu
+          \begin{itemize}
+              \item \lstinline{int num_agents} - Ilość losowo zainicjalizowanych agentów, która zostanie zainstancjonowana.
+          \end{itemize}
+    \item \lstinline|public Run(List<NetworkModel> models)| -  Konstruktor przebiegu
+          \begin{itemize}
+              \item \lstinline{List<NetworkModel> models} - Lista modeli, z której będą inicjalizowani agenci.
+          \end{itemize}
+    \item \lstinline|public void BeginRun()| - Rozpoczyna przebieg symulacji
+\end{itemize}
+
+\lstinline{public class AgentResult}
+\begin{itemize}
+    \item \lstinline|public double score| - wynik agenta
+    \item \lstinline|public NetworkModel model| - model agenta
+    \item \lstinline|public AgentResult(double score, NetworkModel model)| - konstruktor rezultatu agenta
+\end{itemize}
+
+
+\lstinline{public interface IScoringRule}
+\begin{itemize}
+    \item \lstinline||
+\end{itemize}
+
+
+\lstinline{public class RunManager : MonoBehaviour}
+\begin{itemize}
+    \item \lstinline||
+\end{itemize}
+
+
+\lstinline{public class CameraController : MonoBehaviour}
+\begin{itemize}
+    \item \lstinline|public Transform target| -
+    \item \lstinline|public Vector3 offset|
+\end{itemize}
+
+
+\lstinline{public class ModelManager}
+\begin{itemize}
+    \item \lstinline|public List<NetworkModel> Models = new List<NetworkModel>()| - Kolekcja aktualnych modeli
+    \item \lstinline|public int NumModels { get; }| - Docelowa liczba modeli
+    \item \lstinline|public double LearningRate { get; }| - Szybkość uczenia
+    \item \lstinline|public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)| - Konstruktor
+          \begin{itemize}
+              \item \lstinline{List<NetworkModel> models} - ustawia Models
+              \item \lstinline{double learningRate} - ustawia LearningRate
+          \end{itemize}
+    \item \lstinline|public void SaveTop(int n)| - Zapisuje pierwsze $n$ modeli (sortowane po score)
+    \item \lstinline|public void Expand()| - Tworzy nowych agentów, tak długo aż Models.Count osiągnie NumModels
+\end{itemize}
+
+
+\lstinline{public class Agent : MonoBehaviour}
+\begin{itemize}
+    \item \lstinline|public NetworkModel network| - sieć neuronowa agenta
+    \item \lstinline|public static Transform cookieJar| - \lstinline{Transform} zachęty
+    \item \lstinline|public Action<Agent> deathCallback| - Metoda, która zostanie wywołana w czasie śmierci agenta
+    \item \lstinline|public List<double> lastInputs = new List<double>()| - Lista ostatnio zarejstrowanych wartości wejściowych
+    \item \lstinline|public List<double> lastOutputs = new List<double>()| - Lista ostatnio zarejestrowanych wartości wyjściowych
+    \item \lstinline|public float ViewArc| - Kąt widzenia w radianach
+\end{itemize}
+
+
+\lstinline{public class InputMonitor : MonoBehaviour}
+\begin{itemize}
+    \item \lstinline|public Agent Target| - Referencja do agenta, który ma być obserwowany
+    \item \lstinline|public Text text| - Referencja do tekstu UI na którym mają zostać wypisane informacje o \lstinline{Target} agencie
+\end{itemize}
+
+
+\lstinline{public static class ScoreCalculator}
+\begin{itemize}
+    \item \lstinline|public static float CalculateScore(GameObject obj)| - Oblicza wynik dla danego agenta
+\end{itemize}
+
+
+\lstinline{public class LifetimeScoreRule : MonoBehaviour, IScoringRule}
+\begin{itemize}
+    \item \lstinline|public float GetScore()| - Zwraca wynik czasu życia agenta
+\end{itemize}
+
+
+\lstinline{public class Pulse}
+\begin{itemize}
+    \item \lstinline|public double Value { get; set; }|
+\end{itemize}
+
+
+\lstinline{public class NeuralLayer} - Klasa reprezentująca warstwę neuronów
+\begin{itemize}
+    \item \lstinline|public List<Neuron> Neurons { get; set; }| - Lista neuronów w warstwie
+    \item \lstinline|public string Name { get; set; }| - Nazwa warstwy
+    \item \lstinline|public double Weight { get; set; }| - ???
+    \item \lstinline|public NeuralLayer(int count, double initialWeight, Func<double, double> activation, string name = "")| - Konstruktor warstwy
+          \begin{itemize}
+              \item \lstinline{int count} - Liczba neuronów, która będzie wygenerowana w tej warstwie
+              \item \lstinline{double initialWeight} - Początkowa waga połączeń
+              \item \lstinline{Func<double, double> activation} - Funkcja aktywacji, która zostanie nadana wszystkim neuronom w tej warstwie
+              \item \lstinline{name} - Nazwa warstwy
+          \end{itemize}
+    \item \lstinline|public void Randomize(double lr)| - Wywołuje \lstinline{Neuron.Randomize(lr)} na każdym neuronie w warstwie
+    \item \lstinline|public void Forward()| - Wywołuje \lstinline{Neuron.Fire()} na każdym neuronie w warstwie
+    \item \lstinline|public override string ToString()| - Konwertuje wszystkie neurony na typ \lstinline{string} i zwraca \lstinline{string} zawierający wszystkie neurony
+\end{itemize}
+
+
+\lstinline{public class Dendrite}
+\begin{itemize}
+    \item \lstinline|public Pulse InputPulse { get; set; }|
+    \item \lstinline|public double SynapticWeight { get; set; }|
+    \item \lstinline|public bool Learnable { get; set; }|
+    \item \lstinline|public Dendrite()|
+    \item \lstinline|public void Randomize(double lr)|
+    \item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public class Neuron}
+\begin{itemize}
+    \item \lstinline|public List<Dendrite> Dendrites { get; set; }| - Kolekcja połączeń przychodzących
+    \item \lstinline|public Pulse OutputPulse { get; set; }| - Ostatnio zarejestrowana wartość wychodząca
+    \item \lstinline|public Func<double, double> Activation| - Fukncja aktywacji
+    \item \lstinline|public Neuron(Func<double, double> activation)| - Konstruktor
+          \begin{itemize}
+              \item \lstinline{Func<double, double> activation} - Ustawia \lstinline{Activation}
+          \end{itemize}
+    \item \lstinline|public void Randomize(double lr)| - Wywołuje \lstinline{Dendrite.Randomize(lr)} na każdym z \lstinline{Dendrite} w \lstinline{Dendrites}
+    \item \lstinline|public void Fire()| - Ustawia \lstinline{OutputPulse} na wynik funkcji aktywacji
+    \item \lstinline|public override string ToString()| - Konvertuje wszystkie \lstinline{Dendrite} w \lstinline{Dendrites} na typ \lstinline{string}
+\end{itemize}
+
+
+\lstinline{public static class ActivationFunc}
+\begin{itemize}
+    \item \lstinline|public static double Tanh(double x)| - Funkcja tangensa hiperbolicznego
+    \item \lstinline|public static double Linear(double x)|
+    \item \lstinline|public static double BinaryStep(double x)|
+\end{itemize}
+
+
+\lstinline{public class NetworkModel}
+\begin{itemize}
+    \item \lstinline|public List<NeuralLayer> Layers { get; set; }|
+    \item \lstinline|public NetworkModel()|
+    \item \lstinline|public NetworkModel DeepCopy()|
+    \item \lstinline|public void AddLayer(NeuralLayer layer)|
+    \item \lstinline|public void Build()|
+    \item \lstinline|public void Randomize(double lr)|
+    \item \lstinline|public List<double> Decide(List<double> X)|
+    \item \lstinline|public void Print()|
+    \item \lstinline|public override string ToString()|
+\end{itemize}
+
+
+\lstinline{public static class JsonService}
+\begin{itemize}
+    \item \lstinline|public static void SaveModelsList(List<NetworkModel> models)|
+    \item \lstinline|public static List<NetworkModel> LoadModelsList(TextAsset jsonFile)|
+\end{itemize}
+
+\subsection*{Testy}
+%Tutaj powinna pojawić się analiza uzyskanych wyników oraz wykresy/pomiary.
+
+\subsection*{Eksperymenty}
+%	Sekcję używamy gdy porównywaliśmy dwa lub więcej algorytmów, albo wykonywaliśmy jakies pomiery.
+
+%	Warto dodać jakies wykresy jako obraz, albo tabele z wynikami. 
+
+%Wszyskie wyniki powinny być opisane/poddane komentarzowi i poddane analizie statystycznej.
+\newpage
+\section*{Pełen kod aplikacji}
+Kod znajduje się w repozytorium pod adresem: reee
+jak i również pod spodem.
+
+
+
+\subsubsection*{MovementScoreRule.cs}
+\begin{lstlisting}
+using UnityEngine;
+
+
+//Calculates score based on total moved distance
+public class MovementScoreRule : MonoBehaviour, IScoringRule
+{
+
+    float score = 0;
+    Vector3 lastPos;
+
+    void Start()
+    {
+        lastPos = this.transform.position;
+    }
+
+
+    void FixedUpdate()
+    {
+        score += Vector3.Distance(this.transform.position, lastPos);
+    }
+
+
+
+    public float GetScore()
+    {
+        return score;
+    }
+}\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Run.cs}
+\begin{lstlisting}
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using NeuralNetwork;
+using UnityEngine;
+using System.Linq;
+
+
+//Class that represents data gathered from one simulation run
+public class Run
+{
+    public string runName = "Run #N";
+    public event EventHandler<List<AgentResult>> RunComplete;
+    public List<GameObject> agents = new List<GameObject>();
+    public List<AgentResult> results = new List<AgentResult>();
+
+    public static GameObject agentPrefab;
+
+    //Creates a new run with num_agents number of randomly initialized agents
+    public Run(int num_agents)
+    {
+        for (int i = 0; i < num_agents; i++)
+        {
+            agents.Add(CreateNewAgent());
+        }
+    }
+
+    //Creates a new run with agents initialized with given models
+    public Run(List<NetworkModel> models)
+    {
+        foreach (NetworkModel m in models)
+        {
+            GameObject a = CreateNewAgent();
+            a.GetComponent<Agent>().network = m;
+            agents.Add(a);
+        }
+    }
+
+    //Begins run by activating all agents
+    public void BeginRun()
+    {
+        foreach (GameObject a in agents)
+        {
+            a.gameObject.SetActive(true);
+        }
+    }
+
+    //Called when all agents died
+    private void EndRun()
+    {
+        Debug.Log(runName + " ended");
+        string resultString = "";
+        for (int i = 0; i < results.Count; i++)
+        {
+            resultString += "Agent #" + i + " | Score: " + results[i].score;
+        }
+        Debug.Log(resultString);
+        agents.Clear();
+        RunComplete(this, results);
+    }
+
+    private void AgentDied(Agent a)
+    {
+        Debug.Log("Agent Died");
+        results.Insert(0, new AgentResult(ScoreCalculator.CalculateScore(a.gameObject), a.network));
+        agents.Remove(a.gameObject);
+        if (agents.Count == 0)
+        {
+            EndRun();
+        }
+    }
+
+
+    //Creates new empty agent, that is inactive
+    private GameObject CreateNewAgent()
+    {
+        GameObject agent = GameObject.Instantiate(agentPrefab);
+        agent.SetActive(false);
+        agent.GetComponent<Agent>().deathCallback = AgentDied;
+        return agent;
+    }
+
+
+    public class AgentResult
+    {
+        public double score;
+        public NetworkModel model;
+
+        public AgentResult(double score, NetworkModel model)
+        {
+            this.score = score;
+            this.model = model.DeepCopy();
+        }
+    }
+}
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{IScoringRule.cs}
+\begin{lstlisting}
+public interface IScoringRule
+{
+
+    //get current score from component
+    float GetScore();
+
+}\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{RunManager.cs}
+\begin{lstlisting}
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using NeuralNetwork;
+
+
+///<summary>
+/// Class that is responsible for run managment
+///</summary>
+public class RunManager : MonoBehaviour
+{
+    //List of all results generated by any agent manager
+    List<Run> runs = new List<Run>();
+    int run_num = 0;
+    [SerializeField]
+    GameObject agentPrefab;
+
+    ModelManager modelManager = null;
+    // Start is called before the first frame update
+    void Start()
+    {
+        Run.agentPrefab = agentPrefab;
+        //For now the behaviour is to indefinetely repeat randomized runs;
+        StartNewRun();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    void StartNewRun()
+    {
+	   // modelManager = new ModelManager(JsonService.LoadModelsList((TextAsset)Resources.Load("20-01-14_20-23-44")));
+
+        Run r = null;
+
+        if (modelManager == null)
+        {
+            r = new Run(25);
+            modelManager = new ModelManager(r.agents.Select(x => x.GetComponent<Agent>().network).ToList(), 0.05f);
+        }
+        else
+        {
+            modelManager.SaveTop(5);//kill all models and save top 5
+            modelManager.Expand(); //expand models list to original size
+            r = new Run(modelManager.Models);
+        }
+        r.runName = "Run #" + run_num;
+        r.RunComplete += OnRunEnded;
+        r.BeginRun();
+    }
+
+    void OnRunEnded(object sender, List<Run.AgentResult> results)
+    {
+        //Accept only Run senders 
+        if (!(sender is Run r))
+            throw new ArgumentException("Sender is not of the type Run");
+
+
+        //Unsubscribe from sender to avoid memory leak
+        r.RunComplete -= OnRunEnded;
+
+        //store run
+        runs.Add(r);
+        List<NetworkModel> models = r.results.OrderBy(x => x.score).Select(x => x.model).ToList();
+        Debug.Log(models[0].ToString());
+        StartNewRun();
+    }
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{CameraController.cs}
+\begin{lstlisting}
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+    public Transform target;
+    public Vector3 offset;
+
+    private Vector3 previousMousePos;
+    private Vector3 currRot = new Vector3(0, 0, 0);
+    private float rotSpeed = 100f;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        previousMousePos = Input.mousePosition;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (Input.GetButtonDown("ToggleCursor"))
+        {
+            if (Cursor.lockState != CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
+
+
+        if (Input.GetButtonDown("BreakTarget"))
+            target = null;
+
+        if (Input.GetButtonDown("BestTarget"))
+            target = ChooseBestTarget();
+
+
+        if (target == null)
+        {
+            transform.Translate(Vector3.forward * Input.GetAxis("Forward"));
+            transform.Translate(Vector3.up * Input.GetAxis("Up"));
+            transform.Translate(Vector3.right * Input.GetAxis("Right"));
+
+            Quaternion rot = Quaternion.identity;
+            currRot += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f) * Time.deltaTime * rotSpeed;
+            rot.eulerAngles = currRot;
+            transform.rotation = rot;
+        }
+
+        previousMousePos = Input.mousePosition;
+
+        if (target != null)
+            transform.position = target.position - offset;
+        //Check for input
+
+    }
+
+
+
+
+    Transform ChooseBestTarget()
+    {
+        throw new NotImplementedException();
+    }
+
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{ModelManager.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using UnityEngine;
+using NeuralNetwork;
+
+public class ModelManager
+{
+    public List<NetworkModel> Models = new List<NetworkModel>();
+    public int NumModels { get; }
+    public double LearningRate { get; }
+
+
+    public ModelManager(List<NetworkModel> models, double learningRate = 0.1f)
+    {
+        LearningRate = learningRate;
+        Models = models;
+        NumModels = models.Count;
+    }
+
+
+    public void SaveTop(int n)
+    {
+        if (n > Models.Count)
+        {
+            Debug.Log("Provided number is lower than count of models!");
+        }
+        else
+        {
+            Models.RemoveRange(0, n);
+            JsonService.SaveModelsList(Models);
+        }
+    }
+
+    public void Expand()
+    {
+        int n = Models.Count;
+
+        int clonesNeeded = NumModels - n;
+
+        List<NetworkModel> clones = new List<NetworkModel>();
+
+        if (n >= NumModels)
+        {
+            Debug.Log("Models collection is full!");
+        }
+        else
+        {
+            for (int i = 0; i < clonesNeeded; i++)
+            {
+                clones.Add(Models[i % n].DeepCopy()); // add randomization 
+                clones[clones.Count() - 1].Randomize(LearningRate);
+            }
+        }
+
+        Models = new List<NetworkModel>(Models.Concat(clones));
+    }
+
+
+
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Agent.cs}
+\begin{lstlisting}
+using System;
+using NeuralNetwork;
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+
+public class Agent : MonoBehaviour
+{
+    public NetworkModel network;
+
+    //Target cookie jar for every agent that exists (?TODO?: handle null case?)
+    public static Transform cookieJar;
+
+
+    //function to call when this agent dies
+    public Action<Agent> deathCallback;
+    public List<double> lastInputs = new List<double>(); //inputs that were fed in previous frame (for UI and debugging)
+    public List<double> lastOutputs = new List<double>(); //outputs that were outputted in previous frame (for UI and debugging)
+    private float ForceMultiplier = 10.0f;
+
+    //View arc in radians
+    [SerializeField]
+    private float viewArc = 2.0f;
+
+    public float ViewArc
+    {
+        get { return viewArc; }
+        set
+        {
+            viewArc = value;
+            arcStep = viewArc / (float)rayCount; // recalculate arcStep
+        }
+    }
+
+    [SerializeField]
+    //Number of rays that will be cast
+    private int rayCount = 8;
+
+
+    private float arcStep = 0f;
+
+
+    void Awake()
+    {
+        arcStep = viewArc / (float)rayCount;
+
+        cookieJar = GameObject.Find("cookieJar").transform;
+        network = new NetworkModel();
+        network.Layers.Add(new NeuralLayer(1 + rayCount, 0.0, ActivationFunc.Linear, "INPUT")); //rayCount + one for CookieJar position 
+        network.Layers.Add(new NeuralLayer(11, 0.0, ActivationFunc.Linear, "HIDDEN"));
+        network.Layers.Add(new NeuralLayer(2, 0.0, ActivationFunc.Tanh, "OUTPUT"));
+        network.Build();
+        network.Randomize(0.5);
+    }
+
+    void Start()
+    {
+
+
+    }
+
+
+    void FixedUpdate()
+    {
+        lastOutputs = network.Decide(GatherInputs());
+        ParseOutput(lastOutputs);
+    }
+
+
+    ///<summary>Parses output of a neural network</summary>
+    ///Activations go as follows:
+    ///[0] - force on X axis
+    ///[1] - force on Z axis
+    private void ParseOutput(List<double> activations)
+    {
+        this.GetComponent<Rigidbody>().AddForce(new Vector3((float)activations[0] * ForceMultiplier, 0.0f, (float)activations[1] * ForceMultiplier));
+    }
+
+    //Gathers inputs from enviroment
+    private List<double> GatherInputs()
+    {
+        List<double> results = new List<double>();
+        //1. raycast 
+        for (int i = 0; i < rayCount; i++)
+        {
+            float curr_arc = i * arcStep * Mathf.PI;
+            Vector3 dir = new Vector3(Mathf.Cos(curr_arc), 0, Mathf.Sin(curr_arc));
+            dir.Normalize(); //OPTM: Not needed as Cos and Sin are in [-1,1]?
+            RaycastHit hit;
+            if (Physics.Raycast(this.transform.position, dir, out hit, 100.0f, 1 << 10))
+            {
+                results.Add((double)hit.distance / 100.0f);
+                Debug.DrawRay(transform.position, hit.point - transform.position, Color.black, 0.01f, true);
+            }
+            else
+            {
+                results.Add(1.0f); // if nothing was hit, add max
+            }
+        }
+
+        //2. get distance from the cookie jar
+        results.Add(Vector3.Distance(this.transform.position, cookieJar.position) / 100.0f);
+        lastInputs = results;
+        return results;
+    }
+
+    public void OnCollisionEnter(Collision c)
+    {
+        //if layer is wall layer
+        if (c.collider.gameObject.layer == 10)
+        {
+            //die...
+            this?.deathCallback(this);
+            Destroy(this.gameObject);
+        }
+    }
+
+    //EDITOR
+    void OnValidate()
+    {
+        //Because Unity does not support property exposing to the Inspector, we use OnValidate (called whenever, whatever changed by the Inspecotr)
+        //And force property to fire.
+        ViewArc = viewArc;
+    }
+
+
+}
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{InputMonitor.cs}
+\begin{lstlisting}
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class InputMonitor : MonoBehaviour
+{
+
+
+    public Agent Target;
+    public Text text;
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (Target == null)
+            Debug.LogWarning("Target is null, no data will be shown.");
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (Target != null)
+        {
+            string input_data = "";
+            string output_data = "";
+            for (int i = 0; i < Target.lastInputs.Count; i++)
+            {
+                input_data += "Input " + i + " --- " + Target.lastInputs[i] + "\n";
+            }
+
+            for (int i = 0; i < Target.lastOutputs.Count; i++)
+            {
+                output_data += "Output " + i + " --- " + Target.lastOutputs[i] + "\n";
+            }
+
+            text.text = input_data + output_data;
+        }
+
+    }
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{ScoreCalculator.cs}
+\begin{lstlisting}
+using UnityEngine;
+using System.Collections.Generic;
+
+public static class ScoreCalculator
+{
+
+    
+    public static float CalculateScore(GameObject obj)
+    {
+        //Get all components with given interfaces and map them to theirs type names
+        IScoringRule[] rules = obj.GetComponents<IScoringRule>();
+        Dictionary<string, IScoringRule> ruleDictionary = new Dictionary<string, IScoringRule>();
+        
+        foreach(IScoringRule r in rules)
+        {
+            ruleDictionary.Add(r.GetType().ToString(), r);
+        }
+
+        
+        return ruleDictionary["MovementScoreRule"].GetScore() + 0.1f*ruleDictionary["LifetimeScoreRule"].GetScore();
+    }
+
+
+     
+
+}\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{LifetimeScoreRule.cs}
+\begin{lstlisting}
+using UnityEngine;
+
+//Scoring rule: Add point depending on lifetime
+public class LifetimeScoreRule : MonoBehaviour, IScoringRule
+{
+    float score = 0;
+
+    void FixedUpdate()
+    {
+        score++;
+    }
+
+    public float GetScore()
+    {
+        return score;
+    }
+}\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Pulse.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+    [Serializable]
+    public class Pulse
+    {	
+        [JsonProperty]
+        public double Value { get; set; }
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{NeuralLayer.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+    [Serializable]
+    public class NeuralLayer{
+        public List<Neuron> Neurons { get; set; }
+
+        public string Name { get; set; }
+
+        public double Weight { get; set; }
+
+        Func<double, double> Activation;
+        public NeuralLayer(int count, double initialWeight, Func<double, double> activation, string name = "")
+        {
+            Activation = activation;
+            Neurons = new List<Neuron>();
+            for (int i = 0; i < count; i++)
+            {
+                Neurons.Add(new Neuron(Activation));
+            }
+
+            Name = name;
+        }
+
+
+        public void Randomize(double lr)
+        {
+            foreach (var neuron in Neurons)
+            {
+                neuron.Randomize(lr);
+            }
+        }
+
+        public void Forward()
+        {
+            foreach (var neuron in Neurons)
+            {
+                neuron.Fire();
+            }
+            
+        }
+
+        public override string ToString()
+        {
+            string tmp = "{\n";
+            for (int i = 0; i < Neurons.Count; i++)
+            {
+                tmp += Neurons[i].ToString();
+                if (i != Neurons.Count - 1)
+                    tmp += "\n";
+            }
+            tmp+="\n}";
+            return tmp;
+        }
+
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Dendrite.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+
+    [Serializable]
+    public class Dendrite
+    {
+        public Pulse InputPulse { get; set; }
+
+        public double SynapticWeight { get; set; }
+
+        public bool Learnable { get; set; }
+
+        public Dendrite()
+        {
+            SynapticWeight = 0;
+        }
+
+        public void Randomize(double lr)
+        {
+            float t = (float)lr;
+            SynapticWeight += (double)UnityEngine.Random.Range(-t, t);
+        }
+    
+
+        public override string ToString()
+        {
+            return SynapticWeight.ToString();
+        }
+       
+
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Neuron.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+    [Serializable]
+    public class Neuron
+    {
+        public List<Dendrite> Dendrites { get; set; }
+
+        public Pulse OutputPulse { get; set; }
+
+        public Func<double, double> Activation;
+
+        public Neuron(Func<double, double> activation)
+        {
+            Dendrites = new List<Dendrite>();
+            OutputPulse = new Pulse();
+            Activation = activation;
+        }
+
+        public void Randomize(double lr)
+        {
+            foreach (var dendrite in Dendrites)
+            {
+                dendrite.Randomize(lr);
+            }
+        }
+
+        public void Fire()
+        {
+            OutputPulse.Value = Sum();
+
+            OutputPulse.Value = Activation(OutputPulse.Value);
+        }
+
+        private double Sum()
+        {
+            double computeValue = 0.0f;
+            foreach (var d in Dendrites)
+            {
+                computeValue += d.InputPulse.Value * d.SynapticWeight;
+            }
+
+            return computeValue;
+        }
+
+        public override string ToString()
+        {
+            string tmp = "[";
+            for (int i = 0; i < Dendrites.Count; i++)
+            {
+                tmp += Dendrites[i].ToString();
+                if (i != Dendrites.Count - 1)
+                    tmp += ", ";
+            }
+            tmp += "]";
+            return tmp;
+        }
+
+
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{Activation.cs}
+\begin{lstlisting}
+using UnityEngine;
+using System;
+
+namespace NeuralNetwork
+{
+    public static class ActivationFunc
+    {
+        public static double Tanh(double x)
+        {
+            return 1 - (2.0) / (Math.Exp(2 * x) + 1);
+        }
+
+        public static double Linear(double x)
+        {
+            return x;
+        }
+
+        public static double BinaryStep(double x)
+        {
+            if (x > 0)
+            {
+                return 1;
+            }
+            if (x == 0)
+            {
+                return 0;
+            }
+            if (x < 0)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+    }
+
+}
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{NetworkModel.cs}
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace NeuralNetwork
+{
+
+    [Serializable]
+    public class NetworkModel
+    {
+        public List<NeuralLayer> Layers { get; set; }
+
+        public NetworkModel()
+        {
+            Layers = new List<NeuralLayer>();
+        }
+
+        public NetworkModel DeepCopy()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Context = new StreamingContext(StreamingContextStates.Clone);
+                formatter.Serialize(ms, this);
+                ms.Position = 0;
+                return (NetworkModel)formatter.Deserialize(ms);
+            }
+        }
+
+        public void AddLayer(NeuralLayer layer)
+        {
+            int dendriteCount = 1;
+            if (Layers.Count > 0)
+            {
+                dendriteCount = Layers[Layers.Count - 1].Neurons.Count;
+            }
+
+            foreach (var element in layer.Neurons)
+            {
+                for (int i = 0; i < dendriteCount; i++)
+                {
+                    element.Dendrites.Add(new Dendrite());
+                }
+            }
+        }
+
+        public void Build()
+        {
+            int i = 0;
+            foreach (var layer in Layers)
+            {
+                if (i >= Layers.Count - 1)
+                {
+                    break;
+                }
+                var nextLayer = Layers[i + 1];
+                CreateNetwork(layer, nextLayer);
+                i++;
+            }
+        }
+
+
+        public void Randomize(double lr)
+        {
+            foreach (var layer in Layers)
+            {
+                layer.Randomize(lr);
+            }
+        }
+
+        public List<double> Decide(List<double> X)
+        {
+            var inputLayer = Layers[0];
+            List<double> outputs = new List<double>();
+
+            for (int i = 0; i < X.Count; i++)
+            {
+                inputLayer.Neurons[i].OutputPulse.Value = X[i];
+            }
+            ComputeOutput();
+            foreach (var neuron in Layers.Last().Neurons)
+            {
+                outputs.Add(neuron.OutputPulse.Value);
+            }
+            return outputs;
+        }
+
+        public void Print()
+        {
+
+            Debug.Log("Name | Neurons");
+
+            foreach (var layer in Layers)
+            {
+                Debug.Log(layer.Name + " | " + layer.Neurons.Count);
+            }
+        }
+
+        private void CreateNetwork(NeuralLayer connectingFrom, NeuralLayer connectingTo)
+        {
+            foreach (var to in connectingTo.Neurons)
+            {
+                foreach (var from in connectingFrom.Neurons)
+                {
+                    to.Dendrites.Add(new Dendrite() { InputPulse = from.OutputPulse });
+                }
+            }
+        }
+
+        private void ComputeOutput()
+        {
+            bool first = true;
+            foreach (var layer in Layers)
+            {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    layer.Forward();
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            string tmp = "";
+            for (int i = 1; i < Layers.Count; i++)
+            {
+                tmp += Layers[i].ToString();
+                if (i != Layers.Count - 1)
+                    tmp += "\n";
+            }
+            tmp+="\n";
+            return tmp;
+        }
+       
+
+    }
+}
+
+
+
+
+
+
+\end{lstlisting}
+\pagebreak
+
+
+\subsubsection*{JsonService.cs}
+\begin{lstlisting}
+using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using UnityEngine;
+using NeuralNetwork;
+using Newtonsoft.Json;
+public static class JsonService
+{
+    public static void SaveModelsList(List<NetworkModel> models)
+    {
+        string timeString = DateTime.Now.ToString("yy-MM-dd_HH-mm-ss");
+        timeString = timeString.Replace(' ', '_');
+
+	    JsonSerializerSettings settings = new JsonSerializerSettings();
+	    settings.NullValueHandling = NullValueHandling.Include;
+	    settings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+
+        string jsonString = JsonConvert.SerializeObject(models);
+        string path = Application.dataPath + "/jsonModels/" + timeString + ".json";
+        File.WriteAllText(path, jsonString);
+    }
+
+    public static List<NetworkModel> LoadModelsList(TextAsset jsonFile)
+    {
+        List<NetworkModel> models = JsonConvert.DeserializeObject<List<NetworkModel>>(jsonFile.ToString());
+    	return models;
+    }
+
+}
+\end{lstlisting}
+\pagebreak
+
+
+\end{document}

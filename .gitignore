@@ -1,0 +1,7 @@
+#ignore latex compilation output
+*.aux
+*.fls
+*.out  
+*.synctex.gz
+*.fdb_latexmk
+*.log
