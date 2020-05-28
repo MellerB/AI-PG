@@ -202,7 +202,7 @@ Istnieje wiele metod nauczania sieci. W naszym przypadku używamy metody heuryst
 Algorytm genetyczny to heurystyczny algorytm optymalizacji. Działa on na zasadzie symulacji ewolucji darwinowskiej, gdzie
 słabe jednostki umierają, a silne mnożą się i przekazują swoje geny następnym pokoleniom. W naszym przypadku zwierzętami
 są sieci neuronowe, które będziemy chcieli zoptymalizować. Na początku działania algorytmu, inicjalizujemy 
-populację, złożoną z losowo wygenerowanych sieci. Takie sieci będą podejmowały losowe decyzje. Następnie sieci te 
+populację, złożoną z losowo wygenerowanych sieci. Takie sieci będą podejmowały losowe decyzje (gdyż mają losowe wagi). Następnie sieci te 
 przechodzą przez test, który ocenia ich sprawność. Każde ze zwierząt otrzymuje ocenę, która oznacza jak dobrze sobie poradziło.
 Po symulacji pokolenia, przychodzi czas na proces selekcji; Sortujemy sieci względem ich wyników malejąco i zabijamy XXXXXX\% najgorszych jednostek.
 Następnie jednostki, które przetrwały, mnożą się przekazując swoje geny, w naszym przypadku genomem jest lista wag, a więc sieci wymieniają pomiędzy sobą losowe wagi.
@@ -227,7 +227,7 @@ Na końcu dzieci dodawane są do globalnej kolekcji i algorytm się powtarza.
 \subsubsection*{Spis metod}
 \lstinline{public class MovementScoreRule : MonoBehaviour, IScoringRule}
 \begin{itemize}
-    \item \lstinline|public float GetScore()|
+    \item \lstinline|public float GetScore()| - Zwraca wynik agenta, bazujący na dystansie który został przebyty
 \end{itemize}
 
 
@@ -240,11 +240,11 @@ Na końcu dzieci dodawane są do globalnej kolekcji i algorytm się powtarza.
     \item \lstinline|public static GameObject agentPrefab| - Prefab agenta, który będzie instancjonowany w czasie rozpoczęcia przebiegu
     \item \lstinline|public Run(int num_agents)| - Konstruktor przebiegu
           \begin{itemize}
-              \item \lstinline{int num_agents} - Ilość losowo zainicjalizowanych agentów, która zostanie zainstancjonowana.
+              \item \lstinline{int num_agents} - Ilość losowo zainicjalizowanych agentów, która zostanie zainstancjonowana
           \end{itemize}
     \item \lstinline|public Run(List<NetworkModel> models)| -  Konstruktor przebiegu
           \begin{itemize}
-              \item \lstinline{List<NetworkModel> models} - Lista modeli, z której będą inicjalizowani agenci.
+              \item \lstinline{List<NetworkModel> models} - Lista modeli, z której będą inicjalizowani agenci
           \end{itemize}
     \item \lstinline|public void BeginRun()| - Rozpoczyna przebieg symulacji
 \end{itemize}
@@ -259,20 +259,17 @@ Na końcu dzieci dodawane są do globalnej kolekcji i algorytm się powtarza.
 
 \lstinline{public interface IScoringRule}
 \begin{itemize}
-    \item \lstinline||
+    \item \lstinline|float GetScore()| - Ma zwrócić wynik dla konkretnej zasady oceniania
 \end{itemize}
 
 
-\lstinline{public class RunManager : MonoBehaviour}
-\begin{itemize}
-    \item \lstinline||
-\end{itemize}
+\lstinline{public class RunManager : MonoBehaviour} - klasa zarządzająca przebiegami symulacji
 
 
 \lstinline{public class CameraController : MonoBehaviour}
 \begin{itemize}
-    \item \lstinline|public Transform target| -
-    \item \lstinline|public Vector3 offset|
+    \item \lstinline|public Transform target| - Obiekt obserwowany
+    \item \lstinline|public Vector3 offset| - Oddalenie od obiektu obserwowanego
 \end{itemize}
 
 
@@ -321,9 +318,9 @@ Na końcu dzieci dodawane są do globalnej kolekcji i algorytm się powtarza.
 \end{itemize}
 
 
-\lstinline{public class Pulse}
+\lstinline{public class Pulse} - Klasa reprezentująca aktywację
 \begin{itemize}
-    \item \lstinline|public double Value { get; set; }|
+    \item \lstinline|public double Value { get; set; }| - Zwraca wartość dla tego pulsu 
 \end{itemize}
 
 
@@ -347,12 +344,12 @@ Na końcu dzieci dodawane są do globalnej kolekcji i algorytm się powtarza.
 
 \lstinline{public class Dendrite}
 \begin{itemize}
-    \item \lstinline|public Pulse InputPulse { get; set; }|
-    \item \lstinline|public double SynapticWeight { get; set; }|
-    \item \lstinline|public bool Learnable { get; set; }|
-    \item \lstinline|public Dendrite()|
-    \item \lstinline|public void Randomize(double lr)|
-    \item \lstinline|public override string ToString()|
+    \item \lstinline|public Pulse InputPulse { get; set; }| - Impuls przychodzący
+    \item \lstinline|public double SynapticWeight { get; set; }| - Waga tego połączenia
+    \item \lstinline|public bool Learnable { get; set; }| - Flaga, gdy ustawiona na \lstinline{true}, to połączenie może się uczyć
+    \item \lstinline|public Dendrite()| - Konstruktor połącznia
+    \item \lstinline|public void Randomize(double lr)| - Dodaje wartość w zakresie [\lstinline{-lr}, \lstinline{lr}] do wagi
+    \item \lstinline|public override string ToString()| - Konwertuje wagę połączenia na \lstinline{string}
 \end{itemize}
 
 
@@ -373,30 +370,40 @@ Na końcu dzieci dodawane są do globalnej kolekcji i algorytm się powtarza.
 
 \lstinline{public static class ActivationFunc}
 \begin{itemize}
-    \item \lstinline|public static double Tanh(double x)| - Funkcja tangensa hiperbolicznego
-    \item \lstinline|public static double Linear(double x)|
-    \item \lstinline|public static double BinaryStep(double x)|
+    \item \lstinline|public static double Tanh(double x)| - Funkcja tangensa hiperbolicznego $1 - \frac{2}{e^{2x} + 1}$
+    \item \lstinline|public static double Linear(double x)| - Funkcja liniowa $f(x) = x$
+    \item \lstinline|public static double BinaryStep(double x)| - Funkcja: \[   
+        f(x) = 
+             \begin{cases}
+               \text{-1} &\quad\text{if x} < 0\\
+               \text{0} &\quad\text{if x} = 0\\
+               \text{1} &\quad\text{if x} > 0\\
+             \end{cases}
+        \]
 \end{itemize}
 
 
-\lstinline{public class NetworkModel}
+\lstinline{public class NetworkModel} - Klasa reprezentująca sieć neuronową
 \begin{itemize}
-    \item \lstinline|public List<NeuralLayer> Layers { get; set; }|
-    \item \lstinline|public NetworkModel()|
-    \item \lstinline|public NetworkModel DeepCopy()|
-    \item \lstinline|public void AddLayer(NeuralLayer layer)|
-    \item \lstinline|public void Build()|
-    \item \lstinline|public void Randomize(double lr)|
-    \item \lstinline|public List<double> Decide(List<double> X)|
-    \item \lstinline|public void Print()|
-    \item \lstinline|public override string ToString()|
+    \item \lstinline|public List<NeuralLayer> Layers { get; set; }| - Kolekcja warstw
+    \item \lstinline|public NetworkModel()| - Konstruktor
+    \item \lstinline|public NetworkModel DeepCopy()| - Metoda wykonująca kopię głęboką
+    \item \lstinline|public void AddLayer(NeuralLayer layer)| - Dodaje \lstinline{layer} do Layers
+    \item \lstinline|public void Build()| - Buduje sieć, łączy ze sobą kolejne warstwy za pomocą obiektów klasy \lstinline{Synapse}
+    \item \lstinline|public void Randomize(double lr)| - Wywołuje \lstinline{Layer.Randomize} na każdym \lstinline{Layer} z \lstinline{Layers}
+    \item \lstinline|public List<double> Decide(List<double> X)| - Wykonuje sieć dla wektora wejściowego \lstinline{X} i zwraca wynik w postacie wektora wyjściowego
+    \item \lstinline|public void Print()| - Wyświetla informacje o warstwach
+    \item \lstinline|public override string ToString()| - Konwertuje sieć na typ \lstinline{string}
 \end{itemize}
 
 
 \lstinline{public static class JsonService}
 \begin{itemize}
-    \item \lstinline|public static void SaveModelsList(List<NetworkModel> models)|
-    \item \lstinline|public static List<NetworkModel> LoadModelsList(TextAsset jsonFile)|
+    \item \lstinline|public static void SaveModelsList(List<NetworkModel> models)| - Zapisuje listę modeli do pliku JSON
+    \item \lstinline|public static List<NetworkModel> LoadModelsList(TextAsset jsonFile)| - Odczytuje listę modeli z pliku JSON i zwraca listę modeli
+    \begin{itemize}
+        \item \lstinline{TextAsset jsonFile} - Referencja do zasobu tekstowego, zawierającego plik JSON z modelami
+    \end{itemize}
 \end{itemize}
 
 \subsection*{Testy}
